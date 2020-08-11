@@ -29,13 +29,37 @@ SOURCES += main.cpp\
     login.cpp \
     dbmanager.cpp \
     productdto.cpp \
-    productservice.cpp
+    productservice.cpp \
+    userdto.cpp \
+    userservice.cpp \
+    orderdto.cpp \
+    orderservice.cpp \
+    dishdto.cpp \
+    dishservice.cpp \
+    expensesdto.cpp \
+    expensesservice.cpp \
+    orderdishdto.cpp \
+    orderdishservice.cpp \
+    ingredientsdto.cpp \
+    ingredientsservice.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
     dbmanager.h \
     productdto.h \
-    productservice.h
+    productservice.h \
+    userdto.h \
+    userservice.h \
+    orderdto.h \
+    orderservice.h \
+    dishdto.h \
+    dishservice.h \
+    expensesdto.h \
+    expensesservice.h \
+    orderdishdto.h \
+    orderdishservice.h \
+    ingredientsdto.h \
+    ingredientsservice.h
 
 FORMS    += mainwindow.ui \
     login.ui

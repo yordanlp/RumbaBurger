@@ -27,13 +27,13 @@ bool ProductService::deleteProduct(ProductDto p){
     return false;
 }
 
-ProductDto ProductService::getProductByID(int id){
+ProductDto ProductService::getProductByID(ProductDto p){
     QSqlQuery query;
     query.prepare("SELECT * FROM product WHERE id = :id");
-    query.bindValue(":id", id);
+    query.bindValue(":id", p.id);
     if( !query.exec() ){
         qDebug() << "ERROR getProductByID:" << query.lastError().text();
-        return ProductDto();
+        return ProductDto(-1,"",-1,-1);
     }
 
     query.next();
@@ -55,7 +55,7 @@ QList<ProductDto> ProductService::getAllProduct(){
     return ret;
 }
 
-bool ProductService::updateProductbyID(ProductDto p){
+bool ProductService::updateProduct(ProductDto p){
     QSqlQuery query;
     query.prepare("UPDATE product SET productName=:productName, unitType=:unitType, price=:price  WHERE id=:id");
     query.bindValue(":productName", p.productName);

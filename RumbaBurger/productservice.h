@@ -12,10 +12,10 @@ public:
     ProductService();
     bool insertProduct( ProductDto );
     bool deleteProduct( ProductDto );
-    ProductDto getProductByID( int );
+    ProductDto getProductByID( ProductDto );
     QList<ProductDto> getAllProduct();
     bool getProductByName( QString );
-    bool updateProductbyID( ProductDto );
+    bool updateProduct( ProductDto );
 
 };
 

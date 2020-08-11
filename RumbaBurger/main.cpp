@@ -8,6 +8,17 @@
 #include <dbmanager.h>
 #include <productdto.h>
 #include "productservice.h"
+#include "userservice.h"
+#include "orderdto.h"
+#include "orderservice.h"
+#include "dishdto.h"
+#include "dishservice.h"
+#include "expensesdto.h"
+#include "expensesservice.h"
+#include "orderdishdto.h"
+#include "orderdishservice.h"
+#include "ingredientsdto.h"
+#include "ingredientsservice.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,53 +29,13 @@ int main(int argc, char *argv[])
     if( !db.open() )
         qDebug() << "Database not open";
 
-    ProductService ps;
+    IngredientsDto id;
+    id.idDish = 3;
+    id.idProduct = 10;
+    id.amount = 10;
 
-    ProductDto p;
-    p.price = 2;
-    p.productName = "queso1";
-    p.unitType = 1;
-    p.id = 7;
-    ps.insertProduct(p);
-
-    p.price = 2;
-    p.productName = "jamon";
-    p.unitType = 1;
-    p.id = 7;
-    ps.insertProduct(p);
-    //ps.deleteProduct(p);
-
-    ProductDto pp = ps.getProductByID(13);
-    qDebug() << pp.productName;
-
-    /*MainWindow w;
-    w.show();*/
-
-    /*Login l;
-    l.show();*/
-
-    /*QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("rumbaburgerdb.sqlite");
-
-    if( db.open() ){
-        qDebug() << "sii";
-        QSqlQuery q;
-        q.prepare("SELECT * FROM unit");
-
-
-        if( q.exec() ){
-            QString data;
-            while (q.next()) {
-                data += q.value(0).toDouble();
-            }
-            qDebug() << data;
-        }else{
-            qDebug() << "no cons" << q.lastError().text();
-        }
-
-    }else{
-        qDebug() << "nooo";
-    }*/
+    IngredientsService is;
+    qDebug() << is.getIngredientsByDishId(id).size();
 
     db.close();
 

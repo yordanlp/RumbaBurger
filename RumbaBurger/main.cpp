@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "login.h"
 #include <QApplication>
+<<<<<<< HEAD
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -16,6 +17,9 @@
 #include <centralstorageservice.h>
 #include <centralstoragetransactiondto.h>
 #include <centralstoragetransactionservice.h>
+=======
+#include <QDebug>
+>>>>>>> 23e139783af68b12d6e53b5b91f1a4ebddf5ae22
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +29,7 @@ int main(int argc, char *argv[])
     db.setDatabaseName("rumbaburgerdb.sqlite");
     if( !db.open() )
         qDebug() << "Database not open";
+
 
     centralStorageTransactionDto p;
     p.date = QDate(2021,10,1);
@@ -80,4 +85,9 @@ int main(int argc, char *argv[])
 
     //return a.exec();
     return 0;
+
+    qDebug() << "Hola Mundo";
+
+    return a.exec();
+
 }

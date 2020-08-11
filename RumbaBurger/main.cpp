@@ -7,7 +7,15 @@
 #include <QDebug>
 #include <dbmanager.h>
 #include <productdto.h>
-#include "productservice.h"
+#include <productservice.h>
+#include <storagedto.h>
+#include <storageservice.h>
+#include <storagetransactiondto.h>
+#include <storagetransactionservice.h>
+#include <centralstoragedto.h>
+#include <centralstorageservice.h>
+#include <centralstoragetransactiondto.h>
+#include <centralstoragetransactionservice.h>
 
 int main(int argc, char *argv[])
 {
@@ -18,24 +26,26 @@ int main(int argc, char *argv[])
     if( !db.open() )
         qDebug() << "Database not open";
 
-    ProductService ps;
+    centralStorageTransactionDto p;
+    p.date = QDate(2021,10,1);
+    p.id = 1;
+    p.idProduct = 8;
+    p.amount = 20;
+    p.idUser = 1;
+    p.price = 1100;
+    p.type = 1;
 
-    ProductDto p;
-    p.price = 2;
-    p.productName = "queso1";
-    p.unitType = 1;
-    p.id = 7;
-    ps.insertProduct(p);
+    centralStorageTransactionService q;
+    q.insertCentralStorageTransaction(p);
+    QDate inicial(2022,9,1);
+    QDate final(2022,1,1);
 
-    p.price = 2;
-    p.productName = "jamon";
-    p.unitType = 1;
-    p.id = 7;
-    ps.insertProduct(p);
-    //ps.deleteProduct(p);
+    QList<centralStorageTransactionDto> ret;
+    ret = q.getCentralStorageTransactionByDate(inicial,final);
+    for(int i=0;i<ret.size();i++){
+        qDebug() << ret[i].date << "\n";
+    }
 
-    ProductDto pp = ps.getProductByID(13);
-    qDebug() << pp.productName;
 
     /*MainWindow w;
     w.show();*/

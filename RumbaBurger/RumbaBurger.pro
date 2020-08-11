@@ -29,13 +29,31 @@ SOURCES += main.cpp\
     login.cpp \
     dbmanager.cpp \
     productdto.cpp \
-    productservice.cpp
+    productservice.cpp \
+    storagedto.cpp \
+    storageservice.cpp \
+    storagetransactiondto.cpp \
+    storagetransactionservice.cpp \
+    centralstoragedto.cpp \
+    centralstoragetransactiondto.cpp \
+    centralstorageservice.cpp \
+    centralstoragetransactionservice.cpp \
+    utiles.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
     dbmanager.h \
     productdto.h \
-    productservice.h
+    productservice.h \
+    storagedto.h \
+    storageservice.h \
+    storagetransactiondto.h \
+    storagetransactionservice.h \
+    centralstoragedto.h \
+    centralstoragetransactiondto.h \
+    centralstorageservice.h \
+    centralstoragetransactionservice.h \
+    utiles.h
 
 FORMS    += mainwindow.ui \
     login.ui

@@ -44,7 +44,7 @@ QList<ProductDto> ProductService::getAllProduct(){
     QSqlQuery query;
     query.prepare("SELECT * FROM product");
     if( !query.exec() ){
-        qDebug() << "ERROR getProductByID:" << query.lastError().text();
+        qDebug() << "ERROR getAllProduct:" << query.lastError().text();
         return QList<ProductDto>();
     }
 

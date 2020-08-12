@@ -94,3 +94,11 @@ Result<bool> ProductService::updateProduct(ProductDto p){
     qDebug() << "ERROR updateProductbyID: " << query.lastError().text();
     return res;
 }
+
+Result<double> ProductService::getPrice(int idProduct){
+    Result<double> res;
+    res.data = 0;
+    auto p = getProductByID(ProductDto(idProduct,"",0,0)).data;
+    res.data = p.price;
+    return res;
+}

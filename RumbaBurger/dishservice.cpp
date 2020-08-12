@@ -136,3 +136,36 @@ Result<bool> DishService::discountProductFromDish(int idDish, double amount, boo
     return res;
 }
 
+Result<double> DishService::totalProfit(QList<DishAmountDto> L){
+    Result<double>res;
+    res.data = 0;
+
+    double ret = 0;
+    foreach (auto d, L) {
+        ret += individualProfit(d.idDish).data * d.amount;
+    }
+
+    res.data = ret;
+    return res;
+}
+
+Result<double> DishService::individualProfit(int idDish){
+    Result<double> res;
+    res.data = getPrice(idDish).data - productionCost(idDish).data;
+    return res;
+}
+
+Result<double> DishService::productionCost(int idDish){
+    IngredientsService ingredientsService;
+    ProductService productService;
+    auto L = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0)).data;
+
+    Result<double>res;
+    double ret = 0;
+    foreach (auto i, L) {
+        ret += productService.getPrice(i.idProduct).data * i.amount;
+    }
+
+    res.data = ret;
+    return res;
+}

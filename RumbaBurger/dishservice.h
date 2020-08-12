@@ -13,6 +13,7 @@
 #include <bits/stdc++.h>
 #include <dishamountdto.h>
 #include "productdto.h"
+#include "productservice.h"
 using namespace std;
 
 class DishService
@@ -28,6 +29,9 @@ public:
     Result<double>totalToPay( QList<DishAmountDto> );
     Result<double>getPrice(int idDish);
     Result<bool> discountProductFromDish( int idDish, double amount, bool type );
+    Result<double> totalProfit(QList<DishAmountDto>);
+    Result<double> individualProfit( int idDish );
+    Result<double> productionCost( int idDish );
 
 };
 

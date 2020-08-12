@@ -11,7 +11,7 @@ Result<bool> OrderService::deleteOrder(OrderDto o){
     query.prepare("DELETE FROM 'order' WHERE id = :id");
     query.bindValue(":id", o.id);
     if( query.exec() ) {
-        //restoreIngredientsFromDishes(o.id);
+        restoreIngredientsFromDishes(o.id);
         res.res = result::SUCCESS;
         return res;
     }
@@ -24,9 +24,10 @@ Result<bool> OrderService::deleteOrder(OrderDto o){
 Result<int> OrderService::insertOrder(OrderDto o){
     QSqlQuery query;
     Result<int> res;
-    query.prepare("INSERT INTO 'order' (date, total, payed) VALUES (:date,:total,:payed)");
+    query.prepare("INSERT INTO 'order' (date, total, profit, payed) VALUES (:date,:total, :profit, :payed)");
     query.bindValue(":date", o.date.toString(Qt::ISODate));
     query.bindValue(":total", o.total);
+    query.bindValue(":profit", o.profit);
     query.bindValue(":payed", o.payed);
 
     if( query.exec() ) {
@@ -44,10 +45,11 @@ Result<int> OrderService::insertOrder(OrderDto o){
 Result<bool> OrderService::updateOrder(OrderDto o){
     Result<bool> res;
     QSqlQuery query;
-    query.prepare("UPDATE 'order' SET date=:date, total=:total, payed=:payed  WHERE id=:id");
+    query.prepare("UPDATE 'order' SET date=:date, total=:total, profit=:profit, payed=:payed  WHERE id=:id");
     query.bindValue(":date", o.date.toString(Qt::ISODate));
     query.bindValue(":total", o.total);
     query.bindValue(":payed", o.payed);
+    query.bindValue(":profit", o.profit);
     query.bindValue(":id", o.id);
     if( query.exec() ) {
         res.res = result::SUCCESS;

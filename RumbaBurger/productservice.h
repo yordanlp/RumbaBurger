@@ -17,7 +17,7 @@ public:
     Result<QList<ProductDto>> getAllProduct();
     Result<bool> getProductByName( QString );
     Result<bool> updateProduct( ProductDto );
-
+    Result<double> getPrice( int idProduct );
 
 };
 

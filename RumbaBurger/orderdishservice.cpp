@@ -49,6 +49,7 @@ Result<bool> OrderDishService::insertOrderDishes(QList<DishAmountDto> L, bool pa
     OrderDto o;
     o.date = QDate::currentDate();
     o.payed = payed;
+    o.profit = dishService.totalProfit(L).data;
     o.total = dishService.totalToPay(L).data;
     int idOrder = orderService.insertOrder(o).data;
     foreach (auto d, L) {

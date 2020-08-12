@@ -74,3 +74,56 @@ Result<bool> centralStorageService::updateCentralStorageById( centralStorageDto 
     res.res = result::SUCCESS;
     return res;
 }
+
+Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bool type, double price){
+    Result<bool> res;
+    centralStorageDto p = getCentralStorageById(id).data;
+    if(type == 1)
+        p.amount += cant;
+    else
+        p.amount -= cant;
+
+    if(p.amount<0){
+        res.res = result::FAIL;
+        res.msg = "La cantidad a extraer es mayor que la cantidad en almacen central";
+        return res;
+    }
+    ProductDto prod;
+    prod.id = id;
+    prod = ProductServiceObject.getProductByID(prod).data;
+    double newprice = prod.price;
+
+
+    if(type == 1){ /// Actualizar el nuevo precio de adquisicion del producto
+        double oldtotal = getCentralStorageById(id).data.amount;
+
+        auto r = storageServiceObject.getStorageById(id);
+
+        if(r.res==result::SUCCESS)
+            oldtotal+= r.data.amount;
+
+        double oldcost = oldtotal * prod.price;
+        double total = oldtotal + cant;
+        double cost = oldcost + cant*price;
+        if(cost<0)
+             newprice = 0;
+        else
+             newprice = cost/total;
+        prod.price = newprice;
+        ProductServiceObject.updateProduct(prod);
+    }
+
+    updateCentralStorageById(p);
+
+    centralStorageTransactionDto st;
+    st.idProduct = p.id;
+    st.type = type;
+    st.date = QDate::currentDate();
+    st.amount = cant;
+    st.idUser = UserService::loggedUser;
+    st.price = price;
+    Result<bool> b = centralStorageTransactionServiceObject.insertCentralStorageTransaction(st);
+    res.res = result::SUCCESS;
+    res.data = b.data;
+    return res;
+}

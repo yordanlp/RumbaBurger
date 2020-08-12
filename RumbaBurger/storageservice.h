@@ -7,6 +7,10 @@
 #include <QSqlError>
 #include <QList>
 #include "result.h"
+#include <storagetransactionservice.h>
+#include <storagetransactiondto.h>
+#include <userservice.h>
+
 
 class storageService
 {
@@ -16,6 +20,10 @@ public:
     Result<bool> insertStorage(storageDto);
     Result<storageDto> getStorageById(int);
     Result<bool> updateStorageById(storageDto);
+    //Requisitos funcionales
+    Result<bool> modifyStorage(int,double,bool);
+    storageTransactionService storageTransactionServiceObject;
+
 };
 
 #endif // STORAGESERVICE_H

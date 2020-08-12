@@ -54,6 +54,7 @@ Result<ProductDto> ProductService::getProductByID(ProductDto p){
     res.res = result::SUCCESS;
     query.next();
     res.data =  ProductDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toInt(), query.value(3).toDouble());
+   // qDebug() << res.data.id << res.data.productName;
     return res;
 }
 

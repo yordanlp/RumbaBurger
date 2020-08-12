@@ -41,17 +41,9 @@ int main(int argc, char *argv[])
     if( !db.open() )
         qDebug() << "Database not open";
 
+    centralStorageService t;
+    t.modifyCentralStorage(9,20,1,2);
 
-
-    centralStorageService cs;
-
-    Result<QList<centralStorageDto>> res = cs.getAllCentralStorage();
-
-    if( res.res == result::SUCCESS ){
-        qDebug() << res.data.size();
-    }else{
-        qDebug() << res.msg;
-    }
 
     /*MainWindow w;
     w.show();*/

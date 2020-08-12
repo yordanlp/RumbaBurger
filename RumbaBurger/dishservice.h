@@ -10,6 +10,10 @@
 #include "storagedto.h"
 #include "storageservice.h"
 #include "result.h"
+#include <bits/stdc++.h>
+#include <dishamountdto.h>
+#include "productdto.h"
+using namespace std;
 
 class DishService
 {
@@ -21,9 +25,10 @@ public:
     Result<QList<DishDto>> getAllDish();
     Result<DishDto> getDishByName( DishDto );
     Result<int> howManyDishes( int idDish );
-private:
-    IngredientsService ingredientsService;
-    storageService StorageService;
+    Result<double>totalToPay( QList<DishAmountDto> );
+    Result<double>getPrice(int idDish);
+    Result<bool> discountProductFromDish( int idDish, double amount, bool type );
+
 };
 
 #endif // DISHSERVICE_H

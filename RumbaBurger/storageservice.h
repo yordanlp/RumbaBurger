@@ -16,6 +16,7 @@ public:
     Result<bool> insertStorage(storageDto);
     Result<storageDto> getStorageById(int);
     Result<bool> updateStorageById(storageDto);
+    Result<bool> modifyStorage( int idProduct, double amount, bool type );
 };
 
 #endif // STORAGESERVICE_H

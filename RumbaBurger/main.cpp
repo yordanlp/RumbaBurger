@@ -10,13 +10,11 @@
 #include "productservice.h"
 #include "userservice.h"
 #include "orderdto.h"
-#include "orderservice.h"
 #include "dishdto.h"
 #include "dishservice.h"
 #include "expensesdto.h"
 #include "expensesservice.h"
 #include "orderdishdto.h"
-#include "orderdishservice.h"
 #include "ingredientsdto.h"
 #include "ingredientsservice.h"
 #include <productservice.h>
@@ -42,53 +40,8 @@ int main(int argc, char *argv[])
         qDebug() << "Database not open";
 
 
-
-    centralStorageService cs;
-
-    Result<QList<centralStorageDto>> res = cs.getAllCentralStorage();
-
-    if( res.res == result::SUCCESS ){
-        qDebug() << res.data.size();
-    }else{
-        qDebug() << res.msg;
-    }
-
-    /*MainWindow w;
-    w.show();*/
-
-    /*Login l;
-    l.show();*/
-
-    /*QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("rumbaburgerdb.sqlite");
-
-    if( db.open() ){
-        qDebug() << "sii";
-        QSqlQuery q;
-        q.prepare("SELECT * FROM unit");
-
-
-        if( q.exec() ){
-            QString data;
-            while (q.next()) {
-                data += q.value(0).toDouble();
-            }
-            qDebug() << data;
-        }else{
-            qDebug() << "no cons" << q.lastError().text();
-        }
-
-    }else{
-        qDebug() << "nooo";
-    }*/
-
     db.close();
 
     //return a.exec();
     return 0;
-
-    qDebug() << "Hola Mundo";
-
-    //return a.exec();
-
 }

@@ -1,5 +1,6 @@
 #include "dishservice.h"
 
+
 DishService::DishService()
 {
 
@@ -76,13 +77,62 @@ Result<QList<DishDto>> DishService::getAllDish(){
     return res;
 }
 
-/*int DishService::howManyDishes(int idDish){
+Result<int> DishService::howManyDishes(int idDish){
 
-    QList<IngredientsDto>L = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0));
-    foreach (ingredient, L) {
-        storageService.getStorageById()
+    Result<int>res;
+    IngredientsService ingredientsService;
+    storageService StorageService;
+    auto r = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0));
+    if( r.res == result::FAIL ){
+        res.res = result::FAIL;
+        res.msg = r.msg;
+        return res;
     }
 
+    auto L = r.data;
 
+    int ret = 1 << 30;
+    foreach (auto ingredient, L) {
+        auto p = StorageService.getStorageById(ingredient.idProduct).data;
+        int cantProd = 0;
+        if( ingredient.amount > 0 )
+            cantProd = p.amount / ingredient.amount;
+        ret = min(ret, cantProd);
+    }
 
-}*/
+    res.res = result::SUCCESS;
+    res.data = ret;
+    return res;
+}
+
+Result<double> DishService::getPrice(int idDish){
+    Result<double> res;
+    double price = getDishById(DishDto(idDish,"","",0)).data.price;
+    res.data = price;
+    return res;
+}
+
+Result<double> DishService::totalToPay(QList<DishAmountDto> L){
+    Result<double> res;
+    double total = 0;
+    foreach (auto i, L) {
+        total += getPrice(i.idDish).data * i.amount;
+    }
+    res.data = total;
+    return res;
+}
+
+Result<bool> DishService::discountProductFromDish(int idDish, double amount, bool type){
+    Result<bool>res;
+    IngredientsService ingredientsService;
+    storageService StorageService;
+
+    auto products = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0)).data;
+
+    foreach (auto p, products) {
+        StorageService.modifyStorage(p.idProduct, amount * p.amount, type);
+    }
+
+    return res;
+}
+

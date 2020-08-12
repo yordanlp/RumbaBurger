@@ -18,6 +18,7 @@ public:
     Result<bool> getProductByName( QString );
     Result<bool> updateProduct( ProductDto );
 
+
 };
 
 #endif // PRODUCTSERVICE_H

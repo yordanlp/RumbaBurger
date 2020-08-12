@@ -39,7 +39,6 @@ SOURCES += main.cpp\
     expensesdto.cpp \
     expensesservice.cpp \
     orderdishdto.cpp \
-    orderdishservice.cpp \
     ingredientsdto.cpp \
     ingredientsservice.cpp \
     storagedto.cpp \
@@ -51,7 +50,9 @@ SOURCES += main.cpp\
     centralstorageservice.cpp \
     centralstoragetransactionservice.cpp \
     utiles.cpp \
-    result.cpp
+    result.cpp \
+    dishamountdto.cpp \
+    orderdishservice.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
@@ -67,7 +68,6 @@ HEADERS  += mainwindow.h \
     expensesdto.h \
     expensesservice.h \
     orderdishdto.h \
-    orderdishservice.h \
     ingredientsdto.h \
     ingredientsservice.h \
     storagedto.h \
@@ -79,7 +79,9 @@ HEADERS  += mainwindow.h \
     centralstorageservice.h \
     centralstoragetransactionservice.h \
     utiles.h \
-    result.h
+    result.h \
+    dishamountdto.h \
+    orderdishservice.h
 
 FORMS    += mainwindow.ui \
     login.ui

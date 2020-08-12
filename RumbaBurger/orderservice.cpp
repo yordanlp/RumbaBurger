@@ -11,6 +11,7 @@ Result<bool> OrderService::deleteOrder(OrderDto o){
     query.prepare("DELETE FROM 'order' WHERE id = :id");
     query.bindValue(":id", o.id);
     if( query.exec() ) {
+        //restoreIngredientsFromDishes(o.id);
         res.res = result::SUCCESS;
         return res;
     }
@@ -20,9 +21,9 @@ Result<bool> OrderService::deleteOrder(OrderDto o){
     return res;
 }
 
-Result<bool> OrderService::insertOrder(OrderDto o){
+Result<int> OrderService::insertOrder(OrderDto o){
     QSqlQuery query;
-    Result<bool> res;
+    Result<int> res;
     query.prepare("INSERT INTO 'order' (date, total, payed) VALUES (:date,:total,:payed)");
     query.bindValue(":date", o.date.toString(Qt::ISODate));
     query.bindValue(":total", o.total);
@@ -30,6 +31,7 @@ Result<bool> OrderService::insertOrder(OrderDto o){
 
     if( query.exec() ) {
         res.res = result::SUCCESS;
+        res.data = query.value(0).toInt();
         return res;
     }
     res.res = result::FAIL;
@@ -54,5 +56,17 @@ Result<bool> OrderService::updateOrder(OrderDto o){
     res.res = result::FAIL;
     res.msg = "ERROR updateOrder: " + query.lastError().text();
     qDebug() << "ERROR updateOrder: " << query.lastError().text();
+    return res;
+}
+
+Result<bool> OrderService::restoreIngredientsFromDishes(int idOrder){
+    OrderDishService orderDishService;
+    DishService dishService;
+    auto dishes = orderDishService.getDishesByOrderId(idOrder).data;
+    foreach (auto d, dishes) {
+        dishService.discountProductFromDish(d.idDish, d.amount, 1);
+    }
+    Result<bool> res;
+    res.res = SUCCESS;
     return res;
 }

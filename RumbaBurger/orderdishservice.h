@@ -1,11 +1,16 @@
 #ifndef ORDERDISHSERVICE_H
 #define ORDERDISHSERVICE_H
-#include <QDebug>
+#include "result.h"
+#include "orderdishdto.h"
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include "orderdishdto.h"
-#include "result.h"
+#include <QDebug>
+#include "dishservice.h"
+#include "orderdto.h"
+#include <QDate>
+#include "orderservice.h"
+
 
 class OrderDishService
 {
@@ -13,7 +18,8 @@ public:
     OrderDishService();
     Result<bool> insertOrderDish(OrderDishDto);
     Result<bool> deleteOrderDish(OrderDishDto);
-
+    Result<bool> insertOrderDishes( QList<DishAmountDto>, bool );
+    Result<QList<OrderDishDto>>getDishesByOrderId( int idOrder );
 };
 
 #endif // ORDERDISHSERVICE_H

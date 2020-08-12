@@ -78,3 +78,8 @@ Result<bool> storageService::updateStorageById( storageDto p){
     res.res = result::SUCCESS;
     return res;
 }
+
+Result<bool> storageService::modifyStorage(int idProduct, double amount, bool type){
+    Result<bool>res;
+    return res;
+}

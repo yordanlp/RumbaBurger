@@ -10,7 +10,9 @@ template<class T>
 class Result
 {
 public:
-    Result(){}
+    Result(){
+        res = result::FAIL;
+    }
     QString msg;
     result res;
     T data;

@@ -5,15 +5,15 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <expensesdto.h>
-
+#include "result.h"
 
 class ExpensesService
 {
 public:
     ExpensesService();
-    bool insertExpenses(ExpensesDto);
-    bool deleteExpenses(ExpensesDto);
-    QList<ExpensesDto> getExpensesByDate(QDate start, QDate end);
+    Result<bool> insertExpenses(ExpensesDto);
+    Result<bool> deleteExpenses(ExpensesDto);
+    Result<QList<ExpensesDto>> getExpensesByDate(QDate start, QDate end);
 
 };
 

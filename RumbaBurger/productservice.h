@@ -5,17 +5,18 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include "result.h"
 
 class ProductService
 {
 public:
     ProductService();
-    bool insertProduct( ProductDto );
-    bool deleteProduct( ProductDto );
-    ProductDto getProductByID( ProductDto );
-    QList<ProductDto> getAllProduct();
-    bool getProductByName( QString );
-    bool updateProduct( ProductDto );
+    Result<bool> insertProduct( ProductDto );
+    Result<bool> deleteProduct( ProductDto );
+    Result<ProductDto> getProductByID( ProductDto );
+    Result<QList<ProductDto>> getAllProduct();
+    Result<bool> getProductByName( QString );
+    Result<bool> updateProduct( ProductDto );
 
 };
 

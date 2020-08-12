@@ -6,7 +6,8 @@ storageTransactionService::storageTransactionService()
 
 }
 
-bool storageTransactionService::insertStorageTransaction(storageTransactionDto p){
+Result<bool> storageTransactionService::insertStorageTransaction(storageTransactionDto p){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("INSERT INTO storageTransaction (type, amount, idProduct, date, idUser, price) VALUES (:type, :amount, :idProduct, :date, :idUser, :price)");
     query.bindValue(":type", p.type);
@@ -16,13 +17,19 @@ bool storageTransactionService::insertStorageTransaction(storageTransactionDto p
     query.bindValue(":idUser", p.idUser);
     query.bindValue(":price", p.price);
 
-    if( query.exec() ) return true;
+    if( query.exec() ){
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR insertStorageTransaction: " + query.lastError().text();
     qDebug() << "ERROR insertStorageTransaction: " << query.lastError().text();
-    return false;
+    return res;
 
 }
 
-bool storageTransactionService::updateStorageTransaction(storageTransactionDto p){
+Result<bool> storageTransactionService::updateStorageTransaction(storageTransactionDto p){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("UPDATE storageTransaction SET type=:type, amount=:amount, idProduct=:idProduct, date=:date, idUser=:idUser, price=:price  WHERE id=:id");
 
@@ -34,14 +41,20 @@ bool storageTransactionService::updateStorageTransaction(storageTransactionDto p
     query.bindValue(":idUser", p.idUser);
     query.bindValue(":price", p.price);
 
-    if( query.exec() ) return true;
+    if( query.exec() ) {
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR updateStorageTransaction: " + query.lastError().text();
     qDebug() << "ERROR updateStorageTransaction: " << query.lastError().text();
-    return false;
+    return res;
 
 }
 
 
-QList<storageTransactionDto> storageTransactionService::getStorageTransactionByDate(QDate inicial, QDate final){
+Result<QList<storageTransactionDto>> storageTransactionService::getStorageTransactionByDate(QDate inicial, QDate final){
+    Result<QList<storageTransactionDto>>res;
     QSqlQuery query;
     query.prepare("SELECT * FROM storageTransaction WHERE date BETWEEN :inicial AND :final");
     query.bindValue(":inicial", inicial.toString(Qt::ISODate));
@@ -49,8 +62,10 @@ QList<storageTransactionDto> storageTransactionService::getStorageTransactionByD
 
     QList<storageTransactionDto> p;
     if( !query.exec() ){
+        res.res = result::FAIL;
+        res.msg = "ERROR getStorageTransactionByDate: " + query.lastError().text();
         qDebug() << "ERROR getStorageTransactionByDate: " << query.lastError().text();
-        return p;
+        return res;
     }
 
     while(query.next()){
@@ -63,6 +78,9 @@ QList<storageTransactionDto> storageTransactionService::getStorageTransactionByD
                                         query.value(6).toDouble()) );
     }
 
-    return p;
+    res.res = result::SUCCESS;
+    res.data = p;
+
+    return res;
 
 }

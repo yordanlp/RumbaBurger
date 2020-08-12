@@ -5,13 +5,14 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include "orderdishdto.h"
+#include "result.h"
 
 class OrderDishService
 {
 public:
     OrderDishService();
-    bool insertOrderDish(OrderDishDto);
-    bool deleteOrderDish(OrderDishDto);
+    Result<bool> insertOrderDish(OrderDishDto);
+    Result<bool> deleteOrderDish(OrderDishDto);
 
 };
 

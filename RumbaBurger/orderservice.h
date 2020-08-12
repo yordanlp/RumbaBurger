@@ -5,16 +5,16 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <orderdto.h>
-
+#include "result.h"
 
 class OrderService
 {
 public:
     OrderService();
-    bool insertOrder( OrderDto );
-    bool deleteOrder( OrderDto );
-    QList<OrderDto> getOrderbyDate( QDate start, QDate end );
-    bool updateOrder( OrderDto );
+    Result<bool> insertOrder( OrderDto );
+    Result<bool> deleteOrder( OrderDto );
+    Result<QList<OrderDto>> getOrderbyDate( QDate start, QDate end );
+    Result<bool> updateOrder( OrderDto );
 };
 
 #endif // ORDERSERVICE_H

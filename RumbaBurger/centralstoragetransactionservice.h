@@ -6,14 +6,15 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QList>
+#include <result.h>
 
 class centralStorageTransactionService
 {
 public:
     centralStorageTransactionService();
-    bool insertCentralStorageTransaction(centralStorageTransactionDto);
-    bool updateCentralStorageTransaction(centralStorageTransactionDto);
-    QList <centralStorageTransactionDto> getCentralStorageTransactionByDate(QDate inicial, QDate final);
+    Result<bool> insertCentralStorageTransaction(centralStorageTransactionDto);
+    Result<bool> updateCentralStorageTransaction(centralStorageTransactionDto);
+    Result <QList <centralStorageTransactionDto>> getCentralStorageTransactionByDate(QDate inicial, QDate final);
 };
 
 #endif // CENTRALSTORAGETRANSACTIONSERVICE_H

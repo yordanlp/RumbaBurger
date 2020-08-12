@@ -6,15 +6,16 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QList>
+#include "result.h"
 
 class storageService
 {
 public:
     storageService();
-    QList <storageDto> getAllStorage();
-    bool insertStorage(storageDto);
-    storageDto getStorageById(int);
-    bool updateStorageById(storageDto);
+    Result<QList <storageDto>> getAllStorage();
+    Result<bool> insertStorage(storageDto);
+    Result<storageDto> getStorageById(int);
+    Result<bool> updateStorageById(storageDto);
 };
 
 #endif // STORAGESERVICE_H

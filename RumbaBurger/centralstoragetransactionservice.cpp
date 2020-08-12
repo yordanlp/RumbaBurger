@@ -6,7 +6,8 @@ centralStorageTransactionService::centralStorageTransactionService()
 
 }
 
-bool centralStorageTransactionService::insertCentralStorageTransaction(centralStorageTransactionDto p){
+Result<bool> centralStorageTransactionService::insertCentralStorageTransaction(centralStorageTransactionDto p){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("INSERT INTO centralStorageTransaction (type, amount, idProduct, date, idUser, price) VALUES (:type, :amount, :idProduct, :date, :idUser, :price)");
     query.bindValue(":type", p.type);
@@ -16,13 +17,19 @@ bool centralStorageTransactionService::insertCentralStorageTransaction(centralSt
     query.bindValue(":idUser", p.idUser);
     query.bindValue(":price", p.price);
 
-    if( query.exec() ) return true;
+    if( query.exec() ) {
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR insertCentralStorageTransaction: " + query.lastError().text();
     qDebug() << "ERROR insertCentralStorageTransaction: " << query.lastError().text();
-    return false;
+    return res;
 
 }
 
-bool centralStorageTransactionService::updateCentralStorageTransaction(centralStorageTransactionDto p){
+Result<bool> centralStorageTransactionService::updateCentralStorageTransaction(centralStorageTransactionDto p){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("UPDATE centralStorageTransaction SET type=:type, amount=:amount, idProduct=:idProduct, date=:date, idUser=:idUser, price=:price  WHERE id=:id");
 
@@ -34,14 +41,20 @@ bool centralStorageTransactionService::updateCentralStorageTransaction(centralSt
     query.bindValue(":idUser", p.idUser);
     query.bindValue(":price", p.price);
 
-    if( query.exec() ) return true;
+    if( query.exec() ) {
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR updateCentralStorageTransaction: " + query.lastError().text();
     qDebug() << "ERROR updateCentralStorageTransaction: " << query.lastError().text();
-    return false;
+    return res;
 
 }
 
 
-QList<centralStorageTransactionDto> centralStorageTransactionService::getCentralStorageTransactionByDate(QDate inicial, QDate final){
+Result <QList<centralStorageTransactionDto>> centralStorageTransactionService::getCentralStorageTransactionByDate(QDate inicial, QDate final){
+    Result <QList<centralStorageTransactionDto>> res;
     QSqlQuery query;
     query.prepare("SELECT * FROM centralStorageTransaction WHERE date BETWEEN :inicial AND :final");
     query.bindValue(":inicial", inicial.toString(Qt::ISODate));
@@ -50,7 +63,9 @@ QList<centralStorageTransactionDto> centralStorageTransactionService::getCentral
     QList<centralStorageTransactionDto> p;
     if( !query.exec() ){
         qDebug() << "ERROR getCentralStorageTransactionByDate: " << query.lastError().text();
-        return p;
+        res.res = result::FAIL;
+        res.msg = "ERROR getCentralStorageTransactionByDate: " + query.lastError().text();
+        return res;
     }
 
     while(query.next()){
@@ -63,6 +78,8 @@ QList<centralStorageTransactionDto> centralStorageTransactionService::getCentral
                                         query.value(6).toDouble()) );
     }
 
-    return p;
+    res.res = result::SUCCESS;
+    res.data = p;
+    return res;
 
 }

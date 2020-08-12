@@ -6,16 +6,17 @@
 #include <userdto.h>
 #include <QString>
 #include <QDebug>
+#include "result.h"
 
 class UserService
 {
 public:
     UserService();
-    bool insertUser( UserDto );
-    bool deleteUser( UserDto );
-    bool updateUser( UserDto );
-    UserDto getUserByUsername( QString );
-
+    Result<bool> insertUser( UserDto );
+    Result<bool> deleteUser( UserDto );
+    Result<bool> updateUser( UserDto );
+    Result<UserDto> getUserByUsername( QString );
+    static int loggedUser;
 };
 
 #endif // USERSERVICE_H

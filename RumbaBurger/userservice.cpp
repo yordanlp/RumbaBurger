@@ -1,54 +1,79 @@
 #include "userservice.h"
 #include <QSqlQuery>
 
+int UserService::loggedUser = -1;
+
 UserService::UserService()
 {
 
 }
 
 
-bool UserService::deleteUser(UserDto u){
+Result<bool> UserService::deleteUser(UserDto u){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("DELETE FROM users WHERE id = :id");
     query.bindValue(":id", u.id);
-    if( query.exec() ) return true;
+    if( query.exec() ) {
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR deleteUser: " + query.lastError().text();
     qDebug() << "ERROR deleteUser: " << query.lastError().text();
-    return false;
+    return res;
 }
 
-UserDto UserService::getUserByUsername(QString userName){
+Result<UserDto> UserService::getUserByUsername(QString userName){
+    Result<UserDto>res;
     QSqlQuery query;
     query.prepare("SELECT * FROM users WHERE user = :user");
     query.bindValue(":user", userName);
     if( !query.exec() ) {
+        res.res = result::FAIL;
+        res.msg = "ERROR getUserByUsername: " + query.lastError().text();
         qDebug() << "ERROR getUserByUsername: " << query.lastError().text();
-        return UserDto(-1,"","","");
+        return res;
     }
     query.next();
 
-    return UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString());
+    res.res = result::SUCCESS;
+    res.data = UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString());
+    return res;
 }
 
-bool UserService::insertUser(UserDto u){
+Result<bool> UserService::insertUser(UserDto u){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("INSERT INTO users (user, password, name) VALUES (:user, :password, :name)");
     query.bindValue(":user", u.user);
     query.bindValue(":password", u.password);
     query.bindValue(":name", u.name);
 
-    if( query.exec() ) return true;
+    if( query.exec() ) {
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR insertUser: " + query.lastError().text();
     qDebug() << "ERROR insertUser: " << query.lastError().text();
-    return false;
+    return res;
 }
 
-bool UserService::updateUser(UserDto u){
+Result<bool> UserService::updateUser(UserDto u){
+    Result<bool>res;
     QSqlQuery query;
     query.prepare("UPDATE users SET user=:user, password=:password, name=:name  WHERE id=:id");
     query.bindValue(":user", u.user);
     query.bindValue(":password", u.password);
     query.bindValue(":name", u.name);
     query.bindValue(":id", u.id);
-    if( query.exec() ) return true;
+    if( query.exec() ){
+        res.res = result::SUCCESS;
+        return res;
+    }
+    res.res = result::FAIL;
+    res.msg = "ERROR updateUser: " + query.lastError().text();
     qDebug() << "ERROR updateUser: " << query.lastError().text();
-    return false;
+    return res;
 }

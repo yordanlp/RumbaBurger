@@ -6,16 +6,17 @@
 #include <QSqlError>
 #include <QList>
 #include "ingredientsdto.h"
+#include "result.h"
 
 class IngredientsService
 {
 public:
     IngredientsService();
-    bool insertIngredient( IngredientsDto );
-    bool deleteIngredient( IngredientsDto );
-    QList<IngredientsDto> getIngredientsByDishId(IngredientsDto);
-    QList<IngredientsDto> getDishByProductId(IngredientsDto);
-    bool updateIngredient( IngredientsDto );
+    Result<bool> insertIngredient( IngredientsDto );
+    Result<bool> deleteIngredient( IngredientsDto );
+    Result<QList<IngredientsDto>> getIngredientsByDishId(IngredientsDto);
+    Result<QList<IngredientsDto>> getDishByProductId(IngredientsDto);
+    Result<bool> updateIngredient( IngredientsDto );
 };
 
 #endif // INGREDIENTSSERVICE_H

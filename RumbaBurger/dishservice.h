@@ -9,17 +9,18 @@
 #include "ingredientsservice.h"
 #include "storagedto.h"
 #include "storageservice.h"
+#include "result.h"
 
 class DishService
 {
 public:
     DishService();
-    bool insertDish( DishDto );
-    bool deleteDish( DishDto );
-    DishDto getDishById( DishDto );
-    QList<DishDto> getAllDish();
-    DishDto getDishByName( DishDto );
-    int howManyDishes( int idDish );
+    Result<bool> insertDish( DishDto );
+    Result<bool> deleteDish( DishDto );
+    Result<DishDto> getDishById( DishDto );
+    Result<QList<DishDto>> getAllDish();
+    Result<DishDto> getDishByName( DishDto );
+    Result<int> howManyDishes( int idDish );
 private:
     IngredientsService ingredientsService;
     storageService StorageService;

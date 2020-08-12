@@ -12,12 +12,10 @@ class centralStorageService
 {
 public:
     centralStorageService();
-    //QList <centralStorageDto> getAllCentralStorage();
     Result< QList<centralStorageDto> >getAllCentralStorage();
-
-    bool insertCentralStorage(centralStorageDto);
-    centralStorageDto getCentralStorageById(int);
-    bool updateCentralStorageById(centralStorageDto);
+    Result< bool > insertCentralStorage(centralStorageDto);
+    Result<centralStorageDto> getCentralStorageById(int);
+    Result<bool> updateCentralStorageById(centralStorageDto);
 };
 
 #endif // CENTRALSTORAGESERVICE_H

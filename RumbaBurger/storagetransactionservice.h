@@ -7,14 +7,15 @@
 #include <QSqlError>
 #include <QList>
 #include <QDate>
+#include "result.h"
 
 class storageTransactionService
 {
 public:
     storageTransactionService();
-    bool insertStorageTransaction(storageTransactionDto);
-    bool updateStorageTransaction(storageTransactionDto);
-    QList <storageTransactionDto> getStorageTransactionByDate(QDate inicial, QDate final);
+    Result<bool> insertStorageTransaction(storageTransactionDto);
+    Result<bool> updateStorageTransaction(storageTransactionDto);
+    Result<QList <storageTransactionDto>> getStorageTransactionByDate(QDate inicial, QDate final);
 };
 
 #endif // STORAGETRANSACTIONSERVICE_H

@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     centralstoragetransactiondto.cpp \
     centralstorageservice.cpp \
     centralstoragetransactionservice.cpp \
-    utiles.cpp
+    utiles.cpp \
+    result.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
@@ -77,7 +78,8 @@ HEADERS  += mainwindow.h \
     centralstoragetransactiondto.h \
     centralstorageservice.h \
     centralstoragetransactionservice.h \
-    utiles.h
+    utiles.h \
+    result.h
 
 FORMS    += mainwindow.ui \
     login.ui

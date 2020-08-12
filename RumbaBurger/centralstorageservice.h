@@ -6,12 +6,15 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QList>
+#include "result.h"
 
 class centralStorageService
 {
 public:
     centralStorageService();
-    QList <centralStorageDto> getAllCentralStorage();
+    //QList <centralStorageDto> getAllCentralStorage();
+    Result< QList<centralStorageDto> >getAllCentralStorage();
+
     bool insertCentralStorage(centralStorageDto);
     centralStorageDto getCentralStorageById(int);
     bool updateCentralStorageById(centralStorageDto);

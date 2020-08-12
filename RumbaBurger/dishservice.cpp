@@ -53,3 +53,14 @@ QList<DishDto> DishService::getAllDish(){
     }
     return ret;
 }
+
+/*int DishService::howManyDishes(int idDish){
+
+    QList<IngredientsDto>L = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0));
+    foreach (ingredient, L) {
+        storageService.getStorageById()
+    }
+
+
+
+}*/

@@ -16,12 +16,15 @@ bool centralStorageService::insertCentralStorage(centralStorageDto p){
 }
 
 
-QList<centralStorageDto> centralStorageService::getAllCentralStorage(){
+Result<QList<centralStorageDto>> centralStorageService::getAllCentralStorage(){
+    Result<QList<centralStorageDto>> res;
     QSqlQuery query;
     query.prepare("SELECT * FROM centralStorage");
     if( !query.exec() ){
         qDebug() << "ERROR getAllCentralStorage:" << query.lastError().text();
-        return QList<centralStorageDto>();
+        res.res = result::FAIL;
+        res.msg = "ERROR getAllCentralStorage: " + query.lastError().text();
+        return res;
     }
     QList<centralStorageDto> ret;
 
@@ -29,7 +32,9 @@ QList<centralStorageDto> centralStorageService::getAllCentralStorage(){
         ret.append( centralStorageDto(query.value(0).toInt(), query.value(1).toDouble()) );
     }
 
-    return ret;
+    res.res = result::SUCCESS;
+    res.data = ret;
+    return res;
 }
 
 centralStorageDto centralStorageService::getCentralStorageById(int id){

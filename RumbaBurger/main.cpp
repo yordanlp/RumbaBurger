@@ -29,6 +29,7 @@
 #include <centralstoragetransactiondto.h>
 #include <centralstoragetransactionservice.h>
 #include <QDebug>
+#include "result.h"
 
 
 int main(int argc, char *argv[])
@@ -40,34 +41,17 @@ int main(int argc, char *argv[])
     if( !db.open() )
         qDebug() << "Database not open";
 
-    IngredientsDto id;
-    id.idDish = 3;
-    id.idProduct = 10;
-    id.amount = 10;
 
-    IngredientsService is;
-    qDebug() << is.getIngredientsByDishId(id).size();
 
-    centralStorageTransactionDto p;
-    p.date = QDate(2021,10,1);
-    p.id = 1;
-    p.idProduct = 8;
-    p.amount = 20;
-    p.idUser = 1;
-    p.price = 1100;
-    p.type = 1;
+    centralStorageService cs;
 
-    centralStorageTransactionService q;
-    q.insertCentralStorageTransaction(p);
-    QDate inicial(2022,9,1);
-    QDate final(2022,1,1);
+    Result<QList<centralStorageDto>> res = cs.getAllCentralStorage();
 
-    QList<centralStorageTransactionDto> ret;
-    ret = q.getCentralStorageTransactionByDate(inicial,final);
-    for(int i=0;i<ret.size();i++){
-        qDebug() << ret[i].date << "\n";
+    if( res.res == result::SUCCESS ){
+        qDebug() << res.data.size();
+    }else{
+        qDebug() << res.msg;
     }
-
 
     /*MainWindow w;
     w.show();*/

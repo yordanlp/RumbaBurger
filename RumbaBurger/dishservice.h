@@ -5,6 +5,10 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include "dishdto.h"
+#include "ingredientsdto.h"
+#include "ingredientsservice.h"
+#include "storagedto.h"
+#include "storageservice.h"
 
 class DishService
 {
@@ -15,6 +19,10 @@ public:
     DishDto getDishById( DishDto );
     QList<DishDto> getAllDish();
     DishDto getDishByName( DishDto );
+    int howManyDishes( int idDish );
+private:
+    IngredientsService ingredientsService;
+    storageService StorageService;
 };
 
 #endif // DISHSERVICE_H

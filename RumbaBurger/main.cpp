@@ -6,26 +6,6 @@
 #include <QSqlError>
 #include <QDebug>
 #include <dbmanager.h>
-#include <productdto.h>
-#include "productservice.h"
-#include "userservice.h"
-#include "orderdto.h"
-#include "dishdto.h"
-#include "dishservice.h"
-#include "expensesdto.h"
-#include "expensesservice.h"
-#include "orderdishdto.h"
-#include "ingredientsdto.h"
-#include "ingredientsservice.h"
-#include <productservice.h>
-#include <storagedto.h>
-#include <storageservice.h>
-#include <storagetransactiondto.h>
-#include <storagetransactionservice.h>
-#include <centralstoragedto.h>
-#include <centralstorageservice.h>
-#include <centralstoragetransactiondto.h>
-#include <centralstoragetransactionservice.h>
 #include <QDebug>
 #include "result.h"
 
@@ -38,9 +18,6 @@ int main(int argc, char *argv[])
     db.setDatabaseName("rumbaburgerdb.sqlite");
     if( !db.open() )
         qDebug() << "Database not open";
-
-    centralStorageService t;
-    t.modifyCentralStorage(9,20,1,2);
 
     /*MainWindow w;
     w.show();*/

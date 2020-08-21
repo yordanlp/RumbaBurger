@@ -5,7 +5,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QList>
-#include "ingredientsdto.h"
+#include "Dto/ingredientsdto.h"
 #include "result.h"
 
 

@@ -1,13 +1,13 @@
 #ifndef ORDERDISHSERVICE_H
 #define ORDERDISHSERVICE_H
 #include "result.h"
-#include "orderdishdto.h"
+#include "Dto/orderdishdto.h"
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
 #include "dishservice.h"
-#include "orderdto.h"
+#include "Dto/orderdto.h"
 #include <QDate>
 #include "orderservice.h"
 

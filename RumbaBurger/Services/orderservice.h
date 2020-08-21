@@ -4,11 +4,11 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <orderdto.h>
+#include <Dto/orderdto.h>
 #include "result.h"
 #include "ingredientsservice.h"
-#include "ingredientsdto.h"
-#include "orderdishdto.h"
+#include "Dto/ingredientsdto.h"
+#include "Dto/orderdishdto.h"
 #include "dishservice.h"
 #include "orderdishservice.h"
 

@@ -1,15 +1,15 @@
 #ifndef STORAGESERVICE_H
 #define STORAGESERVICE_H
-#include <storagedto.h>
+#include <Dto/storagedto.h>
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QList>
 #include "result.h"
-#include <storagetransactionservice.h>
-#include <storagetransactiondto.h>
-#include <userservice.h>
+#include <Services/storagetransactionservice.h>
+#include <Dto/storagetransactiondto.h>
+#include <Services/userservice.h>
 
 
 class storageService

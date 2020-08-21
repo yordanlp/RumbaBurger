@@ -1,19 +1,19 @@
 #ifndef CENTRALSTORAGESERVICE_H
 #define CENTRALSTORAGESERVICE_H
-#include<centralstoragedto.h>
+#include <Dto/centralstoragedto.h>
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QList>
 #include "result.h"
-#include <centralstoragetransactiondto.h>
-#include <centralstoragetransactionservice.h>
-#include <userservice.h>
-#include <productdto.h>
-#include <productservice.h>
-#include <storageservice.h>
-#include <storagedto.h>
+#include <Dto/centralstoragetransactiondto.h>
+#include <Services/centralstoragetransactionservice.h>
+#include <Services//userservice.h>
+#include <Dto/productdto.h>
+#include <Services/productservice.h>
+#include <Services/storageservice.h>
+#include <Dto/storagedto.h>
 
 class centralStorageService
 {

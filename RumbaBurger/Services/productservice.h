@@ -1,6 +1,6 @@
 #ifndef PRODUCTSERVICE_H
 #define PRODUCTSERVICE_H
-#include <productdto.h>
+#include <Dto/productdto.h>
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlQuery>

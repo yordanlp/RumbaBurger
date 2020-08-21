@@ -3,7 +3,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <productdto.h>
+#include <Dto/productdto.h>
 
 class DBManager
 {

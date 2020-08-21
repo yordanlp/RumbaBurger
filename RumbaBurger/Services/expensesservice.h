@@ -4,7 +4,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <expensesdto.h>
+#include <Dto/expensesdto.h>
 #include "result.h"
 
 class ExpensesService

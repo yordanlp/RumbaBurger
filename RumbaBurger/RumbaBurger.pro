@@ -28,60 +28,60 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     login.cpp \
     dbmanager.cpp \
-    productdto.cpp \
-    productservice.cpp \
-    userdto.cpp \
-    userservice.cpp \
-    orderdto.cpp \
-    orderservice.cpp \
-    dishdto.cpp \
-    dishservice.cpp \
-    expensesdto.cpp \
-    expensesservice.cpp \
-    orderdishdto.cpp \
-    ingredientsdto.cpp \
-    ingredientsservice.cpp \
-    storagedto.cpp \
-    storageservice.cpp \
-    storagetransactiondto.cpp \
-    storagetransactionservice.cpp \
-    centralstoragedto.cpp \
-    centralstoragetransactiondto.cpp \
-    centralstorageservice.cpp \
-    centralstoragetransactionservice.cpp \
     utiles.cpp \
     result.cpp \
-    dishamountdto.cpp \
-    orderdishservice.cpp
+    Dto/centralstoragedto.cpp \
+    Dto/centralstoragetransactiondto.cpp \
+    Dto/dishamountdto.cpp \
+    Dto/dishdto.cpp \
+    Dto/expensesdto.cpp \
+    Dto/ingredientsdto.cpp \
+    Dto/orderdishdto.cpp \
+    Dto/orderdto.cpp \
+    Dto/storagedto.cpp \
+    Dto/storagetransactiondto.cpp \
+    Dto/userdto.cpp \
+    Services/centralstorageservice.cpp \
+    Services/centralstoragetransactionservice.cpp \
+    Services/dishservice.cpp \
+    Services/expensesservice.cpp \
+    Services/ingredientsservice.cpp \
+    Services/orderdishservice.cpp \
+    Services/orderservice.cpp \
+    Services/productservice.cpp \
+    Services/storageservice.cpp \
+    Services/storagetransactionservice.cpp \
+    Services/userservice.cpp \
+    Dto/productdto.cpp
 
 HEADERS  += mainwindow.h \
     login.h \
     dbmanager.h \
-    productdto.h \
-    productservice.h \
-    userdto.h \
-    userservice.h \
-    orderdto.h \
-    orderservice.h \
-    dishdto.h \
-    dishservice.h \
-    expensesdto.h \
-    expensesservice.h \
-    orderdishdto.h \
-    ingredientsdto.h \
-    ingredientsservice.h \
-    storagedto.h \
-    storageservice.h \
-    storagetransactiondto.h \
-    storagetransactionservice.h \
-    centralstoragedto.h \
-    centralstoragetransactiondto.h \
-    centralstorageservice.h \
-    centralstoragetransactionservice.h \
     utiles.h \
     result.h \
-    dishamountdto.h \
-    orderdishservice.h
+    Dto/centralstoragedto.h \
+    Dto/centralstoragetransactiondto.h \
+    Dto/dishamountdto.h \
+    Dto/dishdto.h \
+    Dto/expensesdto.h \
+    Dto/ingredientsdto.h \
+    Dto/orderdishdto.h \
+    Dto/orderdto.h \
+    Dto/productdto.h \
+    Dto/storagedto.h \
+    Dto/storagetransactiondto.h \
+    Dto/userdto.h \
+    Services/centralstorageservice.h \
+    Services/centralstoragetransactionservice.h \
+    Services/dishservice.h \
+    Services/expensesservice.h \
+    Services/ingredientsservice.h \
+    Services/orderdishservice.h \
+    Services/orderservice.h \
+    Services/productservice.h \
+    Services/storageservice.h \
+    Services/storagetransactionservice.h \
+    Services/userservice.h
 
 FORMS    += mainwindow.ui \
     login.ui

@@ -4,15 +4,15 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include "dishdto.h"
-#include "ingredientsdto.h"
+#include "Dto/dishdto.h"
+#include "Dto/ingredientsdto.h"
 #include "ingredientsservice.h"
-#include "storagedto.h"
+#include "Dto/storagedto.h"
 #include "storageservice.h"
 #include "result.h"
 #include <bits/stdc++.h>
-#include <dishamountdto.h>
-#include "productdto.h"
+#include <Dto/dishamountdto.h>
+#include "Dto/productdto.h"
 #include "productservice.h"
 using namespace std;
 

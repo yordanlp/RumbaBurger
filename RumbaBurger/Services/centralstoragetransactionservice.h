@@ -1,6 +1,6 @@
 #ifndef CENTRALSTORAGETRANSACTIONSERVICE_H
 #define CENTRALSTORAGETRANSACTIONSERVICE_H
-#include<centralstoragetransactiondto.h>
+#include <Dto/centralstoragetransactiondto.h>
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlQuery>

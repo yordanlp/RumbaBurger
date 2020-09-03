@@ -51,10 +51,12 @@ Result<ProductDto> ProductService::getProductByID(ProductDto p){
         return res;
     }
 
-    res.res = result::SUCCESS;
-    query.next();
-    res.data =  ProductDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toInt(), query.value(3).toDouble());
-   // qDebug() << res.data.id << res.data.productName;
+    if( query.next() ){
+        res.res = result::SUCCESS;
+        res.data =  ProductDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toInt(), query.value(3).toDouble());
+        return res;
+    }
+    res.res = RECORD_NOT_FOUND;
     return res;
 }
 

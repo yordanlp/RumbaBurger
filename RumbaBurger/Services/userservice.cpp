@@ -35,10 +35,13 @@ Result<UserDto> UserService::getUserByUsername(QString userName){
         qDebug() << "ERROR getUserByUsername: " << query.lastError().text();
         return res;
     }
-    query.next();
 
-    res.res = result::SUCCESS;
-    res.data = UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString());
+    if( query.next() ){
+        res.res = result::SUCCESS;
+        res.data = UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString());
+        return res;
+    }
+    res.res = RECORD_NOT_FOUND;
     return res;
 }
 

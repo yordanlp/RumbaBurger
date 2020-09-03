@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtCore>
+#include <QtWidgets>
+#include <dialog.h>
 
 namespace Ui {
 class MainWindow;
@@ -14,6 +17,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Dialog *d;
 
 private:
     Ui::MainWindow *ui;

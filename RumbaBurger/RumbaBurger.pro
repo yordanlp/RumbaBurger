@@ -25,9 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     login.cpp \
-    dbmanager.cpp \
     utiles.cpp \
     result.cpp \
     Dto/centralstoragedto.cpp \
@@ -52,11 +50,13 @@ SOURCES += main.cpp\
     Services/storageservice.cpp \
     Services/storagetransactionservice.cpp \
     Services/userservice.cpp \
-    Dto/productdto.cpp
+    Dto/productdto.cpp \
+    principal.cpp \
+    mainwindow.cpp \
+    dialog.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     login.h \
-    dbmanager.h \
     utiles.h \
     result.h \
     Dto/centralstoragedto.h \
@@ -81,7 +81,13 @@ HEADERS  += mainwindow.h \
     Services/productservice.h \
     Services/storageservice.h \
     Services/storagetransactionservice.h \
-    Services/userservice.h
+    Services/userservice.h \
+    principal.h \
+    mainwindow.h \
+    dialog.h
 
-FORMS    += mainwindow.ui \
-    login.ui
+FORMS    += \
+    login.ui \
+    principal.ui \
+    mainwindow.ui \
+    dialog.ui

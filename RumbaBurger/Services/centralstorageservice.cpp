@@ -53,9 +53,12 @@ Result<centralStorageDto> centralStorageService::getCentralStorageById(int id){
         return res;
     }
 
-    res.res = result::SUCCESS;
-    query.next();
-    res.data = centralStorageDto(query.value(0).toInt(), query.value(1).toDouble());
+    if( query.next() ){
+        res.res = result::SUCCESS;
+        res.data = centralStorageDto(query.value(0).toInt(), query.value(1).toDouble());
+        return res;
+    }
+    res.res = RECORD_NOT_FOUND;
     return res;
 }
 

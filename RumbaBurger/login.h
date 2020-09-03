@@ -2,6 +2,8 @@
 #define LOGIN_H
 
 #include <QMainWindow>
+#include <QtCore>
+#include <QtWidgets>
 
 namespace Ui {
 class Login;
@@ -13,10 +15,15 @@ class Login : public QMainWindow
 
 public:
     explicit Login(QWidget *parent = 0);
+    QRegExpValidator *valUser;
     ~Login();
 
 private slots:
     void on_ok_clicked();
+
+    void on_cancel_clicked();
+
+    void on_accept_clicked();
 
 private:
     Ui::Login *ui;

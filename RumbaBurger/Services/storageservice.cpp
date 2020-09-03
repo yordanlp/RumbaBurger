@@ -57,7 +57,7 @@ Result<storageDto> storageService::getStorageById(int id){
     }
 
     if(!query.next()){
-        res.res = result::RECORDNOTFOUND;
+        res.res = result::RECORD_NOT_FOUND;
         res.msg = "Producto no enconrtado en almacen local";
         return res;
     }

@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>Principal</class>
- <widget name="Principal" class="QMainWindow">
+ <widget class="QMainWindow" name="Principal">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,10 +13,136 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget name="menubar" class="QMenuBar"/>
-  <widget name="centralwidget" class="QWidget"/>
-  <widget name="statusbar" class="QStatusBar"/>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOfertas">
+    <property name="title">
+     <string>Ofertas</string>
+    </property>
+    <widget class="QMenu" name="menuAcciones">
+     <property name="title">
+      <string>Acciones</string>
+     </property>
+     <addaction name="actionInsertar_Plato_2"/>
+     <addaction name="actionEliminar_Plato_2"/>
+     <addaction name="actionModificar_Plato_2"/>
+    </widget>
+    <addaction name="actionMostrar"/>
+    <addaction name="separator"/>
+    <addaction name="menuAcciones"/>
+   </widget>
+   <widget class="QMenu" name="menu_rdenes">
+    <property name="title">
+     <string>Ordenes</string>
+    </property>
+    <widget class="QMenu" name="menuAcciones_2">
+     <property name="title">
+      <string>Acciones</string>
+     </property>
+     <addaction name="actionInsertar_rden"/>
+     <addaction name="actionEliminar_orden"/>
+    </widget>
+    <addaction name="actionMostrar_2"/>
+    <addaction name="menuAcciones_2"/>
+   </widget>
+   <widget class="QMenu" name="menuAlmacen">
+    <property name="title">
+     <string>Almacen</string>
+    </property>
+    <addaction name="actionPrincipal"/>
+    <addaction name="actionSecundario"/>
+   </widget>
+   <widget class="QMenu" name="menuReportes">
+    <property name="title">
+     <string>Reportes</string>
+    </property>
+   </widget>
+   <addaction name="menuAlmacen"/>
+   <addaction name="menuOfertas"/>
+   <addaction name="menu_rdenes"/>
+   <addaction name="menuReportes"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionPrincipal">
+   <property name="text">
+    <string>Central</string>
+   </property>
+  </action>
+  <action name="actionSecundario">
+   <property name="text">
+    <string>Local</string>
+   </property>
+  </action>
+  <action name="actionMostrar">
+   <property name="text">
+    <string>Mostrar</string>
+   </property>
+  </action>
+  <action name="actionInsertar_Plato">
+   <property name="text">
+    <string>Insertar Plato</string>
+   </property>
+  </action>
+  <action name="actionEliminar_Plato">
+   <property name="text">
+    <string>Eliminar Plato</string>
+   </property>
+  </action>
+  <action name="actionModificar_Plato">
+   <property name="text">
+    <string>Modificar Plato</string>
+   </property>
+  </action>
+  <action name="actionInsertar_Plato_2">
+   <property name="text">
+    <string>Insertar Plato</string>
+   </property>
+  </action>
+  <action name="actionEliminar_Plato_2">
+   <property name="text">
+    <string>Eliminar Plato</string>
+   </property>
+  </action>
+  <action name="actionModificar_Plato_2">
+   <property name="text">
+    <string>Modificar Plato</string>
+   </property>
+  </action>
+  <action name="actionMostrar_2">
+   <property name="text">
+    <string>Mostrar</string>
+   </property>
+  </action>
+  <action name="actionInsertar_rden">
+   <property name="text">
+    <string>Insertar orden</string>
+   </property>
+  </action>
+  <action name="actionEliminar_orden">
+   <property name="text">
+    <string>Eliminar orden</string>
+   </property>
+  </action>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

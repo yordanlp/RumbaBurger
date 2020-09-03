@@ -2,6 +2,7 @@
 #define PRINCIPAL_H
 
 #include <QMainWindow>
+#include <QMdiArea>
 
 namespace Ui {
 class Principal;
@@ -14,6 +15,7 @@ class Principal : public QMainWindow
 public:
     explicit Principal(QWidget *parent = 0);
     ~Principal();
+    QMdiArea *mdi;
 
 private:
     Ui::Principal *ui;

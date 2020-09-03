@@ -3,7 +3,7 @@
 #include<QString>
 
 enum result{
-    SUCCESS, FAIL, RECORDNOTFOUND
+    SUCCESS, FAIL, RECORD_NOT_FOUND
 };
 
 template<class T>

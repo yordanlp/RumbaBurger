@@ -51,9 +51,12 @@ Result<DishDto> DishService::getDishById(DishDto d){
         return res;
     }
 
-    res.res = result::SUCCESS;
-    query.next();
-    res.data = DishDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toDouble());
+    if( query.next() ){
+        res.res = result::SUCCESS;
+        res.data = DishDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toDouble());
+        return res;
+    }
+    res.res = RECORD_NOT_FOUND;
     return res;
 }
 

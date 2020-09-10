@@ -59,6 +59,9 @@
     </property>
     <addaction name="actionPrincipal"/>
     <addaction name="actionSecundario"/>
+    <addaction name="separator"/>
+    <addaction name="actionProductos"/>
+    <addaction name="actionInsertar_Producto"/>
    </widget>
    <widget class="QMenu" name="menuReportes">
     <property name="title">
@@ -81,6 +84,10 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionAlmacenes"/>
+   <addaction name="actionOfertas"/>
+   <addaction name="actionOrdenes"/>
+   <addaction name="actionReportes"/>
   </widget>
   <action name="actionPrincipal">
    <property name="text">
@@ -140,6 +147,36 @@
   <action name="actionEliminar_orden">
    <property name="text">
     <string>Eliminar orden</string>
+   </property>
+  </action>
+  <action name="actionInsertar_Producto">
+   <property name="text">
+    <string>Insertar Producto</string>
+   </property>
+  </action>
+  <action name="actionProductos">
+   <property name="text">
+    <string>Productos</string>
+   </property>
+  </action>
+  <action name="actionAlmacenes">
+   <property name="text">
+    <string>Almacenes</string>
+   </property>
+  </action>
+  <action name="actionOfertas">
+   <property name="text">
+    <string>Ofertas</string>
+   </property>
+  </action>
+  <action name="actionOrdenes">
+   <property name="text">
+    <string>Ordenes</string>
+   </property>
+  </action>
+  <action name="actionReportes">
+   <property name="text">
+    <string>Reportes</string>
    </property>
   </action>
  </widget>

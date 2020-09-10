@@ -43,10 +43,11 @@ Result<bool> OrderDishService::deleteOrderDish(OrderDishDto od){
     return res;
 }
 
-Result<bool> OrderDishService::insertOrderDishes(QList<DishAmountDto> L, bool payed){
+Result<bool> OrderDishService::insertOrderDishes(QList<DishAmountDto> L, bool payed, int orderNumber){
     DishService dishService;
     OrderService orderService;
     OrderDto o;
+    o.orderNumber = orderNumber;
     o.date = QDate::currentDate();
     o.payed = payed;
     o.profit = dishService.totalProfit(L).data;

@@ -11,9 +11,10 @@ public:
     double total;
     double profit;
     int payed;
+    int orderNumber;
 
     OrderDto();
-    OrderDto( int _id, QDate _date, double _total, double _profit, int _payed);
+    OrderDto( int _id, QDate _date, double _total, double _profit, int _payed, int _orderNumber );
 };
 
 #endif // ORDERDTO_H

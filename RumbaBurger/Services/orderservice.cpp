@@ -32,6 +32,7 @@ Result<int> OrderService::insertOrder(OrderDto o){
 
     if( query.exec() ) {
         res.res = result::SUCCESS;
+        query.first();
         res.data = query.value(0).toInt();
         return res;
     }

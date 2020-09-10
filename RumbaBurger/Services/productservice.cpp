@@ -6,8 +6,8 @@ ProductService::ProductService()
 
 }
 
-Result<bool> ProductService::insertProduct(ProductDto p){
-    Result<bool>res;
+Result<int> ProductService::insertProduct(ProductDto p){
+    Result<int>res;
     QSqlQuery query;
     query.prepare("INSERT INTO product (productName, unitType, price) VALUES (:productName, :unitType, :price)");
     query.bindValue(":productName", p.productName);
@@ -16,6 +16,8 @@ Result<bool> ProductService::insertProduct(ProductDto p){
 
     if( query.exec() ){
         res.res = result::SUCCESS;
+        query.first();
+        res.data = query.value(0).toInt();
         return res;
     }
     res.res = result::FAIL;
@@ -63,7 +65,7 @@ Result<ProductDto> ProductService::getProductByID(ProductDto p){
 Result<QList<ProductDto>> ProductService::getAllProduct(){
     Result<QList<ProductDto>> res;
     QSqlQuery query;
-    query.prepare("SELECT * FROM product");
+    query.prepare("SELECT * FROM product ORDER BY productName");
     if( !query.exec() ){
         res.res = result::FAIL;
         res.msg = "ERROR getAllProduct:" + query.lastError().text();
@@ -79,6 +81,28 @@ Result<QList<ProductDto>> ProductService::getAllProduct(){
     res.data = ret;
     return res;
 }
+
+Result<ProductDto> ProductService::getProductByName(QString name)
+{
+    Result<ProductDto> res;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM product WHERE productName = :name");
+    query.bindValue(":name", name);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = query.lastError().text();
+        return res;
+    }
+    qDebug() << "noombre: " << name;
+    if( !query.next() ){
+        res.res = RECORD_NOT_FOUND;
+        return res;
+    }
+    res.res = SUCCESS;
+    res.data = ProductDto(query.value(0).toInt(),query.value(1).toString(),query.value(2).toInt(),query.value(3).toDouble());
+    return res;
+}
+
 
 Result<bool> ProductService::updateProduct(ProductDto p){
     Result<bool> res;
@@ -103,5 +127,21 @@ Result<double> ProductService::getPrice(int idProduct){
     res.data = 0;
     auto p = getProductByID(ProductDto(idProduct,"",0,0)).data;
     res.data = p.price;
+    return res;
+}
+
+Result<QStringList> ProductService::getAllProductsToString()
+{
+    Result<QStringList> res;
+    Result<QList<ProductDto>> r = getAllProduct();
+    if( r.res == FAIL ){
+        res.res = FAIL;
+        res.msg = r.msg;
+        return res;
+    }
+    res.res = r.res;
+    foreach (auto i, r.data) {
+        res.data << i.productName;
+    }
     return res;
 }

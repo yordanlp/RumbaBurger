@@ -111,3 +111,28 @@ Result<bool> storageService::modifyStorage( int id, double cant, bool type){
     res.data = b.data;
     return res;
 }
+
+Result<QList<StorageProductDto> > storageService::getLocalStorageBySearch(QString search)
+{
+    qDebug() << "search:" << search;
+    Result<QList<StorageProductDto>> res;
+    QString q = "SELECT * FROM storage INNER JOIN product ON storage.id = product.id WHERE lower(productName) LIKE :search";
+    QSqlQuery query;
+    query.prepare(q);
+    query.bindValue(":search", search);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = query.lastError().text();
+        qDebug() << "Error getLocalStorageBySearch" <<  query.lastError().text();
+        qDebug() << query.lastQuery();
+        return res;
+    }
+    qDebug() << "exito";
+    res.res = SUCCESS;
+    QList<StorageProductDto> L;
+    while( query.next() ){
+        L << StorageProductDto(query.value(0).toInt(), query.value(3).toString(), query.value(1).toDouble(), query.value(5).toDouble(), query.value(4).toInt());
+    }
+    res.data = L;
+    return res;
+}

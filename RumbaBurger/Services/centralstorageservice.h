@@ -14,6 +14,7 @@
 #include <Services/productservice.h>
 #include <Services/storageservice.h>
 #include <Dto/storagedto.h>
+#include <Dto/storageproductdto.h>
 
 class centralStorageService
 {
@@ -27,7 +28,8 @@ public:
     centralStorageTransactionService centralStorageTransactionServiceObject;
     ProductService ProductServiceObject;
     storageService storageServiceObject;
-    Result<bool> modifyCentralStorage(int,double,bool,double=0);
+    Result<bool> modifyCentralStorage(int id,double cant,bool type,double price=0, double merma=0);
+    Result<QList<StorageProductDto>> getCentralStorageBySearch(QString search="%");
 };
 
 #endif // CENTRALSTORAGESERVICE_H

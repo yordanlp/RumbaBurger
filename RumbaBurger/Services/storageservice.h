@@ -10,7 +10,7 @@
 #include <Services/storagetransactionservice.h>
 #include <Dto/storagetransactiondto.h>
 #include <Services/userservice.h>
-
+#include <Dto/storageproductdto.h>
 
 class storageService
 {
@@ -23,6 +23,7 @@ public:
     //Requisitos funcionales
     Result<bool> modifyStorage(int,double,bool);
     storageTransactionService storageTransactionServiceObject;
+    Result<QList<StorageProductDto>> getLocalStorageBySearch(QString search="");
 
 };
 

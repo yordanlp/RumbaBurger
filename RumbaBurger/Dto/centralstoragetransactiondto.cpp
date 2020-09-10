@@ -5,7 +5,7 @@ centralStorageTransactionDto::centralStorageTransactionDto()
 
 }
 
-centralStorageTransactionDto::centralStorageTransactionDto(int _id, bool _type, double _amount, int _idProduct, QDate _date,int _idUser,double _price){
+centralStorageTransactionDto::centralStorageTransactionDto(int _id, bool _type, double _amount, int _idProduct, QDate _date,int _idUser,double _price, double _merma){
     id = _id;
     type = _type;
     amount = _amount;
@@ -13,4 +13,5 @@ centralStorageTransactionDto::centralStorageTransactionDto(int _id, bool _type, 
     date = _date;
     idUser = _idUser;
     price = _price;
+    merma = _merma;
 }

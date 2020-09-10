@@ -18,7 +18,7 @@ public:
     OrderDishService();
     Result<bool> insertOrderDish(OrderDishDto);
     Result<bool> deleteOrderDish(OrderDishDto);
-    Result<bool> insertOrderDishes( QList<DishAmountDto>, bool );
+    Result<bool> insertOrderDishes(QList<DishAmountDto>, bool , int orderNumber);
     Result<QList<OrderDishDto>>getDishesByOrderId( int idOrder );
 };
 

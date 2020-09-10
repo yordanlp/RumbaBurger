@@ -11,3 +11,13 @@ QDate utiles::stringToDate(QString s){
     QDate p(anno,mes,dia);
     return p;
 }
+
+QString utiles::searchToRegExp(QString search){
+    if( search == "" ) return "%";
+    return "%" + search.toLower() + "%";
+}
+
+QString utiles::unitFromNumber(int unitType){
+    if( unitType == 1 ) return "g";
+    return "u";
+}

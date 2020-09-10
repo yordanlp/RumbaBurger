@@ -16,6 +16,10 @@ Login::Login(QWidget *parent) :
     QRegExp expUser ("[A-Za-z0-9ñÑ_]+");
     valUser = new QRegExpValidator(expUser,this);
     ui->user->setValidator(valUser);
+
+    //quitar
+    ui->user->setText("yordan");
+    ui->pass->setText("123");
 }
 
 Login::~Login()

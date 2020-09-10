@@ -52,8 +52,19 @@ SOURCES += main.cpp\
     Services/userservice.cpp \
     Dto/productdto.cpp \
     principal.cpp \
-    mainwindow.cpp \
-    dialog.cpp
+    form_product.cpp \
+    form_almacenes.cpp \
+    form_compra.cpp \
+    form_mover.cpp \
+    form_extraer.cpp \
+    form_ofertas.cpp \
+    form_insertaroferta.cpp \
+    form_eliminaroferta.cpp \
+    form_getoferta.cpp \
+    form_modificaroferta.cpp \
+    Dto/storageproductdto.cpp \
+    Services/localstorageservice.cpp \
+    Dto/localstoragedto.cpp
 
 HEADERS  += \
     login.h \
@@ -83,11 +94,30 @@ HEADERS  += \
     Services/storagetransactionservice.h \
     Services/userservice.h \
     principal.h \
-    mainwindow.h \
-    dialog.h
+    form_product.h \
+    form_almacenes.h \
+    form_compra.h \
+    form_mover.h \
+    form_extraer.h \
+    form_ofertas.h \
+    form_insertaroferta.h \
+    form_eliminaroferta.h \
+    form_getoferta.h \
+    form_modificaroferta.h \
+    Dto/storageproductdto.h \
+    Services/localstorageservice.h \
+    Dto/localstoragedto.h
 
 FORMS    += \
     login.ui \
     principal.ui \
-    mainwindow.ui \
-    dialog.ui
+    form_product.ui \
+    form_almacenes.ui \
+    form_compra.ui \
+    form_mover.ui \
+    form_extraer.ui \
+    form_ofertas.ui \
+    form_insertaroferta.ui \
+    form_eliminaroferta.ui \
+    form_getoferta.ui \
+    form_modificaroferta.ui

@@ -9,13 +9,14 @@ centralStorageTransactionService::centralStorageTransactionService()
 Result<bool> centralStorageTransactionService::insertCentralStorageTransaction(centralStorageTransactionDto p){
     Result<bool>res;
     QSqlQuery query;
-    query.prepare("INSERT INTO centralStorageTransaction (type, amount, idProduct, date, idUser, price) VALUES (:type, :amount, :idProduct, :date, :idUser, :price)");
+    query.prepare("INSERT INTO centralStorageTransaction (type, amount, idProduct, date, idUser, price, merma) VALUES (:type, :amount, :idProduct, :date, :idUser, :price, :merma)");
     query.bindValue(":type", p.type);
     query.bindValue(":amount", p.amount);
     query.bindValue(":idProduct", p.idProduct);
     query.bindValue(":date", p.date.toString(Qt::ISODate));
     query.bindValue(":idUser", p.idUser);
     query.bindValue(":price", p.price);
+    query.bindValue(":merma", p.merma);
 
     if( query.exec() ) {
         res.res = result::SUCCESS;
@@ -31,7 +32,7 @@ Result<bool> centralStorageTransactionService::insertCentralStorageTransaction(c
 Result<bool> centralStorageTransactionService::updateCentralStorageTransaction(centralStorageTransactionDto p){
     Result<bool>res;
     QSqlQuery query;
-    query.prepare("UPDATE centralStorageTransaction SET type=:type, amount=:amount, idProduct=:idProduct, date=:date, idUser=:idUser, price=:price  WHERE id=:id");
+    query.prepare("UPDATE centralStorageTransaction SET type=:type, amount=:amount, idProduct=:idProduct, date=:date, idUser=:idUser, price=:price, merma=:merma  WHERE id=:id");
 
     query.bindValue(":id", p.id);
     query.bindValue(":type", p.type);
@@ -40,6 +41,7 @@ Result<bool> centralStorageTransactionService::updateCentralStorageTransaction(c
     query.bindValue(":date", p.date.toString(Qt::ISODate));
     query.bindValue(":idUser", p.idUser);
     query.bindValue(":price", p.price);
+    query.bindValue(":merma", p.merma);
 
     if( query.exec() ) {
         res.res = result::SUCCESS;
@@ -75,7 +77,8 @@ Result <QList<centralStorageTransactionDto>> centralStorageTransactionService::g
                                         query.value(3).toInt(),
                                         utiles::stringToDate(query.value(4).toString()),
                                         query.value(5).toInt(),
-                                        query.value(6).toDouble()) );
+                                        query.value(6).toDouble(),
+                                        query.value(7).toDouble()) );
     }
 
     res.res = result::SUCCESS;

@@ -8,9 +8,9 @@ centralStorageService::centralStorageService()
 Result<bool> centralStorageService::insertCentralStorage(centralStorageDto p){
     Result<bool> res;
     QSqlQuery query;
-    query.prepare("INSERT INTO centralStorage (amount) VALUES (:amount)");
+    query.prepare("INSERT INTO centralStorage (id, amount) VALUES (:id, :amount)");
     query.bindValue(":amount", p.amount);
-
+    query.bindValue(":id",p.id);
     res.res = result::SUCCESS;
     if( query.exec() ) return res;
     qDebug() << "ERROR insertCentralStorage: " << query.lastError().text();
@@ -78,7 +78,7 @@ Result<bool> centralStorageService::updateCentralStorageById( centralStorageDto 
     return res;
 }
 
-Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bool type, double price){
+Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bool type, double price, double merma){
     Result<bool> res;
     centralStorageDto p = getCentralStorageById(id).data;
     if(type == 1)
@@ -119,6 +119,7 @@ Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bo
     updateCentralStorageById(p);
 
     centralStorageTransactionDto st;
+    st.merma = merma;
     st.idProduct = p.id;
     st.type = type;
     st.date = QDate::currentDate();
@@ -128,5 +129,30 @@ Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bo
     Result<bool> b = centralStorageTransactionServiceObject.insertCentralStorageTransaction(st);
     res.res = result::SUCCESS;
     res.data = b.data;
+    return res;
+}
+
+Result<QList<StorageProductDto> > centralStorageService::getCentralStorageBySearch(QString search)
+{
+    qDebug() << "search:" << search;
+    Result<QList<StorageProductDto>> res;
+    QString q = "SELECT * FROM centralStorage INNER JOIN product ON centralStorage.id = product.id WHERE lower(productName) LIKE :search";
+    QSqlQuery query;
+    query.prepare(q);
+    query.bindValue(":search", search);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = query.lastError().text();
+        qDebug() << "Error getCentralStorageBySearch" <<  query.lastError().text();
+        qDebug() << query.lastQuery();
+        return res;
+    }
+    qDebug() << "exito";
+    res.res = SUCCESS;
+    QList<StorageProductDto> L;
+    while( query.next() ){
+        L << StorageProductDto(query.value(0).toInt(), query.value(3).toString(), query.value(1).toDouble(), query.value(5).toDouble(), query.value(4).toInt());
+    }
+    res.data = L;
     return res;
 }

@@ -11,13 +11,14 @@ class ProductService
 {
 public:
     ProductService();
-    Result<bool> insertProduct( ProductDto );
+    Result<int> insertProduct( ProductDto );
     Result<bool> deleteProduct( ProductDto );
     Result<ProductDto> getProductByID( ProductDto );
     Result<QList<ProductDto>> getAllProduct();
-    Result<bool> getProductByName( QString );
+    Result<ProductDto> getProductByName( QString );
     Result<bool> updateProduct( ProductDto );
     Result<double> getPrice( int idProduct );
+    Result<QStringList> getAllProductsToString();
 
 };
 

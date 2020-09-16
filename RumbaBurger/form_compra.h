@@ -22,6 +22,7 @@ public:
 private slots:
     void on_cb_merma_clicked();
 
+    void updateRadioButtons( QString product );
 
     void on_pb_cancelar_clicked();
 

@@ -3,6 +3,8 @@
 #include <QtCore>
 #include <QtWidgets>
 #include <Services/productservice.h>
+#include <Services/centralstorageservice.h>
+#include <Dto/centralstoragedto.h>
 
 form_product::form_product(QWidget *parent) :
     QDialog(parent),
@@ -38,6 +40,7 @@ void form_product::on_pb_accept_clicked()
         QMessageBox::information(this,"Información","Debe escribir el nombre del producto",QMessageBox::Ok);
         return;
     }
+    centralStorageService CentralStorgeService;
     auto res = QMessageBox::information(this,"Información","Está seguro que desea insertar el producto: " + ui->le_product->text(),QMessageBox::Ok, QMessageBox::Cancel);
     if( res == QMessageBox::Ok ){
         ProductService productService;
@@ -55,8 +58,13 @@ void form_product::on_pb_accept_clicked()
             auto res = productService.insertProduct(ProductDto(0,ui->le_product->text(),unitType,0));
             if( res.res != SUCCESS )
                 qDebug() << res.msg;
-            else
+            else{
                 qDebug() << "Insertado Producto" << ui->le_product->text();
+                auto r = CentralStorgeService.insertCentralStorage(centralStorageDto(res.data,0));
+                if( r.res != SUCCESS )
+                    qDebug() << r.msg;
+            }
+
 
         }
         emit done();

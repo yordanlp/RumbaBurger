@@ -30,6 +30,7 @@ public:
     storageService storageServiceObject;
     Result<bool> modifyCentralStorage(int id,double cant,bool type,double price=0, double merma=0);
     Result<QList<StorageProductDto>> getCentralStorageBySearch(QString search="%");
+    Result<bool> moveToLocal( int idProduct, double amount );
 };
 
 #endif // CENTRALSTORAGESERVICE_H

@@ -17,7 +17,7 @@ Result<int> ProductService::insertProduct(ProductDto p){
     if( query.exec() ){
         res.res = result::SUCCESS;
         query.first();
-        res.data = query.value(0).toInt();
+        res.data = query.lastInsertId().toInt();
         return res;
     }
     res.res = result::FAIL;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>168</height>
+    <width>407</width>
+    <height>227</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,13 +29,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="l_existente">
-          <property name="text">
-           <string>Existente</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="cb_product">
           <property name="editable">
@@ -43,15 +36,43 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="6" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Cantidad</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="6" column="1">
          <widget class="QDoubleSpinBox" name="sb_cantidad"/>
+        </item>
+        <item row="3" column="1">
+         <widget class="QRadioButton" name="rb_gramos">
+          <property name="text">
+           <string>Gramos</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="l_existente">
+          <property name="text">
+           <string>Existente</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QRadioButton" name="rb_libras">
+          <property name="text">
+           <string>Libras</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QRadioButton" name="rb_kilogramos">
+          <property name="text">
+           <string>Kilogramos</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

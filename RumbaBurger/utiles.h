@@ -6,6 +6,12 @@
 #include<QString>
 #include<QStringList>
 
+enum weigth{
+    LB, G, KG
+};
+
+const unsigned int SOLIDO = 1, UNIDAD = 2;
+
 class utiles
 {
 public:
@@ -14,6 +20,9 @@ public:
     static QDate stringToDate(QString);
     static QString searchToRegExp(QString search);
     static QString unitFromNumber( int unitType );
+    static double convertPeso(weigth from, weigth to, double peso);
+    static double convertPrecio(weigth from, weigth to, double precio);
+
 };
 
 

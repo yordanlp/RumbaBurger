@@ -9,8 +9,9 @@ storageService::storageService()
 Result<bool> storageService::insertStorage(storageDto p){
     Result<bool> res;
     QSqlQuery query;
-    query.prepare("INSERT INTO storage (amount) VALUES (:amount)");
+    query.prepare("INSERT INTO storage (id, amount) VALUES (:id, :amount)");
     query.bindValue(":amount", p.amount);
+    query.bindValue(":id", p.id);
 
     if( query.exec() ){
         res.res = result::SUCCESS;
@@ -136,3 +137,4 @@ Result<QList<StorageProductDto> > storageService::getLocalStorageBySearch(QStrin
     res.data = L;
     return res;
 }
+

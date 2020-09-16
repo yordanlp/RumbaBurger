@@ -1,4 +1,5 @@
 #include "centralstorageservice.h"
+#include <Services/storageservice.h>
 
 centralStorageService::centralStorageService()
 {
@@ -154,5 +155,40 @@ Result<QList<StorageProductDto> > centralStorageService::getCentralStorageBySear
         L << StorageProductDto(query.value(0).toInt(), query.value(3).toString(), query.value(1).toDouble(), query.value(5).toDouble(), query.value(4).toInt());
     }
     res.data = L;
+    return res;
+}
+
+Result<bool> centralStorageService::moveToLocal(int idProduct, double amount)
+{
+    Result<bool>res;
+    storageService StorageService;
+    auto prod  = StorageService.getStorageById(idProduct);
+    auto centralProd = getCentralStorageById(idProduct);
+    if( centralProd.res != SUCCESS ){
+        res.res = FAIL;
+        return res;
+    }
+
+    if( centralProd.data.amount < amount ){
+        res.res = INSUFICIENT_AMOUNT;
+        return res;
+    }
+
+    if( prod.res == RECORD_NOT_FOUND ){
+        StorageService.insertStorage(storageDto(idProduct, amount));
+        updateCentralStorageById(centralStorageDto(idProduct,centralProd.data.amount - amount));
+        res.res = SUCCESS;
+        return res;
+    }
+
+    if( prod.res == SUCCESS ){
+        StorageService.updateStorageById(storageDto(idProduct, prod.data.amount + amount));
+        updateCentralStorageById(centralStorageDto(idProduct,centralProd.data.amount - amount));
+        res.res = SUCCESS;
+        return res;
+    }
+
+
+    res.res = FAIL;
     return res;
 }

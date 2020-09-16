@@ -25,6 +25,7 @@ public:
     storageTransactionService storageTransactionServiceObject;
     Result<QList<StorageProductDto>> getLocalStorageBySearch(QString search="");
 
+
 };
 
 #endif // STORAGESERVICE_H

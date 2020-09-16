@@ -64,7 +64,8 @@ SOURCES += main.cpp\
     form_modificaroferta.cpp \
     Dto/storageproductdto.cpp \
     Services/localstorageservice.cpp \
-    Dto/localstoragedto.cpp
+    Dto/localstoragedto.cpp \
+    form_ordenes.cpp
 
 HEADERS  += \
     login.h \
@@ -106,7 +107,8 @@ HEADERS  += \
     form_modificaroferta.h \
     Dto/storageproductdto.h \
     Services/localstorageservice.h \
-    Dto/localstoragedto.h
+    Dto/localstoragedto.h \
+    form_ordenes.h
 
 FORMS    += \
     login.ui \
@@ -120,4 +122,5 @@ FORMS    += \
     form_insertaroferta.ui \
     form_eliminaroferta.ui \
     form_getoferta.ui \
-    form_modificaroferta.ui
+    form_modificaroferta.ui \
+    form_ordenes.ui

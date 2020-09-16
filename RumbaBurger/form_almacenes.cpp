@@ -98,3 +98,13 @@ void form_almacenes::clearCentralMdi()
     updateCentralTable(ui->le_Centralsearch->text());
     updateLocalTable(ui->le_localSearch->text());
 }
+
+void form_almacenes::on_pb_moveToLocal_clicked()
+{
+    ui->mdiCentral->closeAllSubWindows();
+    formMover = new form_mover(this);
+    ui->mdiCentral->addSubWindow(formMover);
+    connect(formMover,SIGNAL(done()), this, SLOT(clearCentralMdi()));
+    formMover->show();
+    updateCentralTable(ui->le_localSearch->text());
+}

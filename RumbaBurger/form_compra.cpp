@@ -2,25 +2,57 @@
 #include "ui_form_compra.h"
 #include <Services/productservice.h>
 #include <Services/centralstorageservice.h>
-
+#include <utiles.h>
 
 form_compra::form_compra(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::form_compra)
 {
     ui->setupUi(this);
-
+    adjustSize();
     ProductService productService;
     QStringList products = productService.getAllProductsToString().data;
+    connect(ui->cb_product, SIGNAL(currentTextChanged(QString)), this, SLOT(updateRadioButtons(QString)));
+    //connect(ui->cb_product,SIGNAL(currentIndexChanged(QString)), this, SLOT(updateRadioButtons(QString)));
     QCompleter *completer = new QCompleter(products,this);
     ui->cb_product->setCompleter(completer);
     ui->sb_merma->setEnabled(false);
     ui->cb_product->addItems(products);
+    ui->rb_libras->setChecked(true);
+    ui->rb_gramos->setVisible(false);
+    ui->rb_libras->setVisible(false);
+    ui->rb_kilogramos->setVisible(false);
+    if( products.size() ){
+        //auto pr = productService.getProductByName(products.value(0)).data;
+        updateRadioButtons(ui->cb_product->currentText());
+    }
 }
 
 form_compra::~form_compra()
 {
     delete ui;
+}
+
+void form_compra::updateRadioButtons(QString product){
+    qDebug() << "updateRadioButtons" << product;
+    ProductService productService;
+    auto pr = productService.getProductByName(product);
+    if( pr.res == SUCCESS ){
+        if( pr.data.unitType == 1 ){
+            ui->rb_gramos->setVisible(true);
+            ui->rb_libras->setVisible(true);
+            ui->rb_kilogramos->setVisible(true);
+            ui->rb_libras->setChecked(true);
+        }else{
+            ui->rb_gramos->setVisible(false);
+            ui->rb_libras->setVisible(false);
+            ui->rb_kilogramos->setVisible(false);
+        }
+    }else{
+        ui->rb_gramos->setVisible(false);
+        ui->rb_libras->setVisible(false);
+        ui->rb_kilogramos->setVisible(false);
+    }
 }
 
 void form_compra::on_cb_merma_clicked()
@@ -65,6 +97,19 @@ void form_compra::on_pb_aceptar_clicked()
     double pricePerUnit = 0;
     if( realCant > 0 )
          pricePerUnit = price / realCant;
+
+    weigth from = G;
+    if( product.data.unitType == 1 ){
+        if( ui->rb_gramos->isChecked() ) from = G;
+        if( ui->rb_kilogramos->isChecked() ) from = KG;
+        if( ui->rb_libras->isChecked() ) from = LB;
+    }
+
+    realCant = utiles::convertPeso(from, G, realCant);
+    merma = utiles::convertPeso(from, G, merma);
+    pricePerUnit = utiles::convertPrecio(from, G, pricePerUnit);
+
+
     CentralStorageService.modifyCentralStorage(product.data.id, realCant, 1, pricePerUnit, merma);
     emit done();
 }

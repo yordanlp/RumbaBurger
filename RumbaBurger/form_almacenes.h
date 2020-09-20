@@ -6,6 +6,7 @@
 #include <utiles.h>
 #include <form_compra.h>
 #include <form_mover.h>
+#include <form_extraercentral.h>
 
 namespace Ui {
 class form_almacenes;
@@ -21,8 +22,10 @@ public:
     form_product *formProduct;
     form_compra *formCompra;
     form_mover *formMover;
+    form_extraerCentral *formExtraerCentral;
     void updateCentralTable( QString search );
     void updateLocalTable( QString search );
+
 
 private slots:
     void on_pb_newProduct_clicked();
@@ -36,6 +39,16 @@ private slots:
     void clearCentralMdi();
 
     void on_pb_moveToLocal_clicked();
+
+    void on_pb_extraer_clicked();
+
+    void on_pb_moveToCentral_clicked();
+
+    void updateMCExistente();
+
+    void updateMCRadioButtons(QString product);
+
+    void on_pb_mcAccept_clicked();
 
 private:
     Ui::form_almacenes *ui;

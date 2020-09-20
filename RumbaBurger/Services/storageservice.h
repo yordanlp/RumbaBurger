@@ -24,7 +24,7 @@ public:
     Result<bool> modifyStorage(int,double,bool);
     storageTransactionService storageTransactionServiceObject;
     Result<QList<StorageProductDto>> getLocalStorageBySearch(QString search="");
-
+    Result<bool> moveToCentral( int _id, int _amount );
 
 };
 

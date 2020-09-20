@@ -34,3 +34,11 @@ void Principal::on_actionAlmacenes_triggered()
     qDebug() << "here";
     form_Almacenes->showMaximized();
 }
+
+void Principal::on_actionOfertas_triggered()
+{
+    formOfertas = new form_ofertas(this);
+    mdi->closeAllSubWindows();
+    mdi->addSubWindow(formOfertas);
+    formOfertas->showMaximized();
+}

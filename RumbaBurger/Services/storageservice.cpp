@@ -1,5 +1,6 @@
 #include "storageservice.h"
 #include <QSqlQuery>
+#include <Services/centralstorageservice.h>
 
 storageService::storageService()
 {
@@ -135,6 +136,41 @@ Result<QList<StorageProductDto> > storageService::getLocalStorageBySearch(QStrin
         L << StorageProductDto(query.value(0).toInt(), query.value(3).toString(), query.value(1).toDouble(), query.value(5).toDouble(), query.value(4).toInt());
     }
     res.data = L;
+    return res;
+}
+
+Result<bool> storageService::moveToCentral(int _id, int _amount)
+{
+    Result<bool>res;
+    centralStorageService CentralStorageService;
+    auto prod  = CentralStorageService.getCentralStorageById(_id);
+    auto localProd = getStorageById(_id);
+    if( localProd.res != SUCCESS ){
+        res.res = FAIL;
+        return res;
+    }
+
+    if( localProd.data.amount < _amount ){
+        res.res = INSUFICIENT_AMOUNT;
+        return res;
+    }
+
+    if( prod.res == RECORD_NOT_FOUND ){
+        CentralStorageService.insertCentralStorage(centralStorageDto(_id, _amount));
+        updateStorageById(storageDto(_id,localProd.data.amount - _amount));
+        res.res = SUCCESS;
+        return res;
+    }
+
+    if( prod.res == SUCCESS ){
+        CentralStorageService.updateCentralStorageById(centralStorageDto(_id, prod.data.amount + _amount));
+        updateStorageById(storageDto(_id,localProd.data.amount - _amount));
+        res.res = SUCCESS;
+        return res;
+    }
+
+
+    res.res = FAIL;
     return res;
 }
 

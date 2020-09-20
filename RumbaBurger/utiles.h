@@ -10,7 +10,7 @@ enum weigth{
     LB, G, KG
 };
 
-const unsigned int SOLIDO = 1, UNIDAD = 2;
+const unsigned int SOLIDO = 1, UNIDAD = 2; 
 
 class utiles
 {
@@ -22,7 +22,7 @@ public:
     static QString unitFromNumber( int unitType );
     static double convertPeso(weigth from, weigth to, double peso);
     static double convertPrecio(weigth from, weigth to, double precio);
-
+    static double GANANCIA, IMPUESTO;
 };
 
 

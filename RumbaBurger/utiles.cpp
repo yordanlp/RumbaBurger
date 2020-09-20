@@ -65,3 +65,6 @@ double utiles::convertPrecio(weigth from, weigth to, double precio ){
         return precio / 0.0022;
     return precio;
 }
+
+double utiles::GANANCIA = 0.50;
+double utiles::IMPUESTO = 0.10;

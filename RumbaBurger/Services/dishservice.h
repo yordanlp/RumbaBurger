@@ -24,15 +24,21 @@ public:
     Result<bool> deleteDish( DishDto );
     Result<DishDto> getDishById( DishDto );
     Result<QList<DishDto>> getAllDish();
-    Result<DishDto> getDishByName( DishDto );
-    Result<int> howManyDishes( int idDish );
+    Result<DishDto> getDishByName( DishDto dish );
+    //Result<int> howManyDishes( int idDish );
     Result<double>totalToPay( QList<DishAmountDto> );
     Result<double>getPrice(int idDish);
     Result<bool> discountProductFromDish( int idDish, double amount, bool type );
     Result<double> totalProfit(QList<DishAmountDto>);
-    Result<double> individualProfit( int idDish );
     Result<double> productionCost( int idDish );
-
+    Result<double> getPrecioSugerido( int idDish );
+    Result<double> getPrecioProduccion( int idDish );
+    Result<QList<DishDto>> getDishBySearch( QString search );
+    Result<double> getGanancia( int idDish );
+    Result<int> getSalen( int idDish );
+    Result<bool> hasIngredient( int idDish, int idProduct );
+    Result<bool> updateDish( DishDto d );
+    Result<bool> deleteIngredients( int idDish );
 };
 
 #endif // DISHSERVICE_H

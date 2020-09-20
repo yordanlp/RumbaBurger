@@ -13,7 +13,6 @@ form_compra::form_compra(QWidget *parent) :
     ProductService productService;
     QStringList products = productService.getAllProductsToString().data;
     connect(ui->cb_product, SIGNAL(currentTextChanged(QString)), this, SLOT(updateRadioButtons(QString)));
-    //connect(ui->cb_product,SIGNAL(currentIndexChanged(QString)), this, SLOT(updateRadioButtons(QString)));
     QCompleter *completer = new QCompleter(products,this);
     ui->cb_product->setCompleter(completer);
     ui->sb_merma->setEnabled(false);
@@ -93,10 +92,7 @@ void form_compra::on_pb_aceptar_clicked()
     }
 
     double realCant = cant - merma;
-    double price = ui->sb_precio->value();
-    double pricePerUnit = 0;
-    if( realCant > 0 )
-         pricePerUnit = price / realCant;
+    double pricePerUnit = ui->sb_precio->value();
 
     weigth from = G;
     if( product.data.unitType == 1 ){

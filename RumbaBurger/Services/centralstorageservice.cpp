@@ -192,3 +192,28 @@ Result<bool> centralStorageService::moveToLocal(int idProduct, double amount)
     res.res = FAIL;
     return res;
 }
+
+Result<bool> centralStorageService::extract(int idProduct, double amount)
+{
+    Result<bool> res;
+    auto ret = getCentralStorageById(idProduct);
+    if( ret.res != SUCCESS ){
+        res.res = ret.res;
+        res.msg = ret.msg;
+        return res;
+    }
+    double newAmount = ret.data.amount - amount;
+    if( newAmount < 0 ){
+        res.res = INSUFICIENT_AMOUNT;
+        return res;
+    }
+    auto upd = updateCentralStorageById(centralStorageDto(idProduct, newAmount));
+
+    if( upd.res != SUCCESS ){
+        res.res = upd.res;
+        res.msg = upd.msg;
+        return res;
+    }
+    res.res = SUCCESS;
+    return res;
+}

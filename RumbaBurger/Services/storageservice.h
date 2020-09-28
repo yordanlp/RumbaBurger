@@ -21,10 +21,11 @@ public:
     Result<storageDto> getStorageById(int);
     Result<bool> updateStorageById(storageDto);
     //Requisitos funcionales
-    Result<bool> modifyStorage(int,double,bool);
+    Result<bool> modifyStorage(int, double, int);
     storageTransactionService storageTransactionServiceObject;
     Result<QList<StorageProductDto>> getLocalStorageBySearch(QString search="");
     Result<bool> moveToCentral( int _id, int _amount );
+    Result<bool> updateStorage( int productId, double amount, int type );
 
 };
 

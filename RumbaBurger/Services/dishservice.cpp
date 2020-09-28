@@ -1,4 +1,5 @@
 #include "dishservice.h"
+#include <Services/dishversionsservice.h>
 
 
 DishService::DishService()
@@ -6,21 +7,45 @@ DishService::DishService()
 
 }
 
-Result<bool> DishService::insertDish(DishDto d){
-    Result<bool> res;
+Result<int> DishService::insertDish(DishDto d){
+    Result<int> res;
     QSqlQuery query;
+
+    int parent = d.id;
+
     query.prepare("INSERT INTO dish (dishName, description, price) VALUES (:dishName, :description, :price)");
     query.bindValue(":dishName", d.dishname);
     query.bindValue(":description", d.description);
     query.bindValue(":price", d.price);
 
+
     if( query.exec() ) {
+
         res.res = result::SUCCESS;
+        d.id = query.lastInsertId().toInt();
+        res.data = d.id;
+
+        DishVersionsService dishVersiosService;
+        dishVersiosService.createVersion(d);
+
+        if( parent >= 0 ){
+            IngredientsService ingredientsService;
+            IngredientsDto idto;
+            idto.idDish = parent;
+            auto ing = ingredientsService.getIngredientsByDishId(idto);
+            foreach (auto i, ing.data) {
+                auto idto = i;
+                idto.idDish = d.id;
+                ingredientsService.insertIngredient( idto );
+            }
+        }
+
         return res;
     }
     res.res = result::FAIL;
     res.msg = "ERROR insertDish: " + query.lastError().text();
     qDebug() << "ERROR insertDish: " << query.lastError().text();
+
     return res;
 }
 
@@ -28,7 +53,7 @@ Result<bool> DishService::deleteDish(DishDto d){
     Result<bool> res;
     QSqlQuery query;
 
-    deleteIngredients(d.id);
+    //deleteIngredients(d.id);
 
     query.prepare("DELETE FROM dish WHERE id = :id");
     query.bindValue(":id", d.id);
@@ -152,7 +177,7 @@ Result<double> DishService::totalToPay(QList<DishAmountDto> L){
     return res;
 }
 
-Result<bool> DishService::discountProductFromDish(int idDish, double amount, bool type){
+Result<bool> DishService::discountProductFromDish(int idDish, double amount, int type){
     Result<bool>res;
     IngredientsService ingredientsService;
     storageService StorageService;
@@ -160,7 +185,7 @@ Result<bool> DishService::discountProductFromDish(int idDish, double amount, boo
     auto products = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0)).data;
 
     foreach (auto p, products) {
-        StorageService.modifyStorage(p.idProduct, amount * p.amount, type);
+        StorageService.updateStorage(p.idProduct, amount * p.amount, type);
     }
 
     return res;
@@ -302,21 +327,13 @@ Result<bool> DishService::hasIngredient(int idDish, int idProduct)
 
 }
 
-Result<bool> DishService::updateDish(DishDto d)
+Result<int> DishService::updateDish(DishDto d)
 {
-    Result<bool>res;
-    QSqlQuery query;
-    query.prepare("UPDATE dish set dishName = :dishName, description = :description, price=:price WHERE id = :id");
-    query.bindValue(":dishName", d.dishname);
-    query.bindValue(":description", d.description);
-    query.bindValue(":price", d.price);
-    query.bindValue(":id", d.id);
-    if( !query.exec() ){
-        res.res = FAIL;
-        res.msg = "updateDish " + query.lastError().text();
-        qDebug() << "updateDish " + query.lastError().text();
-        return res;
-    }
+    Result<int>res;
+
+    auto ins = insertDish( d );
+    deleteDish(d);
+    res.data = ins.data;
     res.res = SUCCESS;
     return res;
 }
@@ -333,6 +350,19 @@ Result<bool> DishService::deleteIngredients(int idDish)
         qDebug() << "deleteIngredients " + query.lastError().text();
         return res;
     }
+    res.res = SUCCESS;
+    return res;
+}
+
+Result< QStringList > DishService::getAllDishToString()
+{
+    Result<QStringList> res;
+    QStringList L;
+    auto r = getAllDish();
+    foreach (auto d, r.data) {
+        L << d.dishname;
+    }
+    res.data = L;
     res.res = SUCCESS;
     return res;
 }

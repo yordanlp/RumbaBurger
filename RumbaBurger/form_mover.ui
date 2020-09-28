@@ -44,7 +44,11 @@
          </widget>
         </item>
         <item row="6" column="1">
-         <widget class="QDoubleSpinBox" name="sb_cantidad"/>
+         <widget class="QDoubleSpinBox" name="sb_cantidad">
+          <property name="maximum">
+           <double>1000000000.990000009536743</double>
+          </property>
+         </widget>
         </item>
         <item row="3" column="1">
          <widget class="QRadioButton" name="rb_gramos">

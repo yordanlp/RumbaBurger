@@ -42,3 +42,28 @@ void Principal::on_actionOfertas_triggered()
     mdi->addSubWindow(formOfertas);
     formOfertas->showMaximized();
 }
+
+void Principal::on_actionInsertar_orden_triggered()
+{
+    formInsOrden = new form_insertarorden(this);
+    formInsOrden->show();
+}
+
+void Principal::on_actionMostrarOrden_triggered()
+{
+    qDebug() << "mostrar ordenes";
+    mdi->closeAllSubWindows();
+    formOrdenes = new form_ordenes(this);
+    mdi->addSubWindow(formOrdenes);
+    formOrdenes->showMaximized();
+}
+
+void Principal::on_actionOrdenes_triggered()
+{
+    on_actionMostrarOrden_triggered();
+}
+
+void Principal::on_actionGastos_triggered()
+{
+
+}

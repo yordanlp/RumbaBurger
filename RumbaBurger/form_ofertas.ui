@@ -185,6 +185,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="maximum">
+     <double>1000000000.990000009536743</double>
+    </property>
    </widget>
    <widget class="QGroupBox" name="gb_detalles">
     <property name="geometry">
@@ -325,6 +328,9 @@
        <height>22</height>
       </rect>
      </property>
+     <property name="maximum">
+      <double>1000000000.990000009536743</double>
+     </property>
     </widget>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
@@ -386,6 +392,9 @@
        <width>101</width>
        <height>22</height>
       </rect>
+     </property>
+     <property name="maximum">
+      <double>1000000000.990000009536743</double>
      </property>
     </widget>
     <widget class="QLabel" name="l_precioSugerido">

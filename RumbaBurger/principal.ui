@@ -47,10 +47,10 @@
      <property name="title">
       <string>Acciones</string>
      </property>
-     <addaction name="actionInsertar_rden"/>
+     <addaction name="actionInsertar_orden"/>
      <addaction name="actionEliminar_orden"/>
     </widget>
-    <addaction name="actionMostrar_2"/>
+    <addaction name="actionMostrarOrden"/>
     <addaction name="menuAcciones_2"/>
    </widget>
    <widget class="QMenu" name="menuAlmacen">
@@ -87,7 +87,8 @@
    <addaction name="actionAlmacenes"/>
    <addaction name="actionOfertas"/>
    <addaction name="actionOrdenes"/>
-   <addaction name="actionReportes"/>
+   <addaction name="actionGastos"/>
+   <addaction name="actionEstadisticas"/>
   </widget>
   <action name="actionPrincipal">
    <property name="text">
@@ -134,12 +135,12 @@
     <string>Modificar Plato</string>
    </property>
   </action>
-  <action name="actionMostrar_2">
+  <action name="actionMostrarOrden">
    <property name="text">
     <string>Mostrar</string>
    </property>
   </action>
-  <action name="actionInsertar_rden">
+  <action name="actionInsertar_orden">
    <property name="text">
     <string>Insertar orden</string>
    </property>
@@ -174,9 +175,17 @@
     <string>Ordenes</string>
    </property>
   </action>
-  <action name="actionReportes">
+  <action name="actionEstadisticas">
    <property name="text">
-    <string>Reportes</string>
+    <string>Estadísticas</string>
+   </property>
+   <property name="toolTip">
+    <string>Estadísticas</string>
+   </property>
+  </action>
+  <action name="actionGastos">
+   <property name="text">
+    <string>Gastos</string>
    </property>
   </action>
  </widget>

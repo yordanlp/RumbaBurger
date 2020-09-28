@@ -18,7 +18,7 @@ Result<bool> OrderDishService::insertOrderDish(OrderDishDto od){
 
     if( query.exec() ) {
         res.res = result::SUCCESS;
-        dishService.discountProductFromDish(od.idDish, od.amount, 0);
+        res.msg = dishService.discountProductFromDish(od.idDish, od.amount, -1).msg;
         return res;
     }
     res.res = result::FAIL;
@@ -30,11 +30,13 @@ Result<bool> OrderDishService::insertOrderDish(OrderDishDto od){
 Result<bool> OrderDishService::deleteOrderDish(OrderDishDto od){
     Result<bool> res;
     QSqlQuery query;
+    DishService dishService;
     query.prepare("DELETE FROM orderDish WHERE idOrder = :idOrder AND idDish = :idDish");
     query.bindValue(":idOrder", od.idOrder);
     query.bindValue(":idDish", od.idDish);
     if( query.exec() ){
         res.res = result::SUCCESS;
+        res.msg = dishService.discountProductFromDish(od.idDish, od.amount, 1).msg;
         return res;
     }
     res.res = result::FAIL;
@@ -43,22 +45,14 @@ Result<bool> OrderDishService::deleteOrderDish(OrderDishDto od){
     return res;
 }
 
-Result<bool> OrderDishService::insertOrderDishes(QList<DishAmountDto> L, bool payed, int orderNumber){
+Result<bool> OrderDishService::insertOrderDishes(int orderId, QList<DishAmountDto> L){
     DishService dishService;
-    OrderService orderService;
-    OrderDto o;
-    o.orderNumber = orderNumber;
-    o.date = QDate::currentDate();
-    o.payed = payed;
-    o.profit = dishService.totalProfit(L).data;
-    o.total = dishService.totalToPay(L).data;
-    int idOrder = orderService.insertOrder(o).data;
     foreach (auto d, L) {
         OrderDishDto od;
         od.idDish = d.idDish;
-        od.idOrder = idOrder;
+        od.idOrder = orderId;
         od.amount = d.amount;
-        od.price = dishService.getPrice(d.idDish).data * d.amount;
+        od.price = dishService.getPrice(d.idDish).data;
         insertOrderDish(od);
     }
     Result<bool>res;

@@ -92,7 +92,7 @@ void form_compra::on_pb_aceptar_clicked()
     }
 
     double realCant = cant - merma;
-    double pricePerUnit = ui->sb_precio->value();
+    double precioTotal = ui->sb_precio->value();
 
     weigth from = G;
     if( product.data.unitType == 1 ){
@@ -100,6 +100,10 @@ void form_compra::on_pb_aceptar_clicked()
         if( ui->rb_kilogramos->isChecked() ) from = KG;
         if( ui->rb_libras->isChecked() ) from = LB;
     }
+
+    double pricePerUnit = 0;
+    if( realCant > 0 )
+        pricePerUnit = precioTotal / realCant;
 
     realCant = utiles::convertPeso(from, G, realCant);
     merma = utiles::convertPeso(from, G, merma);

@@ -21,6 +21,9 @@ public:
     Result<QList<OrderDto>> getOrderbyDate( QDate start, QDate end );
     Result<bool> updateOrder( OrderDto );
     Result<bool> restoreIngredientsFromDishes(int idOrder);
+    Result<bool> existOrderNumber(int orderNumber, QDate date );
+    Result<QStringList> validateDishes( QList<DishAmountDto> L );
+    Result<OrderDto> getOrderByOrderNumberAndDate( int orderNumber, QDate date );
 };
 
 #endif // ORDERSERVICE_H

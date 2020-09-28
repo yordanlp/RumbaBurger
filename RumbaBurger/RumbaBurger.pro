@@ -60,13 +60,15 @@ SOURCES += main.cpp\
     form_ofertas.cpp \
     form_insertaroferta.cpp \
     form_eliminaroferta.cpp \
-    form_getoferta.cpp \
     form_modificaroferta.cpp \
     Dto/storageproductdto.cpp \
     Services/localstorageservice.cpp \
     Dto/localstoragedto.cpp \
     form_ordenes.cpp \
-    form_extraercentral.cpp
+    form_extraercentral.cpp \
+    form_insertarorden.cpp \
+    form_gastos.cpp \
+    Services/dishversionsservice.cpp
 
 HEADERS  += \
     login.h \
@@ -104,13 +106,15 @@ HEADERS  += \
     form_ofertas.h \
     form_insertaroferta.h \
     form_eliminaroferta.h \
-    form_getoferta.h \
     form_modificaroferta.h \
     Dto/storageproductdto.h \
     Services/localstorageservice.h \
     Dto/localstoragedto.h \
     form_ordenes.h \
-    form_extraercentral.h
+    form_extraercentral.h \
+    form_insertarorden.h \
+    form_gastos.h \
+    Services/dishversionsservice.h
 
 FORMS    += \
     login.ui \
@@ -123,7 +127,8 @@ FORMS    += \
     form_ofertas.ui \
     form_insertaroferta.ui \
     form_eliminaroferta.ui \
-    form_getoferta.ui \
     form_modificaroferta.ui \
     form_ordenes.ui \
-    form_extraercentral.ui
+    form_extraercentral.ui \
+    form_insertarorden.ui \
+    form_gastos.ui

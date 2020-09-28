@@ -1,15 +1,21 @@
 #include "ingredientsservice.h"
+#include <Services/dishservice.h>
 
 IngredientsService::IngredientsService()
 {
 
 }
 
-Result<bool> IngredientsService::insertIngredient(IngredientsDto i){
-    Result<bool> res;
+Result<int> IngredientsService::insertIngredient(IngredientsDto i){
+    Result<int> res;
     QSqlQuery query;
+    DishService dishService;
+    DishDto dto = dishService.getDishById( DishDto(i.idDish,"","",0) ).data;
+    dishService.deleteDish( dto );
+    auto idd = dishService.insertDish( dto ).data;
+    res.data = idd;
     query.prepare("INSERT INTO ingredients (idDish, idProduct, amount) VALUES (:idDish, :idProduct, :amount)");
-    query.bindValue(":idDish", i.idDish);
+    query.bindValue(":idDish", idd);
     query.bindValue(":idProduct", i.idProduct);
     query.bindValue(":amount", i.amount);
 
@@ -25,9 +31,15 @@ Result<bool> IngredientsService::insertIngredient(IngredientsDto i){
 
 Result<bool> IngredientsService::deleteIngredient(IngredientsDto i){
     Result<bool>res;
+
+    DishService dishService;
+    DishDto dto = dishService.getDishById( DishDto(i.idDish,"","",0) ).data;
+    dishService.deleteDish( dto );
+    auto idd = dishService.insertDish( dto ).data;
+
     QSqlQuery query;
     query.prepare("DELETE FROM ingredients WHERE idDish = :idDish AND idProduct=:idProduct");
-    query.bindValue(":idDish", i.idDish);
+    query.bindValue(":idDish", idd);
     query.bindValue(":idProduct", i.idProduct);
     if( query.exec() ) {
         res.res = result::SUCCESS;

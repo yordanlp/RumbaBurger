@@ -86,7 +86,7 @@ Result<bool> storageService::updateStorageById( storageDto p){
 }
 
 
-Result<bool> storageService::modifyStorage( int id, double cant, bool type){
+Result<bool> storageService::modifyStorage( int id, double cant, int type){
     Result<bool> res;
     storageDto p = getStorageById(id).data;
     if(type == 1)
@@ -171,6 +171,36 @@ Result<bool> storageService::moveToCentral(int _id, int _amount)
 
 
     res.res = FAIL;
+    return res;
+}
+
+Result<bool> storageService::updateStorage(int productId, double amount, int type)
+{
+    Result<bool> res;
+    storageDto p = getStorageById(productId).data;
+    if(type == 1)
+        p.amount += amount;
+    else
+        p.amount -= amount;
+
+    if(p.amount<0){
+        res.res = result::FAIL;
+        res.msg = "No hay producto suficiente en el almacen local";
+        return res;
+    }
+
+    updateStorageById(p);
+    res.res = SUCCESS;
+
+    /*storageTransactionDto st;
+    st.idProduct = p.id;
+    st.type = type;
+    st.date = QDate::currentDate();
+    st.amount = cant;
+    st.idUser = UserService::loggedUser;
+    Result<bool> b = storageTransactionServiceObject.insertStorageTransaction(st);
+    res.res = result::SUCCESS;
+    res.data = b.data;*/
     return res;
 }
 

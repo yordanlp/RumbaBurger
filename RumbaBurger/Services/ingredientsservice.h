@@ -13,7 +13,7 @@ class IngredientsService
 {
 public:
     IngredientsService();
-    Result<bool> insertIngredient( IngredientsDto );
+    Result<int> insertIngredient( IngredientsDto );
     Result<bool> deleteIngredient( IngredientsDto );
     Result<QList<IngredientsDto>> getIngredientsByDishId(IngredientsDto);
     Result<QList<IngredientsDto>> getDishByProductId(IngredientsDto);

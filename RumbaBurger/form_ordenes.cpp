@@ -4,6 +4,7 @@
 #include <Services/orderdishservice.h>
 #include <QCheckBox>
 #include <QMessageBox>
+#include <Services/dishversionsservice.h>
 
 form_ordenes::form_ordenes(QWidget *parent) :
     QDialog(parent),
@@ -12,6 +13,7 @@ form_ordenes::form_ordenes(QWidget *parent) :
     ui->setupUi(this);
     ui->de_final->setDate(QDate::currentDate());
     connect(ui->pb_filtrar,SIGNAL(clicked(bool)), this, SLOT(filtrar()));
+    connect(ui->tw_platos, SIGNAL(cellClicked(int,int)), this, SLOT(updateIngredients()));
     filtrar();
 }
 
@@ -24,6 +26,7 @@ void form_ordenes::filtrar(){
     QDate ini = ui->de_inicial->date(), fin = ui->de_final->date();
     if( ini > fin ){
         ui->tw_ordenes->setRowCount(0);
+        updateOrders(QList<OrderDto>());
         return;
     }
 
@@ -31,7 +34,55 @@ void form_ordenes::filtrar(){
     auto orders = orderService.getOrderbyDate(ini, fin);
 
     updateOrders( orders.data );
-    updatePlatos(-1);
+
+
+}
+
+void form_ordenes::updateIngredients(){
+    int orderRow = ui->tw_ordenes->currentRow();
+    int dishRow = ui->tw_platos->currentRow();
+    qDebug() << "ingredientes" << orderRow << dishRow;
+    if( orderRow < 0 || dishRow < 0 ){
+        ui->tw_ingredientes->clearContents();
+        ui->tw_ingredientes->setRowCount(0);;
+        ui->tw_ingredientes->setEnabled(false);
+        return;
+    }
+    ui->tw_ingredientes->setEnabled(true);
+
+    OrderService orderService;
+    //DishVersionsService dishVersionsService;
+    IngredientsService ingredientsService;
+    OrderDishService orderDishService;
+    DishService dishService;
+    int orderNumber = ui->tw_ordenes->item(orderRow, 1)->text().toInt();
+    QDate orderDate = utiles::stringToDate(ui->tw_ordenes->item(orderRow, 0)->text());
+    auto order = orderService.getOrderByOrderNumberAndDate(orderNumber, orderDate);
+    QString dishName = ui->tw_platos->item(dishRow,0)->text();
+    auto dish = dishService.getDishByOrderAndName(order.data.id, dishName);
+    IngredientsDto idto;
+    idto.idDish = dish.data.id;
+    auto ingredients = ingredientsService.getIngredientsByDishId(idto);
+
+    ProductService productService;
+    ui->tw_ingredientes->setRowCount(ingredients.data.size());
+    Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    int row = 0;
+    foreach (auto i, ingredients.data) {
+        ProductDto p;
+        p.id = i.idProduct;
+        QString productName = productService.getProductByID(p).data.productName;
+        double amount = i.amount;
+        QTableWidgetItem *name = new QTableWidgetItem(productName);
+        name->setFlags(flags);
+        QTableWidgetItem *cant = new QTableWidgetItem(QString::number(amount));
+        cant->setFlags(flags);
+
+        ui->tw_ingredientes->setItem(row, 0, name);
+        ui->tw_ingredientes->setItem(row, 1, cant);
+        row++;
+    }
+
 }
 
 void form_ordenes::updateOrders( QList<OrderDto> orders ){
@@ -61,6 +112,7 @@ void form_ordenes::updateOrders( QList<OrderDto> orders ){
         ui->tw_ordenes->setItem(row,3,ingreso);
         row++;
     }
+    updatePlatos(-1);
 }
 
 
@@ -77,6 +129,7 @@ void form_ordenes::updatePlatos(int row){
         ui->tw_platos->setEnabled(false);
         ui->tw_platos->clearContents();
         ui->tw_platos->setRowCount(0);
+        updateIngredients();
         return;
     }
     ui->tw_platos->setEnabled(true);
@@ -107,6 +160,7 @@ void form_ordenes::updatePlatos(int row){
         ui->tw_platos->setItem(fila, 3, preciototal);
         fila++;
     }
+    updateIngredients();
 }
 
 void form_ordenes::on_tw_ordenes_clicked(const QModelIndex &index)

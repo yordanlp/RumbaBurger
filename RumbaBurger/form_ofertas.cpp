@@ -267,12 +267,12 @@ void form_ofertas::on_pb_insIngrediente_clicked()
         return;
     }
 
-    int id = ingredientsService.insertIngredient(IngredientsDto(dish.data.id, pr.data.id, cantidad )).data;
+    auto newDish = ingredientsService.insertIngredient(IngredientsDto(dish.data.id, pr.data.id, cantidad )).data;
 
 
-    updateIngredientes(id);
-    updatePrecioProduccion(id);
-    updatePrecioSugerido(id);
+    updateIngredientes(newDish.id);
+    updatePrecioProduccion(newDish.id);
+    updatePrecioSugerido(newDish.id);
     updateOfertas(ui->le_search->text(), rowSelected);
 }
 
@@ -310,7 +310,7 @@ void form_ofertas::on_pb_guardar_clicked()
     QString name = ui->tw_ofertas->item(rowSelected, 0)->text();
     auto dish = dishService.getDishByName(DishDto(0,name,"",0));
     qDebug() << dish.data.id;
-    int id = dishService.updateDish(DishDto(dish.data.id, dishName, descripcion, precio)).data;
+    auto newDish = dishService.updateDish(DishDto(dish.data.id, dishName, descripcion, precio)).data;
     updateOfertas(ui->le_search->text(),rowSelected);
     updateAll();
 }

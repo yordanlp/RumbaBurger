@@ -20,7 +20,7 @@ class DishService
 {
 public:
     DishService();
-    Result<int> insertDish( DishDto );
+    Result<DishDto> insertDish( DishDto );
     Result<bool> deleteDish( DishDto );
     Result<DishDto> getDishById( DishDto );
     Result<QList<DishDto>> getAllDish();
@@ -37,9 +37,10 @@ public:
     Result<double> getGanancia( int idDish );
     Result<int> getSalen( int idDish );
     Result<bool> hasIngredient( int idDish, int idProduct );
-    Result<int> updateDish( DishDto d );
+    Result<DishDto> updateDish( DishDto d );
     Result<bool> deleteIngredients( int idDish );
     Result<QStringList> getAllDishToString();
+    Result<DishDto> getDishByOrderAndName( int orderId, QString dishName );
 };
 
 #endif // DISHSERVICE_H

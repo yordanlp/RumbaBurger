@@ -20,8 +20,10 @@ public:
     void updateOrders(QList<OrderDto> orders);
     void updatePlatos( int row );
 
+
 private slots:
     void filtrar();
+    void updateIngredients();
 
     void on_pb_insertarorden_clicked();
 

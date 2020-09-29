@@ -6,16 +6,17 @@ IngredientsService::IngredientsService()
 
 }
 
-Result<int> IngredientsService::insertIngredient(IngredientsDto i){
-    Result<int> res;
+Result<DishDto> IngredientsService::insertIngredient( IngredientsDto i, bool mkcopy ){
+    Result<DishDto> res;
     QSqlQuery query;
     DishService dishService;
     DishDto dto = dishService.getDishById( DishDto(i.idDish,"","",0) ).data;
-    dishService.deleteDish( dto );
-    auto idd = dishService.insertDish( dto ).data;
-    res.data = idd;
+    DishDto newDish = dto;
+    if( mkcopy )
+        newDish = dishService.insertDish( dto ).data;
+    res.data = newDish;
     query.prepare("INSERT INTO ingredients (idDish, idProduct, amount) VALUES (:idDish, :idProduct, :amount)");
-    query.bindValue(":idDish", idd);
+    query.bindValue(":idDish", newDish.id);
     query.bindValue(":idProduct", i.idProduct);
     query.bindValue(":amount", i.amount);
 
@@ -29,17 +30,16 @@ Result<int> IngredientsService::insertIngredient(IngredientsDto i){
     return res;
 }
 
-Result<bool> IngredientsService::deleteIngredient(IngredientsDto i){
-    Result<bool>res;
+Result<DishDto> IngredientsService::deleteIngredient(IngredientsDto i){
+    Result<DishDto>res;
 
     DishService dishService;
     DishDto dto = dishService.getDishById( DishDto(i.idDish,"","",0) ).data;
-    dishService.deleteDish( dto );
     auto idd = dishService.insertDish( dto ).data;
 
     QSqlQuery query;
     query.prepare("DELETE FROM ingredients WHERE idDish = :idDish AND idProduct=:idProduct");
-    query.bindValue(":idDish", idd);
+    query.bindValue(":idDish", idd.id);
     query.bindValue(":idProduct", i.idProduct);
     if( query.exec() ) {
         res.res = result::SUCCESS;

@@ -7,11 +7,12 @@ DishService::DishService()
 
 }
 
-Result<int> DishService::insertDish(DishDto d){
-    Result<int> res;
+Result<DishDto> DishService::insertDish(DishDto d){
+    Result<DishDto> res;
     QSqlQuery query;
 
     int parent = d.id;
+    res.data = d;
 
     query.prepare("INSERT INTO dish (dishName, description, price) VALUES (:dishName, :description, :price)");
     query.bindValue(":dishName", d.dishname);
@@ -22,11 +23,10 @@ Result<int> DishService::insertDish(DishDto d){
     if( query.exec() ) {
 
         res.res = result::SUCCESS;
-        d.id = query.lastInsertId().toInt();
-        res.data = d.id;
+        res.data.id = query.lastInsertId().toInt();
 
         DishVersionsService dishVersiosService;
-        dishVersiosService.createVersion(d);
+        dishVersiosService.createVersion(res.data);
 
         if( parent >= 0 ){
             IngredientsService ingredientsService;
@@ -35,10 +35,13 @@ Result<int> DishService::insertDish(DishDto d){
             auto ing = ingredientsService.getIngredientsByDishId(idto);
             foreach (auto i, ing.data) {
                 auto idto = i;
-                idto.idDish = d.id;
-                ingredientsService.insertIngredient( idto );
+                idto.idDish = res.data.id;
+                ingredientsService.insertIngredient( idto, false );
             }
         }
+
+        if( parent >= 0 )
+            deleteDish( d );
 
         return res;
     }
@@ -327,12 +330,10 @@ Result<bool> DishService::hasIngredient(int idDish, int idProduct)
 
 }
 
-Result<int> DishService::updateDish(DishDto d)
+Result<DishDto> DishService::updateDish(DishDto d)
 {
-    Result<int>res;
-
+    Result<DishDto>res;
     auto ins = insertDish( d );
-    deleteDish(d);
     res.data = ins.data;
     res.res = SUCCESS;
     return res;
@@ -364,5 +365,28 @@ Result< QStringList > DishService::getAllDishToString()
     }
     res.data = L;
     res.res = SUCCESS;
+    return res;
+}
+
+Result<DishDto> DishService::getDishByOrderAndName(int orderId, QString dishName)
+{
+    Result<DishDto> res;
+    QSqlQuery query;
+    query.prepare("SELECT dishVersions.id, dishVersions.dishName, dishVersions.description, dishVersions.price FROM orderDish INNER JOIN dishVersions ON orderDish.idDish = dishVersions.id WHERE idOrder = :orderId AND dishName = :dishName");
+    query.bindValue(":orderId", orderId);
+    query.bindValue(":dishName", dishName);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = "getDishByOrderAndName " + query.lastError().text();
+        qDebug() << "getDishByOrderAndName " + query.lastError().text();
+        return res;
+    }
+    if( !query.next() ){
+        res.res = RECORD_NOT_FOUND;
+        return res;
+    }
+
+    res.res = SUCCESS;
+    res.data = DishDto(query.value(0).toInt(),query.value(1).toString(),query.value(2).toString(), query.value(3).toDouble());
     return res;
 }

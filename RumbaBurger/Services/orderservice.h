@@ -24,6 +24,9 @@ public:
     Result<bool> existOrderNumber(int orderNumber, QDate date );
     Result<QStringList> validateDishes( QList<DishAmountDto> L );
     Result<OrderDto> getOrderByOrderNumberAndDate( int orderNumber, QDate date );
+    Result<double> getGanancia( int orderId );
+    Result<double> getInversion( int orderId );
+
 };
 
 #endif // ORDERSERVICE_H

@@ -41,6 +41,8 @@ public:
     Result<bool> deleteIngredients( int idDish );
     Result<QStringList> getAllDishToString();
     Result<DishDto> getDishByOrderAndName( int orderId, QString dishName );
+    Result<double> getGananciaSinImpuesto( int idDish );
+    Result<double> totalProfitSinImpuesto( QList<DishAmountDto> L );
 };
 
 #endif // DISHSERVICE_H

@@ -207,6 +207,7 @@ Result<double> DishService::totalProfit(QList<DishAmountDto> L){
     return res;
 }
 
+
 Result<double> DishService::productionCost(int idDish){
     IngredientsService ingredientsService;
     ProductService productService;
@@ -281,12 +282,12 @@ Result<double> DishService::getGanancia(int idDish)
     res.data = 0;
     double ganancia = 0;
     double precio = getPrice(idDish).data;
-    precio -= utiles::IMPUESTO * precio;
     ganancia = precio - getPrecioProduccion(idDish).data;
     res.res = SUCCESS;
     res.data = ganancia;
     return res;
 }
+
 
 Result<int> DishService::getSalen(int idDish)
 {

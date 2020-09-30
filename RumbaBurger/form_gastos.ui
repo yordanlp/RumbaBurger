@@ -19,7 +19,7 @@
      <property name="title">
       <string>Gastos</string>
      </property>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tw_gastos">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -70,7 +70,7 @@
        <string>Fecha Final</string>
       </property>
      </widget>
-     <widget class="QDateEdit" name="dateEdit">
+     <widget class="QDateEdit" name="de_inicial">
       <property name="geometry">
        <rect>
         <x>150</x>
@@ -83,7 +83,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pb_filtrar">
       <property name="geometry">
        <rect>
         <x>550</x>
@@ -96,7 +96,7 @@
        <string>Filtrar</string>
       </property>
      </widget>
-     <widget class="QDateEdit" name="dateEdit_2">
+     <widget class="QDateEdit" name="de_final">
       <property name="geometry">
        <rect>
         <x>400</x>
@@ -115,7 +115,7 @@
         <x>570</x>
         <y>180</y>
         <width>401</width>
-        <height>301</height>
+        <height>231</height>
        </rect>
       </property>
       <property name="title">
@@ -134,7 +134,7 @@
         <string>Descripción</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="le_descripcion">
        <property name="geometry">
         <rect>
          <x>130</x>
@@ -148,7 +148,7 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>180</y>
+         <y>160</y>
          <width>55</width>
          <height>16</height>
         </rect>
@@ -170,7 +170,7 @@
         <string>Fecha</string>
        </property>
       </widget>
-      <widget class="QDateEdit" name="dateEdit_3">
+      <widget class="QDateEdit" name="de_fecha">
        <property name="geometry">
         <rect>
          <x>130</x>
@@ -178,6 +178,32 @@
          <width>110</width>
          <height>22</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="sb_importe">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>160</y>
+         <width>91</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="maximum">
+        <double>1000000000000000.000000000000000</double>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_insertar">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>180</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Insertar</string>
        </property>
       </widget>
      </widget>

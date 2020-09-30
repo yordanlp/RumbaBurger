@@ -68,7 +68,8 @@ SOURCES += main.cpp\
     form_extraercentral.cpp \
     form_insertarorden.cpp \
     form_gastos.cpp \
-    Services/dishversionsservice.cpp
+    Services/dishversionsservice.cpp \
+    form_reportes.cpp
 
 HEADERS  += \
     login.h \
@@ -114,7 +115,8 @@ HEADERS  += \
     form_extraercentral.h \
     form_insertarorden.h \
     form_gastos.h \
-    Services/dishversionsservice.h
+    Services/dishversionsservice.h \
+    form_reportes.h
 
 FORMS    += \
     login.ui \
@@ -131,4 +133,5 @@ FORMS    += \
     form_ordenes.ui \
     form_extraercentral.ui \
     form_insertarorden.ui \
-    form_gastos.ui
+    form_gastos.ui \
+    form_reportes.ui

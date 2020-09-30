@@ -172,3 +172,31 @@ Result<OrderDto> OrderService::getOrderByOrderNumberAndDate(int orderNumber, QDa
     }
     return res;
 }
+
+Result<double> OrderService::getGanancia(int orderId){
+    Result<double> res;
+    DishService dishService;
+    OrderDishService orderDishService;
+    auto dishes = orderDishService.getDishesByOrderId(orderId);
+    QList<DishAmountDto> L;
+    foreach (auto d, dishes.data) {
+        L << DishAmountDto( d.idDish, d.amount );
+    }
+    res.data = dishService.totalProfit(L).data;
+    res.res = SUCCESS;
+    return res;
+}
+
+Result<double> OrderService::getInversion(int orderId){
+    Result<double> res;
+    res.data = 0;
+    DishService dishService;
+    OrderDishService orderDishService;
+    auto dishes = orderDishService.getDishesByOrderId(orderId);
+    QList<DishAmountDto> L;
+    foreach (auto d, dishes.data) {
+        res.data += dishService.productionCost(d.idDish).data * d.amount;
+    }
+    res.res = SUCCESS;
+    return res;
+}

@@ -61,9 +61,23 @@ void Principal::on_actionMostrarOrden_triggered()
 void Principal::on_actionOrdenes_triggered()
 {
     on_actionMostrarOrden_triggered();
+
 }
 
 void Principal::on_actionGastos_triggered()
 {
+    qDebug() << "mostrar gastos";
+    mdi->closeAllSubWindows();
+    formGastos = new form_gastos(this);
+    mdi->addSubWindow(formGastos);
+    formGastos->showMaximized();
+}
 
+void Principal::on_actionEstadisticas_triggered()
+{
+    qDebug() << "mostrar reportes";
+    mdi->closeAllSubWindows();
+    formReportes = new form_reportes(this);
+    mdi->addSubWindow(formReportes);
+    formReportes->showMaximized();
 }

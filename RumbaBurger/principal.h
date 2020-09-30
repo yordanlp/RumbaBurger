@@ -8,6 +8,8 @@
 #include <form_ofertas.h>
 #include <form_insertarorden.h>
 #include <form_ordenes.h>
+#include <form_gastos.h>
+#include <form_reportes.h>
 
 namespace Ui {
 class Principal;
@@ -27,6 +29,8 @@ public:
     form_ofertas *formOfertas;
     form_insertarorden *formInsOrden;
     form_ordenes *formOrdenes;
+    form_gastos *formGastos;
+    form_reportes *formReportes;
 
 private slots:
     void on_actionInsertar_Producto_triggered();
@@ -42,6 +46,8 @@ private slots:
     void on_actionOrdenes_triggered();
 
     void on_actionGastos_triggered();
+
+    void on_actionEstadisticas_triggered();
 
 private:
     Ui::Principal *ui;

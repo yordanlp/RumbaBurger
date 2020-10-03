@@ -9,6 +9,8 @@ Principal::Principal(QWidget *parent) :
     ui->setupUi(this);
     mdi = new QMdiArea(this);
     setCentralWidget(mdi);
+    QLabel *label = new QLabel("Status Bar", this);
+    ui->statusbar->addWidget(label);
 
 }
 

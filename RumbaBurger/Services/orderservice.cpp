@@ -200,3 +200,25 @@ Result<double> OrderService::getInversion(int orderId){
     res.res = SUCCESS;
     return res;
 }
+
+Result<OrderDto> OrderService::getOrderById(int orderId)
+{
+    Result<OrderDto> res;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM 'order' WHERE id=:id");
+    query.bindValue(":id", orderId);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = "Error getOrderById " + query.lastError().text();
+        qDebug() << "Error getOrderById " + query.lastError().text();
+        return res;
+    }
+
+    if( !query.next() ){
+        res.res = RECORD_NOT_FOUND;
+        return res;
+    }
+    res.data = OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt());
+    res.res = SUCCESS;
+    return res;
+}

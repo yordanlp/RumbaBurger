@@ -34,7 +34,6 @@ void form_reportes::filtrar(){
         ui->l_ganancia->setText("Ganancia: 0");
         ui->l_ganancianeta->setText("Ganancia Neta: 0");
         ui->l_importeeventos->setText("Importe");
-        ui->l_importetotal->setText("Importe Total: 0");
         ui->l_ingresos->setText("Ingresos: 0");
         ui->l_inversion->setText("Inversión: 0");
         ui->l_onat->setText("ONAT: 0");

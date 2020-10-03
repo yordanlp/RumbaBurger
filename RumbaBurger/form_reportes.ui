@@ -16,6 +16,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="title">
       <string>Estadísticas</string>
      </property>
@@ -73,6 +76,11 @@
         <width>1261</width>
         <height>381</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QGroupBox{
+	color: black;
+}</string>
       </property>
       <property name="title">
        <string>Órdenes</string>
@@ -272,6 +280,15 @@
       <property name="title">
        <string>Totales Generales</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
       <widget class="QLabel" name="l_onat">
        <property name="geometry">
         <rect>
@@ -285,24 +302,11 @@
         <string>ONAT</string>
        </property>
       </widget>
-      <widget class="QLabel" name="l_importetotal">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>90</y>
-         <width>261</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Importe</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="l_ganancianeta">
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>130</y>
+         <y>80</y>
          <width>271</width>
          <height>16</height>
         </rect>

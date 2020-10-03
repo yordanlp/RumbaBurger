@@ -25,3 +25,48 @@ Result<bool> DishVersionsService::createVersion(DishDto dish){
 
     return res;
 }
+
+Result<DishDto> DishVersionsService::getDishById(int dishId)
+{
+    Result<DishDto>res;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM dishVersions WHERE id = :id");
+    query.bindValue(":id", dishId);
+    if( !query.exec() ){
+        res.res = result::FAIL;
+        res.msg = "DishVersionsService ERROR getDishById:" + query.lastError().text();
+        qDebug() << "DishVersionsService ERROR getDishById:" << query.lastError().text();
+        return res;
+    }
+
+    if( query.next() ){
+        res.res = result::SUCCESS;
+        res.data = DishDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toDouble());
+        return res;
+    }
+    res.res = RECORD_NOT_FOUND;
+    return res;
+}
+
+Result<DishDto> DishVersionsService::getDishByOrderAndName(int orderId, QString dishName)
+{
+    Result<DishDto> res;
+    QSqlQuery query;
+    query.prepare("SELECT dishVersions.id, dishVersions.dishName, dishVersions.description, dishVersions.price FROM orderDish INNER JOIN dishVersions ON orderDish.idDish = dishVersions.id WHERE idOrder = :orderId AND dishName = :dishName");
+    query.bindValue(":orderId", orderId);
+    query.bindValue(":dishName", dishName);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = "getDishByOrderAndName " + query.lastError().text();
+        qDebug() << "getDishByOrderAndName " + query.lastError().text();
+        return res;
+    }
+    if( !query.next() ){
+        res.res = RECORD_NOT_FOUND;
+        return res;
+    }
+
+    res.res = SUCCESS;
+    res.data = DishDto(query.value(0).toInt(),query.value(1).toString(),query.value(2).toString(), query.value(3).toDouble());
+    return res;
+}

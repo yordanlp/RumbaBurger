@@ -369,25 +369,4 @@ Result< QStringList > DishService::getAllDishToString()
     return res;
 }
 
-Result<DishDto> DishService::getDishByOrderAndName(int orderId, QString dishName)
-{
-    Result<DishDto> res;
-    QSqlQuery query;
-    query.prepare("SELECT dishVersions.id, dishVersions.dishName, dishVersions.description, dishVersions.price FROM orderDish INNER JOIN dishVersions ON orderDish.idDish = dishVersions.id WHERE idOrder = :orderId AND dishName = :dishName");
-    query.bindValue(":orderId", orderId);
-    query.bindValue(":dishName", dishName);
-    if( !query.exec() ){
-        res.res = FAIL;
-        res.msg = "getDishByOrderAndName " + query.lastError().text();
-        qDebug() << "getDishByOrderAndName " + query.lastError().text();
-        return res;
-    }
-    if( !query.next() ){
-        res.res = RECORD_NOT_FOUND;
-        return res;
-    }
 
-    res.res = SUCCESS;
-    res.data = DishDto(query.value(0).toInt(),query.value(1).toString(),query.value(2).toString(), query.value(3).toDouble());
-    return res;
-}

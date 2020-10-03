@@ -91,6 +91,9 @@ void form_compra::on_pb_aceptar_clicked()
         return;
     }
 
+    //QMessageBox::information(this, "Información", "")`
+
+
     double realCant = cant - merma;
     double precioTotal = ui->sb_precio->value();
 

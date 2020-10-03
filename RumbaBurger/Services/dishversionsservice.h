@@ -10,6 +10,8 @@ class DishVersionsService
 public:
     DishVersionsService();
     Result<bool> createVersion( DishDto dish );
+    Result<DishDto> getDishById( int dishId );
+    Result<DishDto> getDishByOrderAndName(int orderId, QString dishName);
 };
 
 #endif // DISHVERSIONSSERVICE_H

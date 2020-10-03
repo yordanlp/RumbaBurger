@@ -69,5 +69,6 @@ void form_gastos::on_pb_insertar_clicked()
     expensesService.insertExpenses( ExpensesDto(0,descripcion,costo,fecha) );
     ui->le_descripcion->clear();
     ui->de_fecha->setDate(QDate::currentDate());
+    ui->sb_importe->setValue(0);
     filtrar();
 }

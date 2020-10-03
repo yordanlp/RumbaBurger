@@ -8,6 +8,7 @@ form_extraer::form_extraer(QWidget *parent) :
     ui->setupUi(this);
 }
 
+
 form_extraer::~form_extraer()
 {
     delete ui;

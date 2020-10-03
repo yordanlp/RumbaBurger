@@ -232,6 +232,8 @@ void form_ofertas::on_pb_addOferta_clicked()
         return;
     }
 
+    ui->le_insName->clear();
+    ui->sb_insPrice->setValue(0);
     dishService.insertDish(DishDto(-1,dishName,"",price));
     ui->le_search->setText(dishName);
     updateOfertas(ui->le_search->text());
@@ -270,6 +272,7 @@ void form_ofertas::on_pb_insIngrediente_clicked()
     auto newDish = ingredientsService.insertIngredient(IngredientsDto(dish.data.id, pr.data.id, cantidad )).data;
 
 
+    ui->sb_insCantidad->setValue(0);
     updateIngredientes(newDish.id);
     updatePrecioProduccion(newDish.id);
     updatePrecioSugerido(newDish.id);

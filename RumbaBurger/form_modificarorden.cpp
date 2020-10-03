@@ -1,16 +1,10 @@
-#include "form_insertarorden.h"
-#include "ui_form_insertarorden.h"
-#include <Services/dishservice.h>
-#include <QCompleter>
-#include <QMessageBox>
-#include <Services/orderservice.h>
-#include <Services/orderdishservice.h>
-#include <Dto/orderdto.h>
-#include <Dto/dishamountdto.h>
+#include "form_modificarorden.h"
+#include "ui_form_modificarorden.h"
+#include <Services/dishversionsservice.h>
 
-form_insertarorden::form_insertarorden(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::form_insertarorden)
+form_modificarorden::form_modificarorden(QWidget *parent, int orderId) :
+    QMainWindow(parent),
+    ui(new Ui::form_modificarorden)
 {
     ui->setupUi(this);
     DishService dishService;
@@ -24,17 +18,24 @@ form_insertarorden::form_insertarorden(QWidget *parent) :
     QCompleter *completer = new QCompleter(dishes,this);
     ui->cb_plato->setCompleter(completer);
     ui->cb_plato->addItems(dishes);
-    updateCosto();
+
+
+
     ui->de_fecha->setDate(QDate::currentDate());
 
+    qDebug() << "order = " << orderId;
+    this->orderId = orderId;
+
+    updateOrder();
+    //updateCosto();
 }
 
-form_insertarorden::~form_insertarorden()
+form_modificarorden::~form_modificarorden()
 {
     delete ui;
 }
 
-void form_insertarorden::on_pb_add_clicked()
+void form_modificarorden::on_pb_add_clicked()
 {
     //ui->tw_platos->insertRow(ui->tw_platos->rowCount());
     qDebug() << "ins Orden";
@@ -78,7 +79,7 @@ void form_insertarorden::on_pb_add_clicked()
     updateCosto();
 }
 
-void form_insertarorden::on_pb_del_clicked()
+void form_modificarorden::on_pb_del_clicked()
 {
     int rowSelected = ui->tw_platos->currentRow();
     qDebug() << rowSelected;
@@ -89,7 +90,7 @@ void form_insertarorden::on_pb_del_clicked()
     updateCosto();
 }
 
-double form_insertarorden::getCosto(){
+double form_modificarorden::getCosto(){
     double total = 0;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
         total += ui->tw_platos->item(i, 3)->text().remove(0,1).toDouble();
@@ -97,14 +98,14 @@ double form_insertarorden::getCosto(){
     return total;
 }
 
-void form_insertarorden::updateCosto(){
+void form_modificarorden::updateCosto(){
     double total = 0;
     qDebug() << "Update Costo";
     total = getCosto();
     ui->l_costo->setText( "El costo total de la orden es: $" + QString::number(total) );
 }
 
-double form_insertarorden::getProfit(){
+double form_modificarorden::getProfit(){
     double total = 0;
     DishService dishService;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
@@ -118,7 +119,45 @@ double form_insertarorden::getProfit(){
     return total;
 }
 
-void form_insertarorden::on_pb_accep_clicked()
+void form_modificarorden::updateOrder()
+{
+    OrderService orderService;
+    auto order = orderService.getOrderById( orderId );
+    ui->le_norder->setText(QString::number(orderId));
+    ui->cb_excento->setChecked( !order.data.payed );
+    ui->de_fecha->setDate(order.data.date);
+
+    OrderDishService orderDishService;
+    auto dishes = orderDishService.getDishesByOrderId(orderId);
+    ui->tw_platos->setRowCount(dishes.data.size());
+    DishService dishService;
+    DishVersionsService dishVersionsService;
+
+    int row = 0;
+    foreach (auto d, dishes.data) {
+        DishDto dto;
+        //dto.id = d.idDish;
+        QString dishName = dishVersionsService.getDishById( d.idDish ).data.dishname;
+        QTableWidgetItem *nombre = new QTableWidgetItem(dishName);
+        nombre->setFlags(flags);
+        QTableWidgetItem *cant = new QTableWidgetItem( QString::number( d.amount ) );
+        cant->setFlags(flags);
+        QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(d.price) );
+        precioxunidad->setFlags(flags);
+        QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number( d.price * d.amount ) );
+        preciototal->setFlags(flags);
+
+        ui->tw_platos->setItem(row, 0, nombre);
+        ui->tw_platos->setItem(row, 1, cant);
+        ui->tw_platos->setItem(row, 2, precioxunidad);
+        ui->tw_platos->setItem(row, 3, preciototal);
+        row++;
+    }
+
+    updateCosto();
+}
+
+void form_modificarorden::on_pb_accep_clicked()
 {
 
     QString num = ui->le_norder->text();
@@ -162,14 +201,54 @@ void form_insertarorden::on_pb_accep_clicked()
         return;
     }
 
-    OrderDto order(0,today,costo,profit,payed,orderNumber);
-    auto o = orderService.insertOrder(order);
+    DishVersionsService dishVersionsService;
+    auto dishes = orderDishService.getDishesByOrderId(orderId);
+    foreach (auto d, dishes.data) {
+        bool old = 1;
+        QString name = dishVersionsService.getDishById(d.idDish).data.dishname;
+        for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
+            QString dishName = ui->tw_platos->item(i, 0)->text();
+            double amount = ui->tw_platos->item(i, 1)->text().toDouble();
+            if( dishName == name && amount == d.amount ){
+                old = 0;
+                break;
+            }
+        }
+        if( old )
+            orderDishService.deleteOrderDish( d );
+    }
 
-    orderDishService.insertOrderDishes(o.data,L);
+    auto dishes1 = orderDishService.getDishesByOrderId(orderId);
+    for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
+        bool news = 1;
+        QString dishName = ui->tw_platos->item(i, 0)->text();
+        double amount = ui->tw_platos->item(i, 1)->text().toDouble();
+        foreach (auto d, dishes1.data) {
+            QString name = dishVersionsService.getDishById(d.idDish).data.dishname;
+            if( name == dishName && amount == d.amount ){
+                news = 0;
+                break;
+            }
+        }
+        if( news ){
+            auto dishId = dishService.getDishByName( DishDto(0, ui->tw_platos->item(i,0)->text(),"",0 ) ).data.id;
+            double price = ui->tw_platos->item( i, 2 )->text().remove(0,1).toDouble();
+            orderDishService.insertOrderDish( OrderDishDto(orderId, dishId, price, amount) );
+        }
+    }
+
+
+    OrderDto order(orderId,today,costo,profit,payed,orderNumber);
+
+    orderService.updateOrder(order);
+    //auto o = orderService.insertOrder(order);
+    //orderDishService.insertOrderDishes(o.data,L);
     close();
+    emit done();
 }
 
-void form_insertarorden::on_pb_cancel_clicked()
+void form_modificarorden::on_pb_cancel_clicked()
 {
     close();
 }
+

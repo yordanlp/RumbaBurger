@@ -51,7 +51,7 @@ void form_ordenes::updateIngredients(){
     ui->tw_ingredientes->setEnabled(true);
 
     OrderService orderService;
-    //DishVersionsService dishVersionsService;
+    DishVersionsService dishVersionsService;
     IngredientsService ingredientsService;
     OrderDishService orderDishService;
     DishService dishService;
@@ -59,7 +59,7 @@ void form_ordenes::updateIngredients(){
     QDate orderDate = utiles::stringToDate(ui->tw_ordenes->item(orderRow, 0)->text());
     auto order = orderService.getOrderByOrderNumberAndDate(orderNumber, orderDate);
     QString dishName = ui->tw_platos->item(dishRow,0)->text();
-    auto dish = dishService.getDishByOrderAndName(order.data.id, dishName);
+    auto dish = dishVersionsService.getDishByOrderAndName(order.data.id, dishName);
     IngredientsDto idto;
     idto.idDish = dish.data.id;
     auto ingredients = ingredientsService.getIngredientsByDishId(idto);
@@ -119,6 +119,7 @@ void form_ordenes::updateOrders( QList<OrderDto> orders ){
 void form_ordenes::on_pb_insertarorden_clicked()
 {
     formInsertarOrden = new form_insertarorden(this);
+    formInsertarOrden->setModal(true);
     formInsertarOrden->show();
     connect(formInsertarOrden, SIGNAL(finished(int)), this, SLOT(filtrar()));
     //filtrar();
@@ -143,8 +144,9 @@ void form_ordenes::updatePlatos(int row){
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     int fila = 0;
     ui->tw_platos->setRowCount(od.data.size());
+    DishVersionsService dishVersionsService;
     foreach (auto d, od.data) {
-        QString nombre = dishService.getDishById(DishDto(d.idDish,"","",0)).data.dishname;
+        QString nombre = dishVersionsService.getDishById(d.idDish).data.dishname;
         QTableWidgetItem *name = new QTableWidgetItem(nombre);
         name->setFlags(flags);
         QTableWidgetItem *cant = new QTableWidgetItem( QString::number(d.amount) );
@@ -184,3 +186,21 @@ void form_ordenes::on_pb_eliminarorden_clicked()
     orderService.deleteOrder( ord.data );
     filtrar();
 }
+
+/*void form_ordenes::on_pb_modificarorden_clicked()
+{
+    int row = ui->tw_ordenes->currentRow();
+    if( row < 0 ){
+        QMessageBox::information(this, "Información","Debe seleccionar una orden para modificar", QMessageBox::Ok);
+        return;
+    }
+
+    OrderService orderService;
+    int orderNumber = ui->tw_ordenes->item(row, 1)->text().toInt();
+    QDate date = utiles::stringToDate( ui->tw_ordenes->item(row, 0)->text() );
+    auto order = orderService.getOrderByOrderNumberAndDate(orderNumber, date);
+
+    formModificarOrden = new form_modificarorden(this, order.data.id);
+    formModificarOrden->show();
+    connect( formModificarOrden, SIGNAL(done()), this, SLOT(filtrar()) );
+}*/

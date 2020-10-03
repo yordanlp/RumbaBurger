@@ -164,15 +164,16 @@ void form_almacenes::updateMCExistente()
         cantidad = cs.data.amount;
     if( !ui->rb_mcLibras->isVisible() ){
         ui->l_mcExistente->setText( "En el almacén existen " + QString::number(cantidad) + " unidades de " + ui->cb_mcProduct->currentText() );
+        ui->sb_mcCantidad->setSuffix(" unidades");
     }else{
         weigth to = G;
         QString unit = "g";
         if( ui->rb_mcGramos->isChecked() )
-            to = G, unit = "g";
+            to = G, unit = "g", ui->sb_mcCantidad->setSuffix(" g");
         if( ui->rb_mcKilogramos->isChecked() )
-            to = KG, unit = "kg";
+            to = KG, unit = "kg", ui->sb_mcCantidad->setSuffix(" kg");
         if( ui->rb_mcLibras->isChecked() )
-            to = LB, unit = "lb";
+            to = LB, unit = "lb", ui->sb_mcCantidad->setSuffix(" lb");
         cantidad = utiles::convertPeso(G, to, cantidad);
         ui->l_mcExistente->setText("En el almacén existen " + QString::number(cantidad) + unit + " de " + ui->cb_mcProduct->currentText());
     }
@@ -189,11 +190,14 @@ void form_almacenes::updateMCRadioButtons( QString product )
             ui->rb_mcGramos->setVisible(true);
             ui->rb_mcLibras->setVisible(true);
             ui->rb_mcKilogramos->setVisible(true);
+
             ui->rb_mcLibras->setChecked(true);
+            ui->sb_mcCantidad->setSuffix( " lb" );
         }else{
             ui->rb_mcGramos->setVisible(false);
             ui->rb_mcLibras->setVisible(false);
             ui->rb_mcKilogramos->setVisible(false);
+            ui->sb_mcCantidad->setSuffix(" unidades");
         }
     }else{
         ui->rb_mcGramos->setVisible(false);
@@ -235,6 +239,7 @@ void form_almacenes::on_pb_mcAccept_clicked()
     if( r == QMessageBox::Ok )
         StorageService.moveToCentral(prod.data.id, cantidad);
 
+    ui->sb_mcCantidad->setValue(0);
     updateCentralTable(ui->le_localSearch->text());
     updateLocalTable(ui->le_Centralsearch->text());
 

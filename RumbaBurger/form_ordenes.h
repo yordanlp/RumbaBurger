@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <Dto/orderdto.h>
 #include <form_insertarorden.h>
+#include <form_modificarorden.h>
 
 namespace Ui {
 class form_ordenes;
@@ -15,6 +16,7 @@ class form_ordenes : public QDialog
 
 public:
     form_insertarorden *formInsertarOrden;
+    //form_modificarorden *formModificarOrden;
     explicit form_ordenes(QWidget *parent = 0);
     ~form_ordenes();
     void updateOrders(QList<OrderDto> orders);
@@ -30,6 +32,9 @@ private slots:
     void on_tw_ordenes_clicked(const QModelIndex &index);
 
     void on_pb_eliminarorden_clicked();
+
+    //void on_pb_modificarorden_clicked();
+
 
 private:
     Ui::form_ordenes *ui;

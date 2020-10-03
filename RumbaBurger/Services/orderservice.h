@@ -26,6 +26,7 @@ public:
     Result<OrderDto> getOrderByOrderNumberAndDate( int orderNumber, QDate date );
     Result<double> getGanancia( int orderId );
     Result<double> getInversion( int orderId );
+    Result<OrderDto> getOrderById( int orderId );
 
 };
 

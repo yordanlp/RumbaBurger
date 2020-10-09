@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QMdiArea>
-#include <form_product.h>
+//#include <form_product.h>
 #include <form_almacenes.h>
 #include <form_ofertas.h>
 #include <form_insertarorden.h>
@@ -24,7 +24,7 @@ public:
     explicit Principal(QWidget *parent = 0);
     ~Principal();
     QMdiArea *mdi;
-    form_product *form_Product;
+    //form_product *form_Product;
     form_almacenes *form_Almacenes;
     form_ofertas *formOfertas;
     form_insertarorden *formInsOrden;
@@ -48,6 +48,8 @@ private slots:
     void on_actionGastos_triggered();
 
     void on_actionEstadisticas_triggered();
+
+    void on_actionTransacciones_triggered();
 
 private:
     Ui::Principal *ui;

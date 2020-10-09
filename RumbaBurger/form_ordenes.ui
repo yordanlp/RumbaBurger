@@ -13,212 +13,284 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pb_insertarorden">
-   <property name="geometry">
-    <rect>
-     <x>1660</x>
-     <y>20</y>
-     <width>141</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>+ Añadir Orden</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tw_ordenes">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>100</y>
-     <width>521</width>
-     <height>521</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>Fecha</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>No. Orden</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Pagado</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Ingreso</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QPushButton" name="pb_eliminarorden">
-   <property name="geometry">
-    <rect>
-     <x>570</x>
-     <y>130</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>-</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pb_filtrar">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>50</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Filtar</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tw_platos">
-   <property name="geometry">
-    <rect>
-     <x>700</x>
-     <y>100</y>
-     <width>511</width>
-     <height>531</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>Plato</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Cantidad</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Precio x Unidad</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Precio Total</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>70</y>
-     <width>131</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Detalles de la Oferta:</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>50</y>
-     <width>391</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Fecha Inicial</string>
+  <layout class="QGridLayout" name="gridLayout_7">
+   <item row="0" column="0" rowspan="2">
+    <widget class="QFrame" name="frame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>666</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QFrame" name="frame_2">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Fecha Inicial</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="de_inicial">
+                 <property name="minimumSize">
+                  <size>
+                   <width>119</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Fecha Final</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="de_final">
+                 <property name="minimumSize">
+                  <size>
+                   <width>119</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QPushButton" name="pb_filtrar">
+                 <property name="text">
+                  <string>Filtar</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item>
-       <widget class="QDateEdit" name="de_inicial">
-        <property name="calendarPopup">
-         <bool>true</bool>
+      <item row="1" column="0">
+       <widget class="QFrame" name="frame_3">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QTableWidget" name="tw_ordenes">
+             <column>
+              <property name="text">
+               <string>Fecha</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>No. Orden</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Pagado</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Ingreso</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QPushButton" name="pb_eliminarorden">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_2">
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QFrame" name="frame_4">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pb_insertarorden">
         <property name="text">
-         <string>Fecha Final</string>
+         <string>+ Añadir Orden</string>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QDateEdit" name="de_final">
-        <property name="calendarPopup">
-         <bool>true</bool>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Detalles de la orden</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QTableWidget" name="tw_platos">
+        <column>
+         <property name="text">
+          <string>Plato</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio x Unidad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio Total</string>
+         </property>
+        </column>
        </widget>
       </item>
      </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QTableWidget" name="tw_ingredientes">
-   <property name="geometry">
-    <rect>
-     <x>1280</x>
-     <y>100</y>
-     <width>261</width>
-     <height>531</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>Producto</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Cantidad</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>1280</x>
-     <y>70</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Detalles del Plato</string>
-   </property>
-  </widget>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Detalles del Plato</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QTableWidget" name="tw_ingredientes">
+        <column>
+         <property name="text">
+          <string>Producto</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+  <zorder>frame</zorder>
+  <zorder>groupBox</zorder>
+  <zorder>groupBox_2</zorder>
+  <zorder>frame_4</zorder>
  </widget>
  <resources/>
  <connections/>

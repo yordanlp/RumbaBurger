@@ -18,8 +18,8 @@ Login::Login(QWidget *parent) :
     ui->user->setValidator(valUser);
 
     //quitar
-    ui->user->setText("yordan");
-    ui->pass->setText("123");
+    ui->user->setText("admin");
+    ui->pass->setText("admin");
 }
 
 Login::~Login()
@@ -39,7 +39,7 @@ void Login::on_accept_clicked()
     QString pass = ui->pass->text();
     UserService userService;
     auto us = userService.getUserByUsername(user);
-    if( us.res == RECORD_NOT_FOUND ){
+    if( us.res != SUCCESS ){
         QMessageBox::critical(this,"Error","Usuario o Contraseña incorrectos",QMessageBox::Ok);
         ui->user->setFocus();
         return;
@@ -49,4 +49,11 @@ void Login::on_accept_clicked()
     Principal *principal = new Principal(this);
     principal->showMaximized();
     hide();
+}
+
+void Login::keyPressEvent(QKeyEvent *event)
+{
+    if( event->key() == 16777220 ){
+        on_accept_clicked();
+    }
 }

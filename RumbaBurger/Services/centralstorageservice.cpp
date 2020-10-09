@@ -217,3 +217,18 @@ Result<bool> centralStorageService::extract(int idProduct, double amount)
     res.res = SUCCESS;
     return res;
 }
+
+Result<bool> centralStorageService::deleteCentralStorage(int idProduct)
+{
+    Result<bool> res;
+    QSqlQuery query("DELETE FROM centralStorage WHERE id=:idProduct");
+    query.bindValue(":idProduct", idProduct);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = "error deleteCentralStorage " + query.lastError().text();
+        return res;
+    }
+
+    res.res = SUCCESS;
+    return res;
+}

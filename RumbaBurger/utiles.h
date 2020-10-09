@@ -5,6 +5,9 @@
 #include<QDate>
 #include<QString>
 #include<QStringList>
+#include <QSqlDatabase>
+#include <QFile>
+#include <QDebug>
 
 enum weigth{
     LB, G, KG
@@ -23,6 +26,7 @@ public:
     static double convertPeso(weigth from, weigth to, double peso);
     static double convertPrecio(weigth from, weigth to, double precio);
     static double GANANCIA, IMPUESTO;
+    //static void executeQueryFile(QFile &qf, QSqlDatabase &db);
 };
 
 

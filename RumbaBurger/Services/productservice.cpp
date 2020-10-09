@@ -145,3 +145,25 @@ Result<QStringList> ProductService::getAllProductsToString()
     }
     return res;
 }
+
+Result<QStringList> ProductService::isUsed(int productId )
+{
+    Result<QStringList> res;
+
+    QSqlQuery query;
+    query.prepare("SELECT * from ingredients WHERE idProduct = :idProduct");
+    query.bindValue( ":idProduct", productId );
+
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = "Error isUsed " + query.lastError().text();
+        return res;
+    }
+
+    res.res = SUCCESS;
+    //Aqui hay que procesar mejor los datos para mandar la lista de ordenes que usan el ingrediente
+    while (query.next()) {
+        res.data << query.value(0).toString();
+    }
+    return res;
+}

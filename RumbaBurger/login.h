@@ -24,6 +24,8 @@ private slots:
 
     void on_accept_clicked();
 
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     Ui::Login *ui;
 };

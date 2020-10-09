@@ -22,6 +22,7 @@ form_ofertas::form_ofertas(QWidget *parent) :
     ui->cb_insProduct->setCompleter(completer);
     ui->cb_insProduct->addItems(products);
     //connect(ui->cb_product, SIGNAL(currentTextChanged(QString)), this, SLOT(updateUnit(QString)));
+    //ui->pb_delOferta->setEnabled(false);
 }
 
 form_ofertas::~form_ofertas()
@@ -35,10 +36,11 @@ void form_ofertas::updateIngredientes(int id)
     IngredientsService ingredientsService;
     ProductService productService;
     auto ingredients = ingredientsService.getIngredientsByDishId(IngredientsDto(id,0,0));
+    ingredientsModel = ingredients.data;
     ui->tw_ingredientes->setRowCount(ingredients.data.size());
     int row = 0;
-    Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-    foreach (auto i, ingredients.data) {
+
+    foreach (auto i, ingredientsModel) {
         auto pro = productService.getProductByID(ProductDto(i.idProduct,"",0,0));
         QTableWidgetItem *producto = new QTableWidgetItem(pro.data.productName);
         producto->setFlags(flags);
@@ -112,6 +114,7 @@ vector<infoOfertas> form_ofertas::getOfertasSorted( QList<DishDto> L ){
     else if( sortBy == "Salen" )
         orden = 4;
 
+    dishModel.clear();
     foreach (auto i, L) {
         infoOfertas v;
         v.orden = orden;
@@ -122,6 +125,8 @@ vector<infoOfertas> form_ofertas::getOfertasSorted( QList<DishDto> L ){
         v.ganancia = dishService.getGanancia(i.id).data;
         v.salen = dishService.getSalen(i.id).data;
         ret.push_back(v);
+
+        dishModel << DishDto(i.id, i.dishname, i.description, i.price);
     }
 
     sort(ret.begin(), ret.end());
@@ -149,6 +154,10 @@ void form_ofertas::updateOfertas(QString search, int rowS)
     vector<infoOfertas>O = getOfertasSorted(res);
 
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    if( !O.size() ){
+        ui->pb_delOferta->setEnabled(false);
+
+    }
     for (auto o : O) {
         QTableWidgetItem *dish = new QTableWidgetItem(o.dish);
         dish->setFlags(flags);
@@ -197,23 +206,47 @@ void form_ofertas::updateAll()
     qDebug() << "update All" << rowSelected;
     if( rowSelected == -1 ){
         ui->gb_detalles->setEnabled(false);
+        ui->pb_delOferta->setEnabled(false);
         limpiar();
         return;
     }
+    ui->pb_delOferta->setEnabled(true);
     ui->gb_detalles->setEnabled(true);
     DishService dishService;
     QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
     qDebug() << "Platoooo" << dishName;
-    auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
-    qDebug() << "Nombre del plato" + dish.data.dishname;
-    updateNombre(dish.data.id);
-    updateIngredientes(dish.data.id);
-    updateDescripcion(dish.data.id);
-    updatePrecio(dish.data.id);
-    updatePrecioProduccion(dish.data.id);
-    updatePrecioSugerido(dish.data.id);
+    //auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
+    auto dish = dishModel.at( rowSelected );
+    qDebug() << "Nombre del plato" + dish.dishname;
+    updateNombre(dish.id);
+    updateIngredientes(dish.id);
+    updateDescripcion(dish.id);
+    updatePrecio(dish.id);
+    updatePrecioProduccion(dish.id);
+    updatePrecioSugerido(dish.id);
 }
 
+void form_ofertas::selectOferta(int id){
+    /*for( int i = 0; i < ui->tw_ofertas->rowCount(); i++ ){
+        if( ui->tw_ofertas->item(i, 0)->text() == name ){
+            ui->tw_ofertas->item(i, 0)->setSelected(true);
+            ui->tw_ofertas->scrollToItem(ui->tw_ofertas->item(i, 0));
+            rowSelected = i;
+            emit rowChanged();
+            return;
+        }
+    }*/
+
+    for( int i = 0; i < dishModel.size(); i++ ){
+        if( dishModel.at(i).id == id ){
+            ui->tw_ofertas->item(i, 0)->setSelected(true);
+            ui->tw_ofertas->scrollToItem(ui->tw_ofertas->item(i, 0));
+            rowSelected = i;
+            emit rowChanged();
+            return;
+        }
+    }
+}
 
 void form_ofertas::on_pb_addOferta_clicked()
 {
@@ -234,9 +267,11 @@ void form_ofertas::on_pb_addOferta_clicked()
 
     ui->le_insName->clear();
     ui->sb_insPrice->setValue(0);
-    dishService.insertDish(DishDto(-1,dishName,"",price));
-    ui->le_search->setText(dishName);
+    auto dish = dishService.insertDish(DishDto(-1,dishName,"",price)).data;
+    ui->le_search->clear();
     updateOfertas(ui->le_search->text());
+    //selectOferta( dishName );
+    selectOferta( dish.id );
 }
 
 void form_ofertas::on_tw_ofertas_clicked(const QModelIndex &index)
@@ -263,13 +298,15 @@ void form_ofertas::on_pb_insIngrediente_clicked()
         return;
     }
     QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
-    auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
-    if( dishService.hasIngredient(dish.data.id, pr.data.id).data ){
+    //auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
+    //auto dish = dishService.getDishById( dishModel.at(rowSelected) );
+    auto dish = dishModel.at(rowSelected);
+    if( dishService.hasIngredient(dish.id, pr.data.id).data ){
         QMessageBox::information(this, "Información", "El plato ya contiene el producto seleccionado", QMessageBox::Ok);
         return;
     }
 
-    auto newDish = ingredientsService.insertIngredient(IngredientsDto(dish.data.id, pr.data.id, cantidad )).data;
+    auto newDish = ingredientsService.insertIngredient(IngredientsDto(dish.id, pr.data.id, cantidad )).data;
 
 
     ui->sb_insCantidad->setValue(0);
@@ -284,8 +321,9 @@ void form_ofertas::on_pb_delIngrediente_clicked()
     ProductService productService;
     IngredientsService ingredientsService;
     DishService dishService;
-    QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
-    auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
+    //QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
+    //auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
+    auto dish = dishModel.at( rowSelected );
     int row = ui->tw_ingredientes->currentRow();
     if( row == -1 ){
         QMessageBox::information(this,"Información","Debe Seleccionar un ingrediente",QMessageBox::Ok);
@@ -293,13 +331,15 @@ void form_ofertas::on_pb_delIngrediente_clicked()
     }
     auto productName = ui->tw_ingredientes->item(row,0)->text();
     auto product = productService.getProductByName(productName);
+
     auto res = QMessageBox::information(this, "Información", "Está seguro que desea eliminar: " + productName,QMessageBox::Ok,QMessageBox::Cancel);
     if( res == QMessageBox::Ok ){
-        ingredientsService.deleteIngredient(IngredientsDto(dish.data.id,product.data.id,0));
+        //ingredientsService.deleteIngredient(IngredientsDto(dish.data.id,product.data.id,0));
+        ingredientsService.deleteIngredient( ingredientsModel.at(row) );
     }
-    updateIngredientes(dish.data.id);
-    updatePrecioProduccion(dish.data.id);
-    updatePrecioSugerido(dish.data.id);
+    updateIngredientes(dish.id);
+    updatePrecioProduccion(dish.id);
+    updatePrecioSugerido(dish.id);
     updateOfertas(ui->le_search->text(), rowSelected);
 }
 
@@ -311,9 +351,10 @@ void form_ofertas::on_pb_guardar_clicked()
     double precio = ui->sb_editPrecio->value();
     qDebug() << dishName << descripcion << precio;
     QString name = ui->tw_ofertas->item(rowSelected, 0)->text();
-    auto dish = dishService.getDishByName(DishDto(0,name,"",0));
-    qDebug() << dish.data.id;
-    auto newDish = dishService.updateDish(DishDto(dish.data.id, dishName, descripcion, precio)).data;
+    //auto dish = dishService.getDishByName(DishDto(0,name,"",0));
+    auto dish = dishModel.at( rowSelected );
+    //qDebug() << dish.data.id;
+    auto newDish = dishService.updateDish(DishDto(dish.id, dishName, descripcion, precio)).data;
     updateOfertas(ui->le_search->text(),rowSelected);
     updateAll();
 }
@@ -331,7 +372,14 @@ void form_ofertas::on_pb_delOferta_clicked()
     }
     DishService dishService;
     QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
-    auto dish = dishService.getDishByName(DishDto(0, dishName,"", 0));
-    dishService.deleteDish(dish.data);
+    //auto dish = dishService.getDishByName(DishDto(0, dishName,"", 0));
+    auto dish = dishModel.at( rowSelected );
+    dishService.deleteDish(dish);
     updateOfertas(ui->le_search->text(), rowSelected);
+    if( rowSelected >= 0 && rowSelected < ui->tw_ofertas->rowCount() ){
+        qDebug() << "rowSelected" << rowSelected;
+        //selectOferta( ui->tw_ofertas->item(rowSelected, 0)->text() );
+        selectOferta( dishModel.at(rowSelected).id );
+    }
 }
+

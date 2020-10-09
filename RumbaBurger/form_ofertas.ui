@@ -6,431 +6,526 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1411</width>
-    <height>983</height>
+    <width>1578</width>
+    <height>1043</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tw_ofertas">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>631</width>
-      <height>821</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>Nombre</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Precio</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Precio Sugerido</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Ganancia x Plato</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Salen</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QPushButton" name="pb_delOferta">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>110</y>
-      <width>41</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>-</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>341</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Buscar</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="le_search"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="label_11">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>20</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ordenar Por:</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="cb_sortBy">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>20</y>
-      <width>101</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>Nombre</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Precio</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Ganancia</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Salen</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>55</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Nombre</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="le_insName">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>60</y>
-      <width>221</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb_addOferta">
-    <property name="geometry">
-     <rect>
-      <x>490</x>
-      <y>50</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Añadir</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>60</y>
-      <width>55</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Precio</string>
-    </property>
-   </widget>
-   <widget class="QDoubleSpinBox" name="sb_insPrice">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>60</y>
-      <width>91</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <double>1000000000.990000009536743</double>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="gb_detalles">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>100</y>
-      <width>501</width>
-      <height>781</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Detalles</string>
-    </property>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Descripción:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>55</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Nombre:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="le_editaName">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>30</y>
-       <width>331</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="te_editDescripcion">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>80</y>
-       <width>311</width>
-       <height>87</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTableWidget" name="tw_ingredientes">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>300</y>
-       <width>281</width>
-       <height>311</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>Producto</string>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Cantidad</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
-     </column>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>180</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ingredientes</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="cb_insProduct">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>230</y>
-       <width>171</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pb_insIngrediente">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>240</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>+</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pb_delIngrediente">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>620</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>-</string>
-     </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="sb_insCantidad">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>260</y>
-       <width>171</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <double>1000000000.990000009536743</double>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>230</y>
-       <width>55</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Producto:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>260</y>
-       <width>55</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Cantidad</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="l_precioProduccion">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>670</y>
-       <width>211</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Precio de Producción</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>710</y>
-       <width>55</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Precio:</string>
-     </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="sb_editPrecio">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>710</y>
-       <width>101</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <double>1000000000.990000009536743</double>
-     </property>
-    </widget>
-    <widget class="QLabel" name="l_precioSugerido">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>670</y>
-       <width>211</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Precio Sugerido</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pb_guardar">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>730</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Guardar</string>
-     </property>
-    </widget>
-   </widget>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QFrame" name="frame_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Buscar</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_search">
+                <property name="placeholderText">
+                 <string>Qué desea buscar?</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Nombre</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_insName">
+                <property name="placeholderText">
+                 <string>Nombre de la oferta...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>Ordenar Por:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cb_sortBy">
+                <property name="minimumSize">
+                 <size>
+                  <width>168</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="whatsThis">
+                 <string>Escoja el parámetro para ordenar las ofertas</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Nombre</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Precio</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Ganancia</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Salen</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Precio</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="sb_insPrice">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximum">
+                 <double>1000000000.990000009536743</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pb_addOferta">
+                <property name="text">
+                 <string>Añadir</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QTableWidget" name="tw_ofertas">
+              <column>
+               <property name="text">
+                <string>Nombre</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Precio</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Precio Sugerido</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Ganancia x Plato</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Salen</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pb_delOferta">
+                <property name="text">
+                 <string>-</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>52</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+         <zorder>layoutWidget</zorder>
+         <zorder>layoutWidget_2</zorder>
+         <zorder>layoutWidget_3</zorder>
+         <zorder>layoutWidget_4</zorder>
+         <zorder>layoutWidget_5</zorder>
+         <zorder>label_11</zorder>
+         <zorder>gb_detalles</zorder>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QGroupBox" name="gb_detalles">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Detalles</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Nombre:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="le_editaName">
+              <property name="placeholderText">
+               <string>Nombre de la oferta...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Descripción:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTextEdit" name="te_editDescripcion">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>357</height>
+               </size>
+              </property>
+              <property name="placeholderText">
+               <string>Qué es este plato?</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="2" column="0">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Ingredientes</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Producto:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cb_insProduct">
+                 <property name="minimumSize">
+                  <size>
+                   <width>208</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="editable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>Cantidad</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="sb_insCantidad">
+                 <property name="maximum">
+                  <double>1000000000.990000009536743</double>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pb_insIngrediente">
+                 <property name="text">
+                  <string>+</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item row="2" column="0">
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <item>
+                <widget class="QTableWidget" name="tw_ingredientes">
+                 <column>
+                  <property name="text">
+                   <string>Producto</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Cantidad</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_10">
+                 <item>
+                  <spacer name="horizontalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pb_delIngrediente">
+                   <property name="text">
+                    <string>-</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QLabel" name="l_precioProduccion">
+              <property name="text">
+               <string>Precio de Producción</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="l_precioSugerido">
+              <property name="text">
+               <string>Precio Sugerido</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Precio:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDoubleSpinBox" name="sb_editPrecio">
+              <property name="maximum">
+               <double>1000000000.990000009536743</double>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pb_guardar">
+              <property name="text">
+               <string>Guardar</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1411</width>
+     <width>1578</width>
      <height>26</height>
     </rect>
    </property>

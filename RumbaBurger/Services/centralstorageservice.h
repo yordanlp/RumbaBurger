@@ -32,6 +32,7 @@ public:
     Result<QList<StorageProductDto>> getCentralStorageBySearch(QString search="%");
     Result<bool> moveToLocal( int idProduct, double amount );
     Result<bool> extract( int idProduct, double amount );
+    Result<bool> deleteCentralStorage( int idProduct );
 };
 
 #endif // CENTRALSTORAGESERVICE_H

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <Dto/dishdto.h>
 #include <bits/stdc++.h>
+#include <Dto/ingredientsdto.h>
+#include <Dto/dishdto.h>
 using namespace std;
 
 
@@ -26,7 +28,7 @@ struct infoOfertas{
             return ganancia < o.ganancia;
         if( orden == 4 )
             return salen < o.salen;
-        return dish < o.dish;
+        return dish.toLower() < o.dish.toLower();
         //return price < o.price;
     }
 };
@@ -45,13 +47,19 @@ public:
     void updatePrecioProduccion( int id );
     void updateDescripcion( int id );
     void updateNombre( int id );
-    void updateOfertas(QString search , int rowS = 0);
+    void updateOfertas(QString search , int rowS = -1);
     void limpiar();
     vector<infoOfertas> getOfertasSorted( QList<DishDto> L );
     bool sortByName( const infoOfertas &s1, const infoOfertas &s2 );
     bool sortByPrice( const infoOfertas &s1, const infoOfertas &s2 );
     bool sortByGanancia( const infoOfertas &s1, const infoOfertas &s2 );
     bool sortBySalen( const infoOfertas &s1, const infoOfertas &s2 );
+    void selectOferta(int id );
+
+    QList<IngredientsDto> ingredientsModel;
+    QList<DishDto> dishModel;
+    Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+
 
 signals:
     rowChanged();

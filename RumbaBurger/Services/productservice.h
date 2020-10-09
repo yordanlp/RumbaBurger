@@ -19,6 +19,7 @@ public:
     Result<bool> updateProduct( ProductDto );
     Result<double> getPrice( int idProduct );
     Result<QStringList> getAllProductsToString();
+    Result<QStringList> isUsed( int productId );
 
 };
 

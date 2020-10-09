@@ -6,208 +6,210 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1145</width>
-    <height>642</height>
+    <width>1334</width>
+    <height>848</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Gastos</string>
      </property>
-     <widget class="QTableWidget" name="tw_gastos">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>110</y>
-        <width>391</width>
-        <height>471</height>
-       </rect>
-      </property>
-      <column>
-       <property name="text">
-        <string>Fecha</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Descripción</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Importe</string>
-       </property>
-      </column>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>50</y>
-        <width>81</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Fecha inicial</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>50</y>
-        <width>71</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Fecha Final</string>
-      </property>
-     </widget>
-     <widget class="QDateEdit" name="de_inicial">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>50</y>
-        <width>110</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="calendarPopup">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pb_filtrar">
-      <property name="geometry">
-       <rect>
-        <x>550</x>
-        <y>50</y>
-        <width>93</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Filtrar</string>
-      </property>
-     </widget>
-     <widget class="QDateEdit" name="de_final">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>50</y>
-        <width>110</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="calendarPopup">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="geometry">
-       <rect>
-        <x>570</x>
-        <y>180</y>
-        <width>401</width>
-        <height>231</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Insertar Gasto</string>
-      </property>
-      <widget class="QLabel" name="label_3">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>100</y>
-         <width>81</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Descripción</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="le_descripcion">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>100</y>
-         <width>261</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>160</y>
-         <width>55</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Importe</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_5">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>50</y>
-         <width>55</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Fecha</string>
-       </property>
-      </widget>
-      <widget class="QDateEdit" name="de_fecha">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>50</y>
-         <width>110</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QDoubleSpinBox" name="sb_importe">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>160</y>
-         <width>91</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="maximum">
-        <double>1000000000000000.000000000000000</double>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pb_insertar">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>180</y>
-         <width>93</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Insertar</string>
-       </property>
-      </widget>
-     </widget>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Fecha Final</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QDateEdit" name="de_final">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QPushButton" name="pb_eliminar">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" rowspan="2" colspan="4">
+       <widget class="QTableWidget" name="tw_gastos">
+        <property name="minimumSize">
+         <size>
+          <width>491</width>
+          <height>0</height>
+         </size>
+        </property>
+        <column>
+         <property name="text">
+          <string>Fecha</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Descripción</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Importe</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Fecha inicial</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="pb_filtrar">
+        <property name="text">
+         <string>Filtrar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="de_inicial">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>Insertar Gasto</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Fecha</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QDateEdit" name="de_fecha"/>
+         </item>
+         <item row="2" column="1">
+          <widget class="QDoubleSpinBox" name="sb_importe">
+           <property name="maximum">
+            <double>1000000000000000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Descripción</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="le_descripcion"/>
+         </item>
+         <item row="3" column="1">
+          <widget class="QPushButton" name="pb_insertar">
+           <property name="text">
+            <string>Insertar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Importe</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="2">
+          <widget class="QFrame" name="frame_2">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QFrame" name="frame">
+        <property name="minimumSize">
+         <size>
+          <width>111</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </widget>
+   </item>
+   <item row="0" column="2">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

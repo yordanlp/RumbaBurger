@@ -26,6 +26,7 @@ public:
     Result<QList<StorageProductDto>> getLocalStorageBySearch(QString search="");
     Result<bool> moveToCentral( int _id, int _amount );
     Result<bool> updateStorage( int productId, double amount, int type );
+    Result<bool> deleteStorage( int idProduct );
 
 };
 

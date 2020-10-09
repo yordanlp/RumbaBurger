@@ -2,6 +2,7 @@
 #include "ui_form_gastos.h"
 #include <QMessageBox>
 #include <Services/expensesservice.h>
+#include <utiles.h>
 
 form_gastos::form_gastos(QWidget *parent) :
     QDialog(parent),
@@ -25,9 +26,11 @@ form_gastos::~form_gastos()
 void form_gastos::filtrar(){
     QDate inicial = ui->de_inicial->date();
     QDate final = ui->de_final->date();
+    ui->pb_eliminar->setEnabled(false);
     if( final < inicial ){
         QMessageBox::information(this, "Información", "La fecha inicial es mayor que la final",QMessageBox::Ok);
         ui->tw_gastos->setRowCount(0);
+        expenses.clear();
         return;
     }
     updateGastos();
@@ -40,9 +43,9 @@ void form_gastos::updateGastos(){
     auto gastos = expensesService.getExpensesByDate(inicial, final);
     ui->tw_gastos->setRowCount(gastos.data.size());
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-
+    expenses = gastos.data;
     int row = 0;
-    foreach (auto g, gastos.data) {
+    foreach (auto g, expenses) {
         QDate fecha = g.date;
         QTableWidgetItem *date = new QTableWidgetItem( fecha.toString(Qt::ISODate) );
         date->setFlags(flags);
@@ -71,4 +74,22 @@ void form_gastos::on_pb_insertar_clicked()
     ui->de_fecha->setDate(QDate::currentDate());
     ui->sb_importe->setValue(0);
     filtrar();
+}
+
+void form_gastos::on_pb_eliminar_clicked()
+{
+    int row = ui->tw_gastos->currentRow();
+    if( row < 0 ){
+        QMessageBox::information(this, "Información", "Debe seleccionar un elemento para eliminar", QMessageBox::Ok);
+        return;
+    }
+
+    ExpensesService expensesService;
+    expensesService.deleteExpenses( expenses.at(row) );
+    filtrar();
+}
+
+void form_gastos::on_tw_gastos_clicked(const QModelIndex &index)
+{
+    ui->pb_eliminar->setEnabled(true);
 }

@@ -1,6 +1,7 @@
 #include "principal.h"
 #include "ui_principal.h"
 #include <QDebug>
+#include <QLabel>
 
 Principal::Principal(QWidget *parent) :
     QMainWindow(parent),
@@ -22,9 +23,9 @@ Principal::~Principal()
 //insertar producto
 void Principal::on_actionInsertar_Producto_triggered()
 {
-    form_Product = new form_product(this);
+    /*form_Product = new form_product(this);
     form_Product->setModal(true);
-    form_Product->show();
+    form_Product->show();*/
 
 }
 
@@ -82,4 +83,9 @@ void Principal::on_actionEstadisticas_triggered()
     formReportes = new form_reportes(this);
     mdi->addSubWindow(formReportes);
     formReportes->showMaximized();
+}
+
+void Principal::on_actionTransacciones_triggered()
+{
+
 }

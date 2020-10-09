@@ -2,6 +2,7 @@
 #define FORM_GASTOS_H
 
 #include <QDialog>
+#include <Dto/expensesdto.h>
 
 namespace Ui {
 class form_gastos;
@@ -14,8 +15,10 @@ class form_gastos : public QDialog
 public:
     explicit form_gastos(QWidget *parent = 0);
     ~form_gastos();
+    QList<ExpensesDto> expenses;
 
     void updateGastos();
+
 
 private slots:
 
@@ -23,6 +26,10 @@ private slots:
     void on_pb_insertar_clicked();
 
 
+
+    void on_pb_eliminar_clicked();
+
+    void on_tw_gastos_clicked(const QModelIndex &index);
 
 private:
     Ui::form_gastos *ui;

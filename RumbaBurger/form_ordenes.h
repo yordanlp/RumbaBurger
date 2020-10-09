@@ -21,6 +21,7 @@ public:
     ~form_ordenes();
     void updateOrders(QList<OrderDto> orders);
     void updatePlatos( int row );
+    QList<OrderDto> orderModel;
 
 
 private slots:
@@ -35,6 +36,8 @@ private slots:
 
     //void on_pb_modificarorden_clicked();
 
+
+    void on_tw_ordenes_cellClicked(int row, int column);
 
 private:
     Ui::form_ordenes *ui;

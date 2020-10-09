@@ -52,22 +52,18 @@ SOURCES += main.cpp\
     Services/userservice.cpp \
     Dto/productdto.cpp \
     principal.cpp \
-    form_product.cpp \
     form_almacenes.cpp \
-    form_compra.cpp \
-    form_mover.cpp \
     form_ofertas.cpp \
     Dto/storageproductdto.cpp \
     Services/localstorageservice.cpp \
     Dto/localstoragedto.cpp \
     form_ordenes.cpp \
-    form_extraercentral.cpp \
     form_insertarorden.cpp \
     form_gastos.cpp \
     Services/dishversionsservice.cpp \
     form_reportes.cpp \
     form_modificarorden.cpp \
-    form_extraer.cpp
+    form_transacciones.cpp
 
 HEADERS  += \
     login.h \
@@ -97,38 +93,30 @@ HEADERS  += \
     Services/storagetransactionservice.h \
     Services/userservice.h \
     principal.h \
-    form_product.h \
     form_almacenes.h \
-    form_compra.h \
-    form_mover.h \
-    form_extraer.h \
     form_ofertas.h \
     Dto/storageproductdto.h \
     Services/localstorageservice.h \
     Dto/localstoragedto.h \
     form_ordenes.h \
-    form_extraercentral.h \
     form_insertarorden.h \
     form_gastos.h \
     Services/dishversionsservice.h \
     form_reportes.h \
-    form_modificarorden.h
+    form_modificarorden.h \
+    form_transacciones.h
 
 FORMS    += \
     login.ui \
     principal.ui \
-    form_product.ui \
     form_almacenes.ui \
-    form_compra.ui \
-    form_mover.ui \
-    form_extraer.ui \
     form_ofertas.ui \
     form_ordenes.ui \
-    form_extraercentral.ui \
     form_insertarorden.ui \
     form_gastos.ui \
     form_reportes.ui \
-    form_modificarorden.ui
+    form_modificarorden.ui \
+    form_transacciones.ui
 
 RESOURCES += \
     recursos.qrc

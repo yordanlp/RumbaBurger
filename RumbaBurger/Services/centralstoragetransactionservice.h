@@ -8,6 +8,8 @@
 #include <QList>
 #include <result.h>
 
+enum { COMPRA, EXTRACCION, CENTRAL_TO_LOCAL, LOCAL_TO_CENTRAL } transactions;
+
 class centralStorageTransactionService
 {
 public:

@@ -15,6 +15,7 @@ form_ordenes::form_ordenes(QWidget *parent) :
     connect(ui->pb_filtrar,SIGNAL(clicked(bool)), this, SLOT(filtrar()));
     connect(ui->tw_platos, SIGNAL(cellClicked(int,int)), this, SLOT(updateIngredients()));
     filtrar();
+    //QGridLayout *grid = new QGridLayout(this);
 }
 
 form_ordenes::~form_ordenes()
@@ -86,11 +87,15 @@ void form_ordenes::updateIngredients(){
 }
 
 void form_ordenes::updateOrders( QList<OrderDto> orders ){
+    orderModel = orders;
     qDebug() << "updateOrders" << orders.size();
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     int row = 0;
+
+    ui->pb_eliminarorden->setEnabled(false);
+
     ui->tw_ordenes->setRowCount(orders.size());
-    foreach (auto o, orders) {
+    foreach (auto o, orderModel) {
         QTableWidgetItem *fecha = new QTableWidgetItem(o.date.toString(Qt::ISODate));
         fecha->setFlags(flags);
         QTableWidgetItem *norden = new QTableWidgetItem(QString::number(o.orderNumber));
@@ -178,12 +183,13 @@ void form_ordenes::on_pb_eliminarorden_clicked()
         return;
     }
 
-    int orderNumber = ui->tw_ordenes->item(row, 1)->text().toInt();
-    QDate date = utiles::stringToDate(ui->tw_ordenes->item(row, 0)->text());
+    //int orderNumber = ui->tw_ordenes->item(row, 1)->text().toInt();
+    //QDate date = utiles::stringToDate(ui->tw_ordenes->item(row, 0)->text());
 
     OrderService orderService;
-    auto ord = orderService.getOrderByOrderNumberAndDate(orderNumber, date);
-    orderService.deleteOrder( ord.data );
+    //auto ord = orderService.getOrderByOrderNumberAndDate(orderNumber, date);
+    auto ord = orderModel.at(row);
+    orderService.deleteOrder( ord );
     filtrar();
 }
 
@@ -204,3 +210,8 @@ void form_ordenes::on_pb_eliminarorden_clicked()
     formModificarOrden->show();
     connect( formModificarOrden, SIGNAL(done()), this, SLOT(filtrar()) );
 }*/
+
+void form_ordenes::on_tw_ordenes_cellClicked(int row, int column)
+{
+    ui->pb_eliminarorden->setEnabled(true);
+}

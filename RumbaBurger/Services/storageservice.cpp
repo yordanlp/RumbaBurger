@@ -204,3 +204,18 @@ Result<bool> storageService::updateStorage(int productId, double amount, int typ
     return res;
 }
 
+Result<bool> storageService::deleteStorage(int idProduct)
+{
+    Result<bool> res;
+    QSqlQuery query("DELETE FROM storage WHERE id=:idProduct");
+    query.bindValue(":idProduct", idProduct);
+    if( !query.exec() ){
+        res.res = FAIL;
+        res.msg = "error Storage " + query.lastError().text();
+        return res;
+    }
+
+    res.res = SUCCESS;
+    return res;
+}
+

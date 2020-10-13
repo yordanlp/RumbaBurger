@@ -238,9 +238,9 @@ void form_modificarorden::on_pb_accep_clicked()
     }
 
 
-    OrderDto order(orderId,today,costo,profit,payed,orderNumber);
+    //OrderDto order(orderId,today,costo,profit,payed,orderNumber);
 
-    orderService.updateOrder(order);
+    //orderService.updateOrder(order);
     //auto o = orderService.insertOrder(order);
     //orderDishService.insertOrderDishes(o.data,L);
     close();

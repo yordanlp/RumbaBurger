@@ -20,6 +20,7 @@ public:
 
 private slots:
 
+    void invitado();
     void on_cancel_clicked();
 
     void on_accept_clicked();

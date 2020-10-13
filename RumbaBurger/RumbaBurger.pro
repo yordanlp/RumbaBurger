@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = RumbaBurger
 TEMPLATE = app
+RESOURCES += qdarkstyle/style.qrc
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -63,7 +65,9 @@ SOURCES += main.cpp\
     Services/dishversionsservice.cpp \
     form_reportes.cpp \
     form_modificarorden.cpp \
-    form_transacciones.cpp
+    form_transacciones.cpp \
+    Services/transactionservice.cpp \
+    Dto/transactiondto.cpp
 
 HEADERS  += \
     login.h \
@@ -104,7 +108,9 @@ HEADERS  += \
     Services/dishversionsservice.h \
     form_reportes.h \
     form_modificarorden.h \
-    form_transacciones.h
+    form_transacciones.h \
+    Services/transactionservice.h \
+    Dto/transactiondto.h
 
 FORMS    += \
     login.ui \

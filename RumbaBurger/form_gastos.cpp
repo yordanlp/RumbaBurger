@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <Services/expensesservice.h>
 #include <utiles.h>
+#include <Services/userservice.h>
 
 form_gastos::form_gastos(QWidget *parent) :
     QDialog(parent),
@@ -15,6 +16,11 @@ form_gastos::form_gastos(QWidget *parent) :
     ui->de_fecha->setMaximumDate(QDate::currentDate());
     filtrar();
     connect(ui->pb_filtrar, SIGNAL(clicked(bool)), this, SLOT(filtrar()));
+
+    if( UserService::loggedUser == 0 ){
+        ui->pb_eliminar->setEnabled(false);
+        ui->groupBox_2->setEnabled(false);
+    }
 }
 
 form_gastos::~form_gastos()
@@ -52,7 +58,7 @@ void form_gastos::updateGastos(){
         QString desc = g.description;
         QTableWidgetItem *descripcion = new QTableWidgetItem (desc);
         descripcion->setFlags(flags);
-        QTableWidgetItem *importe = new QTableWidgetItem(QString::number(g.price));
+        QTableWidgetItem *importe = new QTableWidgetItem(QString::number(g.price, 'f', 2));
         importe->setFlags(flags);
 
         ui->tw_gastos->setItem(row, 0, date);

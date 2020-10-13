@@ -70,3 +70,20 @@ Result<DishDto> DishVersionsService::getDishByOrderAndName(int orderId, QString 
     res.data = DishDto(query.value(0).toInt(),query.value(1).toString(),query.value(2).toString(), query.value(3).toDouble());
     return res;
 }
+
+
+Result<double> DishVersionsService::productionCost(int idDish)
+{
+    IngredientsService ingredientsService;
+    ProductService productService;
+    auto L = ingredientsService.getIngredientsByDishId(IngredientsDto(idDish,0,0)).data;
+
+    Result<double>res;
+    double ret = 0;
+    foreach (auto i, L) {
+        ret += productService.getPrice(i.idProduct).data * i.amount;
+    }
+
+    res.data = ret;
+    return res;
+}

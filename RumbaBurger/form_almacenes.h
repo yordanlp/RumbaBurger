@@ -9,6 +9,7 @@
 //#include <form_extraercentral.h>
 #include <Dto/centralstoragedto.h>
 #include <Dto/storagedto.h>
+#include <utiles.h>
 namespace Ui {
 class form_almacenes;
 }
@@ -27,14 +28,22 @@ public:
     void updateCentralTable( QString search );
     void updateLocalTable( QString search );
     void updateProducts();
+    void updateExistentes();
+
+    weigth PESO;
+    void setUnit();
 
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
 
 private slots:
 
+    void updateUnit();
+    void updateSuffixCompra();
     void updateRadioButtonsExtraer( QString product );
+    void updateRadioButtonsExtraerLocal( QString product );
     void updateExistenteExtraer();
+    void updateExistenteExtraerLocal();
 
     void updateRadioButtonsCompra( QString product );
 
@@ -65,6 +74,8 @@ private slots:
     void on_pb_eliminarProduct_clicked();
 
     void on_centralTable_cellClicked(int row, int column);
+
+    void on_pb_aceptarExtraerLocal_clicked();
 
 private:
     Ui::form_almacenes *ui;

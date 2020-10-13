@@ -12,6 +12,8 @@ public:
     Result<bool> createVersion( DishDto dish );
     Result<DishDto> getDishById( int dishId );
     Result<DishDto> getDishByOrderAndName(int orderId, QString dishName);
+    Result<double> productionCost( int idDish );
+
 };
 
 #endif // DISHVERSIONSSERVICE_H

@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -66,7 +69,6 @@
     <addaction name="actionPrincipal"/>
     <addaction name="actionSecundario"/>
     <addaction name="separator"/>
-    <addaction name="actionProductos"/>
     <addaction name="actionInsertar_Producto"/>
    </widget>
    <widget class="QMenu" name="menuReportes">
@@ -74,10 +76,26 @@
      <string>Reportes</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuAjustes">
+    <property name="title">
+     <string>Ajustes</string>
+    </property>
+    <widget class="QMenu" name="menuPorcientos">
+     <property name="title">
+      <string>Porcientos</string>
+     </property>
+     <addaction name="actionImpuesto"/>
+     <addaction name="actionGanancia"/>
+    </widget>
+    <addaction name="menuPorcientos"/>
+    <addaction name="actionUnidad"/>
+    <addaction name="actionMoneda"/>
+   </widget>
    <addaction name="menuAlmacen"/>
    <addaction name="menuOfertas"/>
    <addaction name="menu_rdenes"/>
    <addaction name="menuReportes"/>
+   <addaction name="menuAjustes"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -198,6 +216,36 @@
   <action name="actionTransacciones">
    <property name="text">
     <string>Transacciones</string>
+   </property>
+  </action>
+  <action name="actionPorciento_de_Ganancia">
+   <property name="text">
+    <string>Porciento de Ganancia</string>
+   </property>
+  </action>
+  <action name="actionPorciento_de_Impuesto">
+   <property name="text">
+    <string>Porciento de Impuesto</string>
+   </property>
+  </action>
+  <action name="actionUnidad">
+   <property name="text">
+    <string>Unidad de peso</string>
+   </property>
+  </action>
+  <action name="actionMoneda">
+   <property name="text">
+    <string>Moneda</string>
+   </property>
+  </action>
+  <action name="actionImpuesto">
+   <property name="text">
+    <string>Impuesto</string>
+   </property>
+  </action>
+  <action name="actionGanancia">
+   <property name="text">
+    <string>Ganancia</string>
    </property>
   </action>
  </widget>

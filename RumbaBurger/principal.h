@@ -10,6 +10,7 @@
 #include <form_ordenes.h>
 #include <form_gastos.h>
 #include <form_reportes.h>
+#include <form_transacciones.h>
 
 namespace Ui {
 class Principal;
@@ -31,6 +32,7 @@ public:
     form_ordenes *formOrdenes;
     form_gastos *formGastos;
     form_reportes *formReportes;
+    form_transacciones *formTransacciones;
 
 private slots:
     void on_actionInsertar_Producto_triggered();
@@ -50,6 +52,20 @@ private slots:
     void on_actionEstadisticas_triggered();
 
     void on_actionTransacciones_triggered();
+
+    void on_actionImpuesto_triggered();
+
+    void on_actionGanancia_triggered();
+
+    void on_actionUnidad_triggered();
+
+    void on_actionMoneda_triggered();
+
+signals:
+    void ImpuestoChanged();
+    void GananciaChnged();
+    void UnitChanged();
+    void MonedaChanged();
 
 private:
     Ui::Principal *ui;

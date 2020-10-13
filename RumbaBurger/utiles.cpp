@@ -38,7 +38,7 @@ double utiles::convertPeso(weigth from, weigth to, double peso ){
         return peso;
     }
     if( from == KG )
-        return peso * 2.2;
+        return peso * 2.204623;
     if ( from == G )
         return peso * 0.0022;
     return peso;
@@ -66,8 +66,17 @@ double utiles::convertPrecio(weigth from, weigth to, double precio ){
     return precio;
 }
 
+QString utiles::unitFromPeso(weigth p)
+{
+    if( p == G ) return "g";
+    if( p == KG ) return "Kg";
+    return "Lb";
+}
+
 double utiles::GANANCIA = 0.50;
 double utiles::IMPUESTO = 0.10;
+QString utiles::MONEDA = "CUP";
+QString utiles::UNIDAD = "gramos";
 
 /*void utiles::executeQueryFile(QFile &qf, QSqlDatabase &db) {
     //Read query file content

@@ -64,9 +64,9 @@ void form_insertarorden::on_pb_add_clicked()
     nombre->setFlags(flags);
     QTableWidgetItem *cant = new QTableWidgetItem( QString::number(cantidad) );
     cant->setFlags(flags);
-    QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(precio) );
+    QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(precio, 'f', 2) );
     precioxunidad->setFlags(flags);
-    QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number( precio * cantidad ) );
+    QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number( precio * cantidad, 'f', 2 ) );
     preciototal->setFlags(flags);
 
     ui->tw_platos->setItem(row, 0, nombre);
@@ -74,7 +74,7 @@ void form_insertarorden::on_pb_add_clicked()
     ui->tw_platos->setItem(row, 2, precioxunidad);
     ui->tw_platos->setItem(row, 3, preciototal);
 
-    ui->sb_cantidad->clear();
+    ui->sb_cantidad->setValue(0);
     updateCosto();
 }
 
@@ -101,7 +101,7 @@ void form_insertarorden::updateCosto(){
     double total = 0;
     qDebug() << "Update Costo";
     total = getCosto();
-    ui->l_costo->setText( "El costo total de la orden es: $" + QString::number(total) );
+    ui->l_costo->setText( "El costo total de la orden es: $" + QString::number(total, 'f', 2) );
 }
 
 double form_insertarorden::getProfit(){
@@ -162,10 +162,18 @@ void form_insertarorden::on_pb_accep_clicked()
         return;
     }
 
-    OrderDto order(0,today,costo,profit,payed,orderNumber);
+
+    OrderDto order(0,today,costo,profit,payed,orderNumber, 0);
     auto o = orderService.insertOrder(order);
 
     orderDishService.insertOrderDishes(o.data,L);
+
+    double inversion = orderService.calcularInversion(o.data).data;
+
+    order.id = o.data;
+    order.inversion = inversion;
+    orderService.updateOrder(order);
+
     close();
 }
 

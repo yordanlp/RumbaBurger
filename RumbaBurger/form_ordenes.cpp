@@ -16,6 +16,10 @@ form_ordenes::form_ordenes(QWidget *parent) :
     connect(ui->tw_platos, SIGNAL(cellClicked(int,int)), this, SLOT(updateIngredients()));
     filtrar();
     //QGridLayout *grid = new QGridLayout(this);
+    if( UserService::loggedUser == 0 ){
+        ui->pb_eliminarorden->setEnabled(false);
+        ui->pb_insertarorden->setEnabled(false);
+    }
 }
 
 form_ordenes::~form_ordenes()
@@ -72,11 +76,19 @@ void form_ordenes::updateIngredients(){
     foreach (auto i, ingredients.data) {
         ProductDto p;
         p.id = i.idProduct;
-        QString productName = productService.getProductByID(p).data.productName;
+        p = productService.getProductByID(p).data;
+        QString productName = p.productName;
         double amount = i.amount;
         QTableWidgetItem *name = new QTableWidgetItem(productName);
         name->setFlags(flags);
-        QTableWidgetItem *cant = new QTableWidgetItem(QString::number(amount));
+
+        QString unit;
+        if( p.unitType == SOLIDO )
+            unit = "g";
+        else
+            unit = "u";
+        //qDebug() << "SOLIDO" << SOLIDO << i.unitType << i.productName << unit;
+        QTableWidgetItem *cant = new QTableWidgetItem(QString::number(amount, 'f', 2) + unit);
         cant->setFlags(flags);
 
         ui->tw_ingredientes->setItem(row, 0, name);
@@ -107,7 +119,7 @@ void form_ordenes::updateOrders( QList<OrderDto> orders ){
         cb->setEnabled(false);
         //QTableWidgetItem *pagado = new QTableWidgetItem();
         //pagado->setFlags(flags);
-        QTableWidgetItem *ingreso = new QTableWidgetItem("$"+QString::number(o.total));
+        QTableWidgetItem *ingreso = new QTableWidgetItem("$"+QString::number(o.total, 'f', 2));
         ingreso->setFlags(flags);
 
         ui->tw_ordenes->setItem(row,0, fecha);
@@ -154,11 +166,11 @@ void form_ordenes::updatePlatos(int row){
         QString nombre = dishVersionsService.getDishById(d.idDish).data.dishname;
         QTableWidgetItem *name = new QTableWidgetItem(nombre);
         name->setFlags(flags);
-        QTableWidgetItem *cant = new QTableWidgetItem( QString::number(d.amount) );
+        QTableWidgetItem *cant = new QTableWidgetItem( QString::number(d.amount, 'f', 2) );
         cant->setFlags(flags);
-        QTableWidgetItem *precioxunidad = new QTableWidgetItem( QString::number(d.price) );
+        QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(d.price, 'f', 2) );
         precioxunidad->setFlags(flags);
-        QTableWidgetItem *preciototal = new QTableWidgetItem( QString::number(d.price * d.amount) );
+        QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number(d.price * d.amount, 'f', 2) );
         preciototal->setFlags(flags);
 
         ui->tw_platos->setItem(fila, 0, name);

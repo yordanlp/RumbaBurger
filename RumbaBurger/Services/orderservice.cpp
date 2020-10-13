@@ -1,6 +1,7 @@
 #include "orderservice.h"
 #include <Services/storageservice.h>
 #include <Services/productservice.h>
+#include <Services/dishversionsservice.h>
 
 OrderService::OrderService()
 {
@@ -37,7 +38,7 @@ Result<QList<OrderDto> > OrderService::getOrderbyDate(QDate start, QDate end)
     }
     res.res = SUCCESS;
     while (query.next()) {
-        res.data << OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt());
+        res.data << OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt(), query.value(6).toDouble());
     }
     return res;
 }
@@ -45,10 +46,11 @@ Result<QList<OrderDto> > OrderService::getOrderbyDate(QDate start, QDate end)
 Result<int> OrderService::insertOrder(OrderDto o){
     QSqlQuery query;
     Result<int> res;
-    query.prepare("INSERT INTO 'order' (orderNumber, date, total, profit, payed) VALUES (:orderNumber, :date,:total, :profit, :payed)");
+    query.prepare("INSERT INTO 'order' (orderNumber, date, total, profit, inversion, payed) VALUES (:orderNumber, :date,:total, :profit, :inversion, :payed)");
     query.bindValue(":date", o.date.toString(Qt::ISODate));
     query.bindValue(":total", o.total);
     query.bindValue(":profit", o.profit);
+    query.bindValue(":inversion", o.inversion);
     query.bindValue(":payed", o.payed);
     query.bindValue(":orderNumber", o.orderNumber);
 
@@ -68,11 +70,12 @@ Result<int> OrderService::insertOrder(OrderDto o){
 Result<bool> OrderService::updateOrder(OrderDto o){
     Result<bool> res;
     QSqlQuery query;
-    query.prepare("UPDATE 'order' SET date=:date, total=:total, profit=:profit, payed=:payed  WHERE id=:id");
+    query.prepare("UPDATE 'order' SET date=:date, total=:total, profit=:profit, inversion=:inversion, payed=:payed  WHERE id=:id");
     query.bindValue(":date", o.date.toString(Qt::ISODate));
     query.bindValue(":total", o.total);
     query.bindValue(":payed", o.payed);
     query.bindValue(":profit", o.profit);
+    query.bindValue(":inversion", o.inversion);
     query.bindValue(":id", o.id);
     if( query.exec() ) {
         res.res = result::SUCCESS;
@@ -168,21 +171,35 @@ Result<OrderDto> OrderService::getOrderByOrderNumberAndDate(int orderNumber, QDa
         res.res = RECORD_NOT_FOUND;
     else{
         res.res = SUCCESS;
-        res.data = OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt());
+        res.data = OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt(), query.value(6).toDouble());
     }
     return res;
 }
 
 Result<double> OrderService::getGanancia(int orderId){
     Result<double> res;
-    DishService dishService;
+    /*DishService dishService;
     OrderDishService orderDishService;
     auto dishes = orderDishService.getDishesByOrderId(orderId);
     QList<DishAmountDto> L;
     foreach (auto d, dishes.data) {
         L << DishAmountDto( d.idDish, d.amount );
+    }*/
+    //res.data = dishService.totalProfit(L).data;
+    res.data = getOrderById(orderId).data.profit;
+    res.res = SUCCESS;
+    return res;
+}
+
+Result<double> OrderService::calcularInversion( int orderId ){
+    Result<double> res;
+    DishVersionsService dishVersionsService;
+    OrderDishService orderDishService;
+    auto dishes = orderDishService.getDishesByOrderId(orderId);
+    QList<DishAmountDto> L;
+    foreach (auto d, dishes.data) {
+        res.data += dishVersionsService.productionCost(d.idDish).data * d.amount;
     }
-    res.data = dishService.totalProfit(L).data;
     res.res = SUCCESS;
     return res;
 }
@@ -190,14 +207,16 @@ Result<double> OrderService::getGanancia(int orderId){
 Result<double> OrderService::getInversion(int orderId){
     Result<double> res;
     res.data = 0;
-    DishService dishService;
+    /*DishService dishService;
     OrderDishService orderDishService;
     auto dishes = orderDishService.getDishesByOrderId(orderId);
     QList<DishAmountDto> L;
     foreach (auto d, dishes.data) {
         res.data += dishService.productionCost(d.idDish).data * d.amount;
     }
-    res.res = SUCCESS;
+    res.res = SUCCESS;*/
+    //res.data = getOrderById()
+    res.data = getOrderById(orderId).data.inversion;
     return res;
 }
 
@@ -218,7 +237,7 @@ Result<OrderDto> OrderService::getOrderById(int orderId)
         res.res = RECORD_NOT_FOUND;
         return res;
     }
-    res.data = OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt());
+    res.data = OrderDto(query.value(0).toInt(), query.value(2).toDate(), query.value(3).toDouble(), query.value(4).toDouble(), query.value(5).toInt(), query.value(1).toInt(), query.value(6).toDouble());
     res.res = SUCCESS;
     return res;
 }

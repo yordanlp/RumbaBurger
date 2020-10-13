@@ -9,7 +9,7 @@
 #include "result.h"
 #include <Dto/centralstoragetransactiondto.h>
 #include <Services/centralstoragetransactionservice.h>
-#include <Services//userservice.h>
+#include <Services/userservice.h>
 #include <Dto/productdto.h>
 #include <Services/productservice.h>
 #include <Services/storageservice.h>
@@ -28,7 +28,7 @@ public:
     centralStorageTransactionService centralStorageTransactionServiceObject;
     ProductService ProductServiceObject;
     storageService storageServiceObject;
-    Result<bool> modifyCentralStorage(int id,double cant,bool type,double price=0, double merma=0);
+    Result<bool> modifyCentralStorage(int id, double cant, int type, double price=0, double merma=0);
     Result<QList<StorageProductDto>> getCentralStorageBySearch(QString search="%");
     Result<bool> moveToLocal( int idProduct, double amount );
     Result<bool> extract( int idProduct, double amount );

@@ -151,6 +151,9 @@
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
+                <property name="prefix">
+                 <string>$</string>
+                </property>
                 <property name="maximum">
                  <double>1000000000.990000009536743</double>
                 </property>
@@ -231,13 +234,6 @@
            </layout>
           </item>
          </layout>
-         <zorder>layoutWidget</zorder>
-         <zorder>layoutWidget_2</zorder>
-         <zorder>layoutWidget_3</zorder>
-         <zorder>layoutWidget_4</zorder>
-         <zorder>layoutWidget_5</zorder>
-         <zorder>label_11</zorder>
-         <zorder>gb_detalles</zorder>
         </widget>
        </item>
        <item row="0" column="1">
@@ -485,6 +481,9 @@
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="sb_editPrecio">
+              <property name="prefix">
+               <string>$</string>
+              </property>
               <property name="maximum">
                <double>1000000000.990000009536743</double>
               </property>

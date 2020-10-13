@@ -21,13 +21,48 @@ form_ofertas::form_ofertas(QWidget *parent) :
     QCompleter *completer = new QCompleter(products,this);
     ui->cb_insProduct->setCompleter(completer);
     ui->cb_insProduct->addItems(products);
-    //connect(ui->cb_product, SIGNAL(currentTextChanged(QString)), this, SLOT(updateUnit(QString)));
+    connect(ui->cb_insProduct, SIGNAL(currentTextChanged(QString)), this, SLOT(updateUnit(QString)));
+    updateUnit(ui->cb_insProduct->currentText());
     //ui->pb_delOferta->setEnabled(false);
+
+    if( UserService::loggedUser == 0 ){
+        ui->le_editaName->setEnabled(false);
+        ui->le_insName->setEnabled(false);
+        ui->sb_editPrecio->setEnabled(false);
+        ui->sb_insCantidad->setEnabled(false);
+        ui->sb_insPrice->setEnabled(false);
+        ui->pb_addOferta->setEnabled(false);
+        ui->pb_delIngrediente->setEnabled(false);
+        ui->pb_delOferta->setEnabled(false);
+        ui->pb_guardar->setEnabled(false);
+        ui->pb_insIngrediente->setEnabled(false);
+        ui->te_editDescripcion->setEnabled(false);
+    }
 }
 
 form_ofertas::~form_ofertas()
 {
     delete ui;
+}
+
+void form_ofertas::updateUnit(QString product){
+    ProductService productService;
+    storageService StorageService;
+    auto p = productService.getProductByName(ui->cb_insProduct->currentText());
+    if( p.res == SUCCESS ){
+        if( p.data.unitType == SOLIDO )
+            ui->sb_insCantidad->setSuffix("g");
+        else
+            ui->sb_insCantidad->setSuffix("u");
+        auto s = StorageService.getStorageById(p.data.id);
+        //ui->sb_insCantidad->setMaximum(s.data.amount);
+        ui->pb_insIngrediente->setEnabled(true);
+    }else{
+        ui->sb_insCantidad->setSuffix("");
+        //ui->sb_insCantidad->setMaximum(0);
+        ui->pb_insIngrediente->setEnabled(false);
+    }
+    ui->sb_insCantidad->setValue(0);
 }
 
 void form_ofertas::updateIngredientes(int id)
@@ -44,7 +79,11 @@ void form_ofertas::updateIngredientes(int id)
         auto pro = productService.getProductByID(ProductDto(i.idProduct,"",0,0));
         QTableWidgetItem *producto = new QTableWidgetItem(pro.data.productName);
         producto->setFlags(flags);
-        QTableWidgetItem *amount = new QTableWidgetItem( QString::number(i.amount) );
+        QString unit;
+        if( pro.data.unitType == SOLIDO )
+            unit = "g";
+        else unit = "u";
+        QTableWidgetItem *amount = new QTableWidgetItem( QString::number(i.amount, 'f', 2)  + unit);
         amount->setFlags(flags);
         ui->tw_ingredientes->setItem(row, 0,producto);
         ui->tw_ingredientes->setItem(row, 1, amount);
@@ -63,13 +102,13 @@ void form_ofertas::updatePrecioSugerido(int id)
 {
     DishService dishService;
     auto dish = dishService.getPrecioSugerido(id);
-    ui->l_precioSugerido->setText( "Precio Sugerido: " + QString::number(dish.data) );
+    ui->l_precioSugerido->setText( "Precio Sugerido: $" + QString::number(dish.data, 'f', 2) );
 
 }
 
 void form_ofertas::updatePrecioProduccion(int id){
     DishService dishService;
-    ui->l_precioProduccion->setText( "Precio de Producción: " + QString::number(dishService.getPrecioProduccion(id).data)  );
+    ui->l_precioProduccion->setText( "Precio de Producción: $" + QString::number(dishService.getPrecioProduccion(id).data, 'f', 2)  );
 }
 
 void form_ofertas::updateDescripcion(int id)
@@ -161,11 +200,11 @@ void form_ofertas::updateOfertas(QString search, int rowS)
     for (auto o : O) {
         QTableWidgetItem *dish = new QTableWidgetItem(o.dish);
         dish->setFlags(flags);
-        QTableWidgetItem *price = new QTableWidgetItem("$" + QString::number(o.price));
+        QTableWidgetItem *price = new QTableWidgetItem("$" + QString::number(o.price, 'f', 2));
         price->setFlags(flags);
-        QTableWidgetItem *precioSugerido = new QTableWidgetItem( "$" + QString::number(o.precioSugerido));
+        QTableWidgetItem *precioSugerido = new QTableWidgetItem( "$" + QString::number(o.precioSugerido, 'f', 2));
         precioSugerido->setFlags(flags);
-        QTableWidgetItem *ganancia = new QTableWidgetItem( "$" +  QString::number(o.ganancia));
+        QTableWidgetItem *ganancia = new QTableWidgetItem( "$" +  QString::number(o.ganancia, 'f', 2));
         ganancia->setFlags(flags);
         QString tSalen = "Sin ingredientes";
         if( o.salen != numeric_limits<int>::max() )

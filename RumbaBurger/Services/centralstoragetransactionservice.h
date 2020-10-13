@@ -8,15 +8,15 @@
 #include <QList>
 #include <result.h>
 
-enum { COMPRA, EXTRACCION, CENTRAL_TO_LOCAL, LOCAL_TO_CENTRAL } transactions;
-
 class centralStorageTransactionService
 {
 public:
     centralStorageTransactionService();
     Result<bool> insertCentralStorageTransaction(centralStorageTransactionDto);
-    Result<bool> updateCentralStorageTransaction(centralStorageTransactionDto);
-    Result <QList <centralStorageTransactionDto>> getCentralStorageTransactionByDate(QDate inicial, QDate final);
+    //Result<bool> updateCentralStorageTransaction(centralStorageTransactionDto);
+    //Result <QList <centralStorageTransactionDto>> getCentralStorageTransactionByDate(QDate inicial, QDate final);
+    Result <QList <centralStorageTransactionDto>> getMovimientos(QDate inicial, QDate final, QString producto, int central, int local );
+    Result <QList <centralStorageTransactionDto>> getExtraccionesYCompras(QDate inicial, QDate final, QString producto, int extraccion, int compra);
 };
 
 #endif // CENTRALSTORAGETRANSACTIONSERVICE_H

@@ -8,6 +8,7 @@
 #include "result.h"
 #include <QtCore>
 #include <QtWidgets>
+#include <utiles.h>
 
 QSqlDatabase db;
 void executeQueryFile(QFile &qf) {
@@ -36,9 +37,22 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
+    a.setApplicationName("RumbaBurgerApp");
+
+    QFile f(":qdarkstyle/style.qss");
+
+    if (!f.exists())   {
+        printf("Unable to set stylesheet, file not found\n");
+    }
+    else   {
+        f.open(QFile::ReadOnly | QFile::Text);
+        QTextStream ts(&f);
+        qApp->setStyleSheet(ts.readAll());
+    }
+
     db = QSqlDatabase::addDatabase("QSQLITE");
 
-    QString dbName = "rumbaburgerdb.sqlite";
+    QString dbName = "rumbaburgerdb1.sqlite";
     db.setDatabaseName(dbName);
 
 
@@ -60,12 +74,38 @@ int main(int argc, char *argv[])
 
         }
     }
-    //QApplication::setStyle(QStyleFactory::create("Fusion"));
+
+    QSettings settings("Limitless", "RumbaBurger");
+    settings.beginGroup("Settings");
+    utiles::IMPUESTO = settings.value("ONAT", 10).toDouble()/100.0;
+    utiles::GANANCIA = settings.value("Ganancia", 100).toDouble()/100.0;
+    utiles::MONEDA = settings.value("Moneda", "CUP").toString();
+    utiles::UNIDAD = settings.value("Unidad", "G").toString();
+    settings.endGroup();
+
+    qDebug() << "IMPUESTO" << utiles::IMPUESTO;
+    qDebug() << "GANANCIA" << utiles::GANANCIA;
+    qDebug() << "MONEDA" << utiles::MONEDA;
+    qDebug() << "UNIDAD" << utiles::UNIDAD;
+
+    /*QSettings settings("Limitless", "RumbaBurger");
+    settings.beginGroup("Impuestos");
+    settings.setValue("ONAT", 10.0);
+    settings.setValue("Ganancia", 100.0);
+    settings.endGroup();
+    settings.beginGroup("Moneda");
+    settings.setValue("Moneda", "CUP");
+    settings.endGroup();
+    settings.beginGroup("Unidades");
+    settings.setValue("Unidad", "gramos");
+    settings.endGroup();*/
+
+
+
 
     Login *l;
     l = new Login();
     l->show();
-
 
     return a.exec();
 }

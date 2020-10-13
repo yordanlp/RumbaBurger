@@ -69,7 +69,7 @@ private slots:
     void on_pb_addOferta_clicked();
     void on_tw_ofertas_clicked(const QModelIndex &index);
     void on_le_search_textChanged(const QString &arg1);
-    //void updateUnit(QString product);
+    void updateUnit(QString product);
 
     void on_pb_insIngrediente_clicked();
 

@@ -102,15 +102,7 @@ Result<bool> storageService::modifyStorage( int id, double cant, int type){
 
     updateStorageById(p);
 
-    storageTransactionDto st;
-    st.idProduct = p.id;
-    st.type = type;
-    st.date = QDate::currentDate();
-    st.amount = cant;
-    st.idUser = UserService::loggedUser;
-    Result<bool> b = storageTransactionServiceObject.insertStorageTransaction(st);
     res.res = result::SUCCESS;
-    res.data = b.data;
     return res;
 }
 
@@ -215,6 +207,31 @@ Result<bool> storageService::deleteStorage(int idProduct)
         return res;
     }
 
+    res.res = SUCCESS;
+    return res;
+}
+
+Result<bool> storageService::extract(int idProduct, double amount)
+{
+    Result<bool> res;
+    auto ret = getStorageById(idProduct);
+    if( ret.res != SUCCESS ){
+        res.res = ret.res;
+        res.msg = ret.msg;
+        return res;
+    }
+    double newAmount = ret.data.amount - amount;
+    if( newAmount < 0 ){
+        res.res = INSUFICIENT_AMOUNT;
+        return res;
+    }
+    auto upd = updateStorageById(storageDto(idProduct, newAmount));
+
+    if( upd.res != SUCCESS ){
+        res.res = upd.res;
+        res.msg = upd.msg;
+        return res;
+    }
     res.res = SUCCESS;
     return res;
 }

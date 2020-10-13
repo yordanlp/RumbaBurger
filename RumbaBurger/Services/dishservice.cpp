@@ -197,7 +197,6 @@ Result<bool> DishService::discountProductFromDish(int idDish, double amount, int
 Result<double> DishService::totalProfit(QList<DishAmountDto> L){
     Result<double>res;
     res.data = 0;
-
     double ret = 0;
     foreach (auto d, L) {
         ret += getGanancia(d.idDish).data * d.amount;

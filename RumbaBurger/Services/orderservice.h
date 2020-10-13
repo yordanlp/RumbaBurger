@@ -27,7 +27,7 @@ public:
     Result<double> getGanancia( int orderId );
     Result<double> getInversion( int orderId );
     Result<OrderDto> getOrderById( int orderId );
-
+    Result<double> calcularInversion( int orderId );
 };
 
 #endif // ORDERSERVICE_H

@@ -79,7 +79,7 @@ Result<bool> centralStorageService::updateCentralStorageById( centralStorageDto 
     return res;
 }
 
-Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bool type, double price, double merma){
+Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, int type, double price, double merma){
     Result<bool> res;
     centralStorageDto p = getCentralStorageById(id).data;
     if(type == 1)
@@ -98,8 +98,10 @@ Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bo
     double newprice = prod.price;
 
 
+    storageService StorageService;
     if(type == 1){ /// Actualizar el nuevo precio de adquisicion del producto
-        double oldtotal = getCentralStorageById(id).data.amount;
+
+        double oldtotal = getCentralStorageById(id).data.amount + StorageService.getStorageById(id).data.amount;
 
         auto r = storageServiceObject.getStorageById(id);
 
@@ -118,18 +120,7 @@ Result<bool> centralStorageService::modifyCentralStorage(int id, double cant, bo
     }
 
     updateCentralStorageById(p);
-
-    centralStorageTransactionDto st;
-    st.merma = merma;
-    st.idProduct = p.id;
-    st.type = type;
-    st.date = QDate::currentDate();
-    st.amount = cant;
-    st.idUser = UserService::loggedUser;
-    st.price = price;
-    Result<bool> b = centralStorageTransactionServiceObject.insertCentralStorageTransaction(st);
     res.res = result::SUCCESS;
-    res.data = b.data;
     return res;
 }
 

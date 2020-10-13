@@ -26,6 +26,9 @@ public:
     static double convertPeso(weigth from, weigth to, double peso);
     static double convertPrecio(weigth from, weigth to, double precio);
     static double GANANCIA, IMPUESTO;
+    static QString MONEDA, UNIDAD;
+    static QString unitFromPeso( weigth p );
+
     //static void executeQueryFile(QFile &qf, QSqlDatabase &db);
 };
 

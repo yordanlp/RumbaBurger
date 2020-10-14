@@ -38,11 +38,23 @@ form_ofertas::form_ofertas(QWidget *parent) :
         ui->pb_insIngrediente->setEnabled(false);
         ui->te_editDescripcion->setEnabled(false);
     }
+
+    ui->pb_insIngrediente->setEnabled(false);
 }
 
 form_ofertas::~form_ofertas()
 {
     delete ui;
+}
+
+void form_ofertas::updateImpuesto(){
+    updateAll();
+    updateOfertas(ui->le_search->text(), rowSelected);
+}
+
+void form_ofertas::updateGanancia(){
+    updateAll();
+    updateOfertas(ui->le_search->text(), rowSelected);
 }
 
 void form_ofertas::updateUnit(QString product){
@@ -79,12 +91,14 @@ void form_ofertas::updateIngredientes(int id)
         auto pro = productService.getProductByID(ProductDto(i.idProduct,"",0,0));
         QTableWidgetItem *producto = new QTableWidgetItem(pro.data.productName);
         producto->setFlags(flags);
+        producto->setTextAlignment(utiles::TextAlign);
         QString unit;
         if( pro.data.unitType == SOLIDO )
             unit = "g";
         else unit = "u";
         QTableWidgetItem *amount = new QTableWidgetItem( QString::number(i.amount, 'f', 2)  + unit);
         amount->setFlags(flags);
+        amount->setTextAlignment(utiles::TextAlign);
         ui->tw_ingredientes->setItem(row, 0,producto);
         ui->tw_ingredientes->setItem(row, 1, amount);
         row++;
@@ -160,15 +174,20 @@ vector<infoOfertas> form_ofertas::getOfertasSorted( QList<DishDto> L ){
         v.id = i.id;
         v.dish = i.dishname;
         v.price = i.price;
+        v.description = i.description;
         v.precioSugerido = dishService.getPrecioSugerido(i.id).data;
         v.ganancia = dishService.getGanancia(i.id).data;
         v.salen = dishService.getSalen(i.id).data;
         ret.push_back(v);
 
-        dishModel << DishDto(i.id, i.dishname, i.description, i.price);
+        //dishModel << DishDto(i.id, i.dishname, i.description, i.price);
     }
 
     sort(ret.begin(), ret.end());
+
+    for( infoOfertas i : ret ){
+        dishModel << DishDto(i.id, i.dish, i.description, i.price);
+    }
     qDebug() << "sorting";
     /*if( sortBy == "Precio" )
         sort(ret.begin(), ret.end(), sortByPrice);
@@ -200,18 +219,22 @@ void form_ofertas::updateOfertas(QString search, int rowS)
     for (auto o : O) {
         QTableWidgetItem *dish = new QTableWidgetItem(o.dish);
         dish->setFlags(flags);
+        dish->setTextAlignment(utiles::TextAlign);
         QTableWidgetItem *price = new QTableWidgetItem("$" + QString::number(o.price, 'f', 2));
+        price->setTextAlignment(utiles::TextAlign);
         price->setFlags(flags);
         QTableWidgetItem *precioSugerido = new QTableWidgetItem( "$" + QString::number(o.precioSugerido, 'f', 2));
+        precioSugerido->setTextAlignment(utiles::TextAlign);
         precioSugerido->setFlags(flags);
         QTableWidgetItem *ganancia = new QTableWidgetItem( "$" +  QString::number(o.ganancia, 'f', 2));
+        ganancia->setTextAlignment(utiles::TextAlign);
         ganancia->setFlags(flags);
         QString tSalen = "Sin ingredientes";
         if( o.salen != numeric_limits<int>::max() )
             tSalen = QString::number(o.salen);
         QTableWidgetItem *salen = new QTableWidgetItem( tSalen );
         salen->setFlags(flags);
-
+        salen->setTextAlignment(utiles::TextAlign);
         ui->tw_ofertas->setItem(row, 0, dish);
         ui->tw_ofertas->setItem(row, 1, price);
         ui->tw_ofertas->setItem(row, 2, precioSugerido);
@@ -331,6 +354,10 @@ void form_ofertas::on_pb_insIngrediente_clicked()
     IngredientsService ingredientsService;
     QString product = ui->cb_insProduct->currentText();
     double cantidad = ui->sb_insCantidad->value();
+    if( !cantidad ){
+        QMessageBox::information(this, "Información", "La cantidad no puede ser 0", QMessageBox::Ok);
+        return;
+    }
     auto pr = productService.getProductByName(product);
     if( pr.res == RECORD_NOT_FOUND ){
         QMessageBox::information(this,"Información", "El producto seleccionado no existe",QMessageBox::Ok);
@@ -413,12 +440,20 @@ void form_ofertas::on_pb_delOferta_clicked()
     QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
     //auto dish = dishService.getDishByName(DishDto(0, dishName,"", 0));
     auto dish = dishModel.at( rowSelected );
-    dishService.deleteDish(dish);
-    updateOfertas(ui->le_search->text(), rowSelected);
-    if( rowSelected >= 0 && rowSelected < ui->tw_ofertas->rowCount() ){
-        qDebug() << "rowSelected" << rowSelected;
-        //selectOferta( ui->tw_ofertas->item(rowSelected, 0)->text() );
-        selectOferta( dishModel.at(rowSelected).id );
+    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea eliminar la oferta " + dish.dishname + "?", QMessageBox::Ok, QMessageBox::Cancel);
+    if( res == QMessageBox::Ok ){
+        dishService.deleteDish(dish);
+        updateOfertas(ui->le_search->text(), rowSelected);
+        if( rowSelected >= 0 && rowSelected < ui->tw_ofertas->rowCount() ){
+            qDebug() << "rowSelected" << rowSelected;
+            //selectOferta( ui->tw_ofertas->item(rowSelected, 0)->text() );
+            selectOferta( dishModel.at(rowSelected).id );
+        }
     }
 }
 
+
+void form_ofertas::on_sb_insCantidad_valueChanged(double arg1)
+{
+    ui->pb_insIngrediente->setEnabled(arg1 > 0);
+}

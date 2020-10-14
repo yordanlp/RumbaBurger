@@ -67,7 +67,8 @@ SOURCES += main.cpp\
     form_modificarorden.cpp \
     form_transacciones.cpp \
     Services/transactionservice.cpp \
-    Dto/transactiondto.cpp
+    Dto/transactiondto.cpp \
+    form_inicial.cpp
 
 HEADERS  += \
     login.h \
@@ -110,7 +111,8 @@ HEADERS  += \
     form_modificarorden.h \
     form_transacciones.h \
     Services/transactionservice.h \
-    Dto/transactiondto.h
+    Dto/transactiondto.h \
+    form_inicial.h
 
 FORMS    += \
     login.ui \
@@ -122,7 +124,8 @@ FORMS    += \
     form_gastos.ui \
     form_reportes.ui \
     form_modificarorden.ui \
-    form_transacciones.ui
+    form_transacciones.ui \
+    form_inicial.ui
 
 RESOURCES += \
     recursos.qrc

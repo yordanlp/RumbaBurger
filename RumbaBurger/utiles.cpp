@@ -77,6 +77,7 @@ double utiles::GANANCIA = 0.50;
 double utiles::IMPUESTO = 0.10;
 QString utiles::MONEDA = "CUP";
 QString utiles::UNIDAD = "gramos";
+int utiles::TextAlign = Qt::AlignHCenter | Qt::AlignVCenter;
 
 /*void utiles::executeQueryFile(QFile &qf, QSqlDatabase &db) {
     //Read query file content

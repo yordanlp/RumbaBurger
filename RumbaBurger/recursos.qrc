@@ -1,1 +1,13 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/images">
+        <file>Images/background.jpg</file>
+        <file>Images/icon.jpg</file>
+        <file>Images/RumbaIcon.png</file>
+        <file>Images/iconos/orden.png</file>
+        <file>Images/iconos/almacen.png</file>
+        <file>Images/iconos/estadisticas.png</file>
+        <file>Images/iconos/ofertas.png</file>
+        <file>Images/iconos/transaccion.png</file>
+        <file>Images/iconos/gastos.png</file>
+    </qresource>
+</RCC>

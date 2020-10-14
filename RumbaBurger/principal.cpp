@@ -13,13 +13,18 @@ Principal::Principal(QWidget *parent) :
     setCentralWidget(mdi);
     QLabel *label = new QLabel("Status Bar", this);
     ui->statusbar->addWidget(label);
-    QMainWindow *mensaje = new QMainWindow();
-    QLabel *msg = new QLabel("Elija una opción para comenzar");
-    mensaje->setCentralWidget( msg );
-    mdi->addSubWindow(mensaje);
-    mensaje->showMaximized();
-    msg->setGeometry( mensaje->x() + mensaje->width()/2, mensaje->y() + mensaje->height()/2, msg->width(), msg->height() );
 
+    formInicial = new form_inicial(this);
+    mdi->addSubWindow(formInicial);
+    formInicial->showMaximized();
+
+    if( UserService::loggedUser == 0 ){
+        qDebug() << "qwqwe qlwkdj alskj d";
+        //ui->menubar->setVisible(false);
+        ui->menubar->clear();
+        //ui->menuAjustes->setVisible(false);
+        //ui->menuUsuarios->setVisible(false);
+    }
 }
 
 Principal::~Principal()
@@ -48,6 +53,8 @@ void Principal::on_actionAlmacenes_triggered()
 void Principal::on_actionOfertas_triggered()
 {
     formOfertas = new form_ofertas(this);
+    connect(this, SIGNAL(ImpuestoChanged()), formOfertas, SLOT(updateImpuesto()));
+    connect(this, SIGNAL(GananciaChnged()), formOfertas, SLOT(updateGanancia()));
     mdi->closeAllSubWindows();
     mdi->addSubWindow(formOfertas);
     formOfertas->showMaximized();
@@ -88,6 +95,7 @@ void Principal::on_actionEstadisticas_triggered()
     qDebug() << "mostrar reportes";
     mdi->closeAllSubWindows();
     formReportes = new form_reportes(this);
+    connect(this, SIGNAL(ImpuestoChanged()), formReportes, SLOT(updateImpuesto()));
     mdi->addSubWindow(formReportes);
     formReportes->showMaximized();
 }
@@ -104,7 +112,7 @@ void Principal::on_actionTransacciones_triggered()
 
 void Principal::on_actionImpuesto_triggered()
 {
-    double impuesto = QInputDialog::getDouble(this, "Porcentaje de Impuesto ONAT","Impuesto", utiles::IMPUESTO * 100, 0, 100, 2);
+    double impuesto = QInputDialog::getDouble(this, "Porcentaje de Impuesto ONAT","Impuesto ONAT (%)", utiles::IMPUESTO * 100, 0, 100, 2);
     utiles::IMPUESTO = impuesto / 100.0;
     QSettings settings("Limitless", "RumbaBurger");
     settings.beginGroup("Settings");
@@ -115,7 +123,7 @@ void Principal::on_actionImpuesto_triggered()
 
 void Principal::on_actionGanancia_triggered()
 {
-    double ganancia = QInputDialog::getDouble(this, "Porcentaje de Ganancia","Impuesto", utiles::GANANCIA * 100, 0, 1000000000, 2);
+    double ganancia = QInputDialog::getDouble(this, "Porcentaje de Ganancia","Ganancia (%)", utiles::GANANCIA * 100, 0, 1000000000, 2);
     qDebug() << "GANANCIA" << ganancia;
     utiles::GANANCIA = ganancia / 100.0;
     QSettings settings("Limitless", "RumbaBurger");
@@ -128,11 +136,11 @@ void Principal::on_actionGanancia_triggered()
 void Principal::on_actionUnidad_triggered()
 {
     QStringList L;
-    L << "Gramos" << "KiloGramos" << "Libras";
+    L << "Gramos" << "Kilogramos" << "Libras";
     int selected = 0;
     if( utiles::UNIDAD == "Gramos" )
         selected = 0;
-    if( utiles::UNIDAD == "KiloGramos" )
+    if( utiles::UNIDAD == "Kilogramos" )
         selected = 1;
     if( utiles::UNIDAD == "Libras" )
         selected = 2;

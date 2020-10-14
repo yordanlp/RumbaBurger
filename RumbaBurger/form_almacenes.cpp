@@ -14,6 +14,7 @@ form_almacenes::form_almacenes(QWidget *parent) :
 
     setUnit();
 
+
     ui->setupUi(this);
     updateCentralTable("");
     updateLocalTable("");
@@ -159,12 +160,18 @@ form_almacenes::form_almacenes(QWidget *parent) :
         ui->gb_insertarProducto->setEnabled(false);
     }
 
+    ui->pb_aceptarExtraer->setEnabled(false);
+    ui->pb_aceptarExtraerLocal->setEnabled(false);
+    ui->pb_insertarCompra->setEnabled(false);
+    ui->pb_mcAccept->setEnabled(false);
+    ui->pb_MoverAlLocal->setEnabled(false);
+
 }
 
 void form_almacenes::setUnit(){
     if( utiles::UNIDAD == "Gramos" )
         PESO = G;
-    if( utiles::UNIDAD == "KiloGramos" )
+    if( utiles::UNIDAD == "Kilogramos" )
         PESO = KG;
     if( utiles::UNIDAD == "Libras" )
         PESO = LB;
@@ -363,6 +370,7 @@ void form_almacenes::updateCentralTable(QString search){
     foreach (auto i, res) {
         QTableWidgetItem *producto = new QTableWidgetItem(i.name);
         producto->setFlags(flags);
+        producto->setTextAlignment(utiles::TextAlign);
 
 
         QString unit = "";
@@ -374,12 +382,14 @@ void form_almacenes::updateCentralTable(QString search){
         double precio = (unit == "u") ? i.price : utiles::convertPrecio(G, PESO, i.price);
         QTableWidgetItem *price = new QTableWidgetItem("$" + QString::number(precio, 'f', 2));
         price->setFlags(flags);
+        price->setTextAlignment(utiles::TextAlign);
 
 
 
         double cantidad = (unit == "u") ? i.amount : utiles::convertPeso(G, PESO, i.amount);
         QTableWidgetItem *amount = new QTableWidgetItem(QString::number(cantidad, 'f', 2) + unit);
         amount->setFlags(flags);
+        amount->setTextAlignment(utiles::TextAlign);
         ui->centralTable->setItem(row, 0, producto);
         ui->centralTable->setItem(row, 1, amount);
         ui->centralTable->setItem(row, 2, price);
@@ -397,7 +407,7 @@ void form_almacenes::updateLocalTable(QString search){
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     foreach (auto i, res) {
         QTableWidgetItem *producto = new QTableWidgetItem(i.name);
-
+        producto->setTextAlignment(utiles::TextAlign);
         QString unit;
         qDebug() << "Unidadddd" << i.unitType;
         if( i.unitType == SOLIDO )
@@ -407,9 +417,11 @@ void form_almacenes::updateLocalTable(QString search){
 
         double precio = (unit == "u") ? i.price : utiles::convertPrecio(G, PESO, i.price);
         QTableWidgetItem *price = new QTableWidgetItem("$" + QString::number(precio, 'f', 2));
-
+        price->setTextAlignment(utiles::TextAlign);
         double cant = (unit == "u") ? i.amount : utiles::convertPeso(G, PESO, i.amount);
         QTableWidgetItem *amount = new QTableWidgetItem(QString::number(cant, 'f', 2) + unit);
+        amount->setTextAlignment(utiles::TextAlign);
+
         producto->setFlags(flags);
         amount->setFlags(flags);
         price->setFlags(flags);
@@ -534,7 +546,7 @@ void form_almacenes::on_pb_mcAccept_clicked()
     auto s = StorageService.getStorageById(prod.data.id);
     TransactionService transactionService;
 
-    transactionService.insertTransaction( TransactionDto(0, MOVIMIENTO, LOCAL, cantidad, prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount) );
+    transactionService.insertTransaction( TransactionDto(0, MOVIMIENTO, LOCAL, cantidad, prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType) );
 
     ui->sb_mcCantidad->setValue(0);
     updateCentralTable(ui->le_localSearch->text());
@@ -603,6 +615,10 @@ void form_almacenes::on_pb_insertarCompra_clicked()
     }
 
     double cant = ui->sb_cantidadCompra->value();
+    if( cant == 0 ){
+        QMessageBox::information(this, "Información", "La cantidad de producto a comprar no puede ser 0", QMessageBox::Ok);
+        return;
+    }
     double merma = 0;
     if( ui->cb_mermaCompra->isChecked() )
         merma = ui->sb_mermaCompra->value();
@@ -612,7 +628,9 @@ void form_almacenes::on_pb_insertarCompra_clicked()
     }
 
     double realCant = cant - merma;
+    double cantidadInicial = cant;
     double pricePerUnit = ui->sb_precioCompra->value();
+    double precioInicial = pricePerUnit;
     double precioTotal = pricePerUnit * cant;
 
     weigth from = G;
@@ -631,23 +649,30 @@ void form_almacenes::on_pb_insertarCompra_clicked()
     merma = utiles::convertPeso(from, G, merma);
     pricePerUnit = utiles::convertPrecio(from, G, pricePerUnit);
 
+    QString unit = utiles::unitFromPeso(from);
+    if( product.data.unitType == UNIDAD )
+        unit = "u";
 
-    CentralStorageService.modifyCentralStorage(product.data.id, realCant, 1, pricePerUnit, merma);
+    auto res = QMessageBox::information(this, "Información", "Está seguro que desea insertar la compra de <strong>" + QString::number(cantidadInicial, 'f', 2) + unit + "</strong>" + " de <strong>" + productName + "</strong>" + " al precio de <strong>$" + QString::number(precioInicial, 'f', 2) + "</strong>", QMessageBox::Ok, QMessageBox::Cancel );
 
-    auto cs = CentralStorageService.getCentralStorageById(product.data.id);
+    if( res == QMessageBox::Ok ){
+        CentralStorageService.modifyCentralStorage(product.data.id, realCant, 1, pricePerUnit, merma);
 
-    storageService StorageService;
-    auto s = StorageService.getStorageById(product.data.id);
+        auto cs = CentralStorageService.getCentralStorageById(product.data.id);
 
-    TransactionService transactionService;
-    transactionService.insertTransaction( TransactionDto(0,COMPRA,CENTRAL,cant,product.data.id,QDate::currentDate(),UserService::loggedUser,pricePerUnit, merma, s.data.amount, cs.data.amount) );
+        storageService StorageService;
+        auto s = StorageService.getStorageById(product.data.id);
 
-    updateCentralTable( ui->le_Centralsearch->text() );
-    updateLocalTable( ui->le_localSearch->text() );
-    ui->sb_cantidadCompra->setValue(0);
-    ui->sb_mermaCompra->setValue(0);
-    ui->sb_precioCompra->setValue(0);
-    updateExistentes();
+        TransactionService transactionService;
+        transactionService.insertTransaction( TransactionDto(0,COMPRA,CENTRAL,cant,product.data.id,QDate::currentDate(),UserService::loggedUser,pricePerUnit, merma, s.data.amount, cs.data.amount, product.data.productName, product.data.unitType) );
+
+        updateCentralTable( ui->le_Centralsearch->text() );
+        updateLocalTable( ui->le_localSearch->text() );
+        ui->sb_cantidadCompra->setValue(0);
+        ui->sb_mermaCompra->setValue(0);
+        ui->sb_precioCompra->setValue(0);
+        updateExistentes();
+    }
 }
 
 void form_almacenes::on_pb_acceptInsertar_clicked()
@@ -765,6 +790,10 @@ void form_almacenes::on_pb_MoverAlLocal_clicked()
     }
     auto storeProduct = CentralStorageService.getCentralStorageById(prod.data.id);
     double cantidad = ui->sb_cantidadMoverAlLocal->value();
+    if( cantidad == 0 ){
+        QMessageBox::information(this, "Información", "La cantidad de producto a mover no puede ser 0", QMessageBox::Ok);
+        return;
+    }
     weigth from = G;
     if( prod.data.unitType == SOLIDO ){
         if( ui->rb_gramosMoverAlLocal->isChecked() )
@@ -786,7 +815,7 @@ void form_almacenes::on_pb_MoverAlLocal_clicked()
     auto cs = CentralStorageService.getCentralStorageById(prod.data.id);
     auto s = StorageService.getStorageById(prod.data.id);
     TransactionService transactionService;
-    transactionService.insertTransaction( TransactionDto(0,MOVIMIENTO,CENTRAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount) );
+    transactionService.insertTransaction( TransactionDto(0,MOVIMIENTO,CENTRAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType) );
 
     ui->sb_cantidadMoverAlLocal->setValue(0);
     updateCentralTable( ui->le_localSearch->text() );
@@ -805,6 +834,10 @@ void form_almacenes::on_pb_aceptarExtraer_clicked()
     }
     auto storeProduct = CentralStorageService.getCentralStorageById(prod.data.id);
     double cantidad = ui->sb_cantidadExtraer->value();
+    if( !cantidad ){
+        QMessageBox::information(this, "Información", "La cantidad de producto a extraer no puede ser 0", QMessageBox::Ok);
+        return;
+    }
     weigth from = G;
     if( prod.data.unitType == SOLIDO ){
         if( ui->rb_gramosExtraer->isChecked() )
@@ -825,7 +858,7 @@ void form_almacenes::on_pb_aceptarExtraer_clicked()
     auto cs = CentralStorageService.getCentralStorageById(prod.data.id);
     auto s = StorageService.getStorageById(prod.data.id);
 
-    transactionService.insertTransaction( TransactionDto(0,EXTRACCION,CENTRAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser,prod.data.price,0,s.data.amount,cs.data.amount ) );
+    transactionService.insertTransaction( TransactionDto(0,EXTRACCION,CENTRAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser,prod.data.price,0,s.data.amount,cs.data.amount, prod.data.productName, prod.data.unitType ) );
 
     ui->sb_cantidadExtraer->setValue(0);
     CentralStorageService.extract(prod.data.id, cantidad);
@@ -850,11 +883,14 @@ void form_almacenes::on_pb_eliminarProduct_clicked()
     auto product = productService.getProductByName(ui->centralTable->item(row, 0)->text());
     auto list = productService.isUsed(product.data.id).data;
     if( list.isEmpty() ){
-        productService.deleteProduct(product.data);
-        CentralStorageService.deleteCentralStorage( product.data.id );
-        StorageService.deleteStorage( product.data.id );
+        auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea eliminar el producto " + product.data.productName + "?", QMessageBox::Ok, QMessageBox::Cancel);
+        if( res == QMessageBox::Ok ){
+            productService.deleteProduct(product.data);
+            CentralStorageService.deleteCentralStorage( product.data.id );
+            StorageService.deleteStorage( product.data.id );
+        }
     }else{
-        auto res = QMessageBox::information( this, "Información", "El producto " + product.data.productName + " ha sido utilizado en varias órdenes. Su eliminación puede causar errores en la información mostrada. ¿Está seguro que desea eliminarlo?", QMessageBox::Ok | QMessageBox::Cancel );
+        auto res = QMessageBox::information( this, "Información", "El producto " + product.data.productName + " ha sido utilizado en varias órdenes. Su eliminación puede causar errores en la información mostrada. <strong>Le recomendamos no hacerlo</strong>. ¿Está seguro que desea eliminarlo?", QMessageBox::Ok | QMessageBox::Cancel );
         if( res == QMessageBox::Ok ){
             productService.deleteProduct(product.data);
             CentralStorageService.deleteCentralStorage( product.data.id );
@@ -871,7 +907,19 @@ void form_almacenes::on_pb_eliminarProduct_clicked()
 
 void form_almacenes::on_centralTable_cellClicked(int row, int column)
 {
+    if( row < 0 ) return;
     ui->pb_eliminarProduct->setEnabled(true);
+    int index = ui->cb_productCompra->findText( ui->centralTable->item(row, 0)->text() );
+    ui->cb_productCompra->setCurrentIndex(index);
+    ui->cb_productMoverAlLocal->setCurrentIndex(index);
+    ui->cb_productoExtraer->setCurrentIndex(index);
+
+    ui->sb_cantidadCompra->setValue(0);
+    ui->sb_cantidadMoverAlLocal->setValue(0);
+    ui->sb_cantidadExtraer->setValue(0);
+    ui->pb_insertarCompra->setEnabled(false);
+    ui->pb_MoverAlLocal->setEnabled(false);
+    ui->pb_aceptarExtraer->setEnabled(false);
 }
 
 void form_almacenes::on_pb_aceptarExtraerLocal_clicked()
@@ -905,11 +953,52 @@ void form_almacenes::on_pb_aceptarExtraerLocal_clicked()
     auto s = StorageService.getStorageById(prod.data.id);
 
     TransactionService transactionService;
-    transactionService.insertTransaction(TransactionDto(0, EXTRACCION,LOCAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount));
+    transactionService.insertTransaction(TransactionDto(0, EXTRACCION,LOCAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType));
 
     ui->sb_cantidadExtraerLocal->setValue(0);
     StorageService.extract(prod.data.id, cantidad);
     updateLocalTable(ui->le_localSearch->text());
     updateCentralTable(ui->le_Centralsearch->text());
     updateExistentes();
+}
+
+void form_almacenes::on_localTable_cellClicked(int row, int column)
+{
+    if( row < 0 ) return;
+    int index = ui->cb_mcProduct->findText( ui->localTable->item(row, 0)->text() );
+    ui->cb_mcProduct->setCurrentIndex(index);
+    ui->cb_productoExtraerLocal->setCurrentIndex(index);
+
+    ui->sb_mcCantidad->setValue(0);
+    ui->sb_cantidadExtraerLocal->setValue(0);
+
+    ui->pb_mcAccept->setEnabled(false);
+    ui->pb_aceptarExtraerLocal->setEnabled(false);
+}
+
+
+void form_almacenes::on_sb_cantidadMoverAlLocal_valueChanged(double arg1)
+{
+    ui->pb_MoverAlLocal->setEnabled(arg1 > 0);
+}
+
+void form_almacenes::on_sb_cantidadExtraer_valueChanged(double arg1)
+{
+    ui->pb_aceptarExtraer->setEnabled(arg1 > 0);
+}
+
+void form_almacenes::on_sb_mcCantidad_valueChanged(double arg1)
+{
+    ui->pb_mcAccept->setEnabled(arg1 > 0);
+}
+
+void form_almacenes::on_sb_cantidadExtraerLocal_valueChanged(double arg1)
+{
+    ui->pb_aceptarExtraerLocal->setEnabled(arg1 > 0);
+}
+
+
+void form_almacenes::on_sb_cantidadCompra_valueChanged(double arg1)
+{
+    ui->pb_insertarCompra->setEnabled(arg1 > 0);
 }

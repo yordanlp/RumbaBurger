@@ -28,6 +28,7 @@ public:
     static double GANANCIA, IMPUESTO;
     static QString MONEDA, UNIDAD;
     static QString unitFromPeso( weigth p );
+    static int TextAlign;
 
     //static void executeQueryFile(QFile &qf, QSqlDatabase &db);
 };

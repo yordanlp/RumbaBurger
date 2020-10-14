@@ -31,6 +31,8 @@ private slots:
 
     void on_tw_gastos_clicked(const QModelIndex &index);
 
+    void on_sb_importe_valueChanged(double arg1);
+
 private:
     Ui::form_gastos *ui;
 };

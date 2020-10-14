@@ -22,6 +22,11 @@ form_reportes::~form_reportes()
     delete ui;
 }
 
+void form_reportes::updateImpuesto(){
+    qDebug() << "impuestoooo";
+    updateTotal();
+}
+
 void form_reportes::filtrar(){
     QDate inicial = ui->de_inicial->date();
     QDate final = ui->de_final->date();
@@ -59,8 +64,10 @@ void form_reportes::updateOrdenes(){
     foreach (auto o, orders.data) {
         QDate date = o.date;
         QTableWidgetItem *fecha = new QTableWidgetItem( date.toString(Qt::ISODate) );
+        fecha->setTextAlignment(utiles::TextAlign);
         fecha->setFlags(flags);
         QTableWidgetItem *numorden = new QTableWidgetItem( QString::number(o.orderNumber) );
+        numorden->setTextAlignment(utiles::TextAlign);
         numorden->setFlags(flags);
         QCheckBox *pagado = new QCheckBox(this);
         if( o.payed )
@@ -68,10 +75,13 @@ void form_reportes::updateOrdenes(){
         pagado->setEnabled(false);
         ui->tw_ordenes->setCellWidget(row, 2,pagado);
         QTableWidgetItem *inversion = new QTableWidgetItem( "$" + QString::number( orderService.getInversion(o.id).data, 'f', 2 ) );
+        inversion->setTextAlignment(utiles::TextAlign);
         inversion->setFlags(flags);
         QTableWidgetItem *ingresos = new QTableWidgetItem( "$" + QString::number(o.total, 'f', 2) );
+        ingresos->setTextAlignment(utiles::TextAlign);
         ingresos->setFlags(flags);
         QTableWidgetItem *ganancia = new QTableWidgetItem( "$" + QString::number(o.profit, 'f', 2) );
+        ganancia->setTextAlignment(utiles::TextAlign);
         ganancia->setFlags(flags);
 
         ui->tw_ordenes->setItem(row, 0, fecha);
@@ -106,10 +116,13 @@ void form_reportes::updateGastos(){
     foreach (auto e, ex.data) {
         QDate date = e.date;
         QTableWidgetItem *fecha = new QTableWidgetItem( date.toString(Qt::ISODate) );
+        fecha->setTextAlignment(utiles::TextAlign);
         fecha->setFlags(flags);
         QTableWidgetItem *descripcion = new QTableWidgetItem( e.description );
+        descripcion->setTextAlignment(utiles::TextAlign);
         descripcion->setFlags(flags);
         QTableWidgetItem *importe = new QTableWidgetItem( "$" + QString::number(e.price, 'f', 2) );
+        importe->setTextAlignment(utiles::TextAlign);
         importe->setFlags(flags);
 
         ui->tw_gastos->setItem(row, 0, fecha);
@@ -123,6 +136,6 @@ void form_reportes::updateGastos(){
 }
 
 void form_reportes::updateTotal(){
-    ui->l_onat->setText("ONAT: $" + QString::number( Tganancia - utiles::IMPUESTO * Tganancia, 'f', 2));
-    ui->l_ganancianeta->setText("Ganancia Neta: $" + QString::number( Tganancia- Tgastos, 'f', 2 ));
+    ui->l_onat->setText("Impuesto de la ONAT: $" + QString::number( utiles::IMPUESTO * Tingresos, 'f', 2));
+    ui->l_ganancianeta->setText("Ganancia Neta: $" + QString::number( Tganancia - Tgastos, 'f', 2 ));
 }

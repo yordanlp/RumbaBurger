@@ -41,7 +41,7 @@ form_transacciones::form_transacciones(QWidget *parent) :
 void form_transacciones::setUnit(){
     if( utiles::UNIDAD == "Gramos" )
         PESO = G;
-    if( utiles::UNIDAD == "KiloGramos" )
+    if( utiles::UNIDAD == "Kilogramos" )
         PESO = KG;
     if( utiles::UNIDAD == "Libras" )
         PESO = LB;
@@ -86,7 +86,7 @@ void form_transacciones::filtrarMovimientos(){
     foreach (auto m, Movimientos) {
         QTableWidgetItem *fecha = new QTableWidgetItem(m.date.toString(Qt::ISODate));
         fecha->setFlags(flags);
-
+        fecha->setTextAlignment(utiles::TextAlign);
         QString desde, hasta;
         if( m.origin == CENTRAL )
             desde = "Almacén Central", hasta = "Almacén Local";
@@ -95,13 +95,13 @@ void form_transacciones::filtrarMovimientos(){
 
         QTableWidgetItem *from = new QTableWidgetItem( desde );
         from->setFlags(flags);
-
+        from->setTextAlignment(utiles::TextAlign);
         QTableWidgetItem *to = new QTableWidgetItem( hasta );
         to->setFlags(flags);
-
+        to->setTextAlignment(utiles::TextAlign);
         QTableWidgetItem *producto = new QTableWidgetItem( m.productName );
         producto->setFlags(flags);
-
+        producto->setTextAlignment(utiles::TextAlign);
         QString unit = "";
         if( m.unitType == SOLIDO )
             unit = utiles::unitFromPeso(PESO);
@@ -111,15 +111,15 @@ void form_transacciones::filtrarMovimientos(){
         double cant = (unit == "u") ? m.amount : utiles::convertPeso(G, PESO, m.amount);
         QTableWidgetItem *cantidad = new QTableWidgetItem( QString::number(cant) + unit );
         cantidad->setFlags(flags);
-
+        cantidad->setTextAlignment(utiles::TextAlign);
         double dc = (unit == "u") ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
         QTableWidgetItem *disponible_central = new QTableWidgetItem( QString::number( dc, 'f', 2 ) + unit);
         disponible_central->setFlags(flags);
-
+        disponible_central->setTextAlignment(utiles::TextAlign);
         double dl = (unit == "u") ? m.aviable_in_local : utiles::convertPeso(G, PESO, m.aviable_in_local);
         QTableWidgetItem *disponible_local = new QTableWidgetItem( QString::number( dl, 'f', 2 ) + unit);
         disponible_local->setFlags(flags);
-
+        disponible_local->setTextAlignment(utiles::TextAlign);
         ui->tw_moviemientos->setItem(row, 0, fecha);
         ui->tw_moviemientos->setItem(row, 1, from);
         ui->tw_moviemientos->setItem(row, 2, to);
@@ -170,7 +170,7 @@ void form_transacciones::filtrarOperaciones(){
     foreach (auto m, Operaciones) {
         QTableWidgetItem *fecha = new QTableWidgetItem(m.date.toString(Qt::ISODate));
         fecha->setFlags(flags);
-
+        fecha->setTextAlignment(utiles::TextAlign);
         QString tipo;
         if( m.type == COMPRA )
             tipo = "Compra";
@@ -179,7 +179,7 @@ void form_transacciones::filtrarOperaciones(){
 
         QTableWidgetItem *type = new QTableWidgetItem( tipo );
         type->setFlags(flags);
-
+        type->setTextAlignment(utiles::TextAlign);
         QString origin;
         if( m.origin == CENTRAL )
             origin = "Almacén Central";
@@ -194,26 +194,26 @@ void form_transacciones::filtrarOperaciones(){
 
         QTableWidgetItem *from = new QTableWidgetItem( origin );
         from->setFlags(flags);
-
+        from->setTextAlignment(utiles::TextAlign);
         QTableWidgetItem *producto = new QTableWidgetItem( m.productName );
         producto->setFlags(flags);
-
+        producto->setTextAlignment(utiles::TextAlign);
         double cant = (unit == "u") ? m.amount : utiles::convertPeso(G, PESO, m.amount);
         QTableWidgetItem *cantidad = new QTableWidgetItem( QString::number(cant, 'f', 2) + unit );
         cantidad->setFlags(flags);
-
+        cantidad->setTextAlignment(utiles::TextAlign);
         double merm = (unit == "u") ? m.merma : utiles::convertPeso(G, PESO, m.merma);
         QTableWidgetItem *merma = new QTableWidgetItem( QString::number(merm, 'f', 2) + unit);
         merma->setFlags(flags);
-
+        merma->setTextAlignment(utiles::TextAlign);
         double pr = (unit == "u") ? m.price : utiles::convertPrecio(G, PESO, m.price);
         QTableWidgetItem *precio = new QTableWidgetItem( (m.type == COMPRA) ? ("$" + QString::number( pr, 'f', 2 )) : "-" );
         precio->setFlags(flags);
-
+        precio->setTextAlignment(utiles::TextAlign);
         double av = (unit == "u") ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
         QTableWidgetItem *disponible = new QTableWidgetItem( QString::number( av, 'f', 2 ) + unit );
         disponible->setFlags(flags);
-
+        disponible->setTextAlignment(utiles::TextAlign);
         ui->tw_CompraExtraccion->setItem(row, 0, fecha);
         ui->tw_CompraExtraccion->setItem(row, 1, type);
         ui->tw_CompraExtraccion->setItem(row, 2, from);

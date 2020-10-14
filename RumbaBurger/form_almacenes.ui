@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_7">
     <item row="0" column="0">
@@ -281,6 +284,12 @@
                  </item>
                  <item row="4" column="0">
                   <widget class="QLabel" name="label_6">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>63</width>
@@ -288,7 +297,7 @@
                     </size>
                    </property>
                    <property name="text">
-                    <string>Precio</string>
+                    <string>Precio </string>
                    </property>
                   </widget>
                  </item>
@@ -436,14 +445,14 @@
                  <item row="1" column="1">
                   <widget class="QRadioButton" name="rb_solidoInsertar">
                    <property name="text">
-                    <string>Sólido</string>
+                    <string>Por peso</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="2">
                   <widget class="QRadioButton" name="rb_unidadInsertar">
                    <property name="text">
-                    <string>Unidad</string>
+                    <string>Por unidad</string>
                    </property>
                   </widget>
                  </item>

@@ -78,78 +78,11 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QGroupBox{
-	color: black;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="title">
        <string>Órdenes</string>
       </property>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="geometry">
-        <rect>
-         <x>840</x>
-         <y>30</y>
-         <width>321</width>
-         <height>301</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Totales</string>
-       </property>
-       <widget class="QLabel" name="l_toralordenes">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>60</y>
-          <width>251</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Órdenes:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="l_inversion">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>100</y>
-          <width>261</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Inversion</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="l_ingresos">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>140</y>
-          <width>251</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ingresos</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="l_ganancia">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>190</y>
-          <width>251</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ganancia</string>
-        </property>
-       </widget>
-      </widget>
       <widget class="QTableWidget" name="tw_ordenes">
        <property name="geometry">
         <rect>
@@ -189,6 +122,71 @@
          <string>Ganancia</string>
         </property>
        </column>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="geometry">
+        <rect>
+         <x>820</x>
+         <y>30</y>
+         <width>271</width>
+         <height>301</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Totales</string>
+       </property>
+       <widget class="QLabel" name="l_toralordenes">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>50</y>
+          <width>251</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Órdenes:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="l_inversion">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>90</y>
+          <width>261</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Inversion</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="l_ingresos">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>130</y>
+          <width>251</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ingresos</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="l_ganancia">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>180</y>
+          <width>251</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ganancia</string>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_4">

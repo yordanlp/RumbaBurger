@@ -30,6 +30,8 @@ private slots:
     void on_pb_cancel_clicked();
 
 
+    void on_sb_cantidad_valueChanged(double arg1);
+
 private:
     Ui::form_insertarorden *ui;
 };

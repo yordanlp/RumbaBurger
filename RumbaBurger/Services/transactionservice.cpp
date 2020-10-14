@@ -14,7 +14,7 @@ Result<bool> TransactionService::insertTransaction(TransactionDto t)
 {
     Result<bool>res;
     QSqlQuery query;
-    query.prepare("INSERT INTO transactions (type, origin, amount, idProduct, date, idUser, price, merma, aviable_in_local, aviable_in_central) VALUES (:type, :origin, :amount, :idProduct, :date, :idUser, :price, :merma, :aviable_in_local, :aviable_in_central)");
+    query.prepare("INSERT INTO transactions (type, origin, amount, idProduct, date, idUser, price, merma, aviable_in_local, aviable_in_central, productName, unitType) VALUES (:type, :origin, :amount, :idProduct, :date, :idUser, :price, :merma, :aviable_in_local, :aviable_in_central, :productName, :unitType)");
     query.bindValue(":type", t.type);
     query.bindValue(":origin", t.origin);
     query.bindValue(":amount", t.amount);
@@ -25,7 +25,8 @@ Result<bool> TransactionService::insertTransaction(TransactionDto t)
     query.bindValue(":merma", t.merma);
     query.bindValue(":aviable_in_local", t.aviable_in_local);
     query.bindValue(":aviable_in_central", t.aviable_in_central);
-
+    query.bindValue(":unitType", t.unitType);
+    query.bindValue(":productName", t.productName);
     if( query.exec() ) {
         res.res = result::SUCCESS;
         return res;
@@ -62,10 +63,9 @@ Result<QList<TransactionDto> > TransactionService::getMovimientos(QDate inicial,
         central = CENTRAL, local = LOCAL;
     else
         central = origin, local = origin;
-    query.prepare("SELECT transactions.id, type, origin, amount, idProduct, date, \
-                    idUser, transactions.price, merma, aviable_in_local, \
+    query.prepare("SELECT id, type, origin, amount, idProduct, date, \
+                    idUser, price, merma, aviable_in_local, \
                     aviable_in_central, productName, unitType FROM transactions \
-                    INNER JOIN product ON (transactions.idProduct = product.id) \
                     WHERE (date BETWEEN :inicial AND :final) AND (origin = :central \
                     OR origin = :local) AND type = :type AND productName LIKE \
                     :product ORDER BY date DESC");
@@ -123,7 +123,7 @@ Result<QList<TransactionDto> > TransactionService::getExtraccionesYCompras(QDate
     else
         extraccion = operacion, compra = operacion;
 
-    query.prepare("SELECT transactions.id, type, origin, amount, idProduct, date, idUser, transactions.price, merma, aviable_in_local, aviable_in_central, productName, unitType FROM transactions INNER JOIN product ON (transactions.idProduct = product.id) WHERE (date BETWEEN :inicial AND :final) AND (origin = :central OR origin = :local) AND (type = :extraccion OR type = :compra) AND productName LIKE :product ORDER BY date DESC");
+    query.prepare("SELECT id, type, origin, amount, idProduct, date, idUser, price, merma, aviable_in_local, aviable_in_central, productName, unitType FROM transactions WHERE (date BETWEEN :inicial AND :final) AND (origin = :central OR origin = :local) AND (type = :extraccion OR type = :compra) AND productName LIKE :product ORDER BY date DESC");
     query.bindValue(":inicial", inicial.toString(Qt::ISODate));
     query.bindValue(":final", final.toString(Qt::ISODate));
     query.bindValue(":extraccion", extraccion);

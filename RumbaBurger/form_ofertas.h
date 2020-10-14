@@ -21,6 +21,7 @@ struct infoOfertas{
     double ganancia;
     int salen;
     int orden;
+    QString description;
     bool operator<( const infoOfertas &o )const{
         if( orden == 2 )
             return price < o.price;
@@ -65,6 +66,8 @@ signals:
     rowChanged();
 
 private slots:
+    void updateImpuesto();
+    void updateGanancia();
     void updateAll();
     void on_pb_addOferta_clicked();
     void on_tw_ofertas_clicked(const QModelIndex &index);
@@ -80,6 +83,8 @@ private slots:
     void on_cb_sortBy_currentIndexChanged(const QString &arg1);
 
     void on_pb_delOferta_clicked();
+
+    void on_sb_insCantidad_valueChanged(double arg1);
 
 private:
     Ui::form_ofertas *ui;

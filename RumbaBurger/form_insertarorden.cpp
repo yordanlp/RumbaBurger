@@ -26,6 +26,8 @@ form_insertarorden::form_insertarorden(QWidget *parent) :
     ui->cb_plato->addItems(dishes);
     updateCosto();
     ui->de_fecha->setDate(QDate::currentDate());
+    ui->cb_pagado->setChecked(true);
+    ui->pb_add->setEnabled(false);
 
 }
 
@@ -56,18 +58,27 @@ void form_insertarorden::on_pb_add_clicked()
     ui->tw_platos->insertRow(ui->tw_platos->rowCount());
     int row = ui->tw_platos->rowCount()-1;
     int cantidad = ui->sb_cantidad->value();
+    if( !cantidad ){
+        QMessageBox::information(this, "Información", "La cantidad no puede ser 0", QMessageBox::Ok);
+        return;
+    }
     DishService dishService;
     auto dish = dishService.getDishByName(DishDto(0,dishName,"",0));
     double precio = dish.data.price;
 
     QTableWidgetItem *nombre = new QTableWidgetItem(dishName);
     nombre->setFlags(flags);
+    nombre->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     QTableWidgetItem *cant = new QTableWidgetItem( QString::number(cantidad) );
     cant->setFlags(flags);
     QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(precio, 'f', 2) );
+    precioxunidad->setTextAlignment(utiles::TextAlign);
     precioxunidad->setFlags(flags);
     QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number( precio * cantidad, 'f', 2 ) );
     preciototal->setFlags(flags);
+    preciototal->setTextAlignment(utiles::TextAlign);
+
+
 
     ui->tw_platos->setItem(row, 0, nombre);
     ui->tw_platos->setItem(row, 1, cant);
@@ -140,7 +151,7 @@ void form_insertarorden::on_pb_accep_clicked()
 
     double costo = getCosto();
     double profit = getProfit();
-    bool payed = !ui->cb_excento->isChecked();
+    bool payed = ui->cb_pagado->isChecked();
 
     QList<DishAmountDto> L;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
@@ -180,4 +191,9 @@ void form_insertarorden::on_pb_accep_clicked()
 void form_insertarorden::on_pb_cancel_clicked()
 {
     close();
+}
+
+void form_insertarorden::on_sb_cantidad_valueChanged(double arg1)
+{
+    ui->pb_add->setEnabled(arg1 > 0);
 }

@@ -32,50 +32,6 @@
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuOfertas">
-    <property name="title">
-     <string>Ofertas</string>
-    </property>
-    <widget class="QMenu" name="menuAcciones">
-     <property name="title">
-      <string>Acciones</string>
-     </property>
-     <addaction name="actionInsertar_Plato_2"/>
-     <addaction name="actionEliminar_Plato_2"/>
-     <addaction name="actionModificar_Plato_2"/>
-    </widget>
-    <addaction name="actionMostrar"/>
-    <addaction name="separator"/>
-    <addaction name="menuAcciones"/>
-   </widget>
-   <widget class="QMenu" name="menu_rdenes">
-    <property name="title">
-     <string>Ordenes</string>
-    </property>
-    <widget class="QMenu" name="menuAcciones_2">
-     <property name="title">
-      <string>Acciones</string>
-     </property>
-     <addaction name="actionInsertar_orden"/>
-     <addaction name="actionEliminar_orden"/>
-    </widget>
-    <addaction name="actionMostrarOrden"/>
-    <addaction name="menuAcciones_2"/>
-   </widget>
-   <widget class="QMenu" name="menuAlmacen">
-    <property name="title">
-     <string>Almacen</string>
-    </property>
-    <addaction name="actionPrincipal"/>
-    <addaction name="actionSecundario"/>
-    <addaction name="separator"/>
-    <addaction name="actionInsertar_Producto"/>
-   </widget>
-   <widget class="QMenu" name="menuReportes">
-    <property name="title">
-     <string>Reportes</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuAjustes">
     <property name="title">
      <string>Ajustes</string>
@@ -89,12 +45,15 @@
     </widget>
     <addaction name="menuPorcientos"/>
     <addaction name="actionUnidad"/>
-    <addaction name="actionMoneda"/>
    </widget>
-   <addaction name="menuAlmacen"/>
-   <addaction name="menuOfertas"/>
-   <addaction name="menu_rdenes"/>
-   <addaction name="menuReportes"/>
+   <widget class="QMenu" name="menuUsuarios">
+    <property name="title">
+     <string>Usuarios</string>
+    </property>
+    <addaction name="actionNuevo_usuario"/>
+    <addaction name="actionAdministrar"/>
+   </widget>
+   <addaction name="menuUsuarios"/>
    <addaction name="menuAjustes"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -161,6 +120,10 @@
    </property>
   </action>
   <action name="actionMostrarOrden">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/orden.png</normaloff>:/images/Images/iconos/orden.png</iconset>
+   </property>
    <property name="text">
     <string>Mostrar</string>
    </property>
@@ -186,21 +149,37 @@
    </property>
   </action>
   <action name="actionAlmacenes">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/almacen.png</normaloff>:/images/Images/iconos/almacen.png</iconset>
+   </property>
    <property name="text">
     <string>Almacenes</string>
    </property>
   </action>
   <action name="actionOfertas">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/ofertas.png</normaloff>:/images/Images/iconos/ofertas.png</iconset>
+   </property>
    <property name="text">
     <string>Ofertas</string>
    </property>
   </action>
   <action name="actionOrdenes">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/orden.png</normaloff>:/images/Images/iconos/orden.png</iconset>
+   </property>
    <property name="text">
     <string>Ordenes</string>
    </property>
   </action>
   <action name="actionEstadisticas">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/estadisticas.png</normaloff>:/images/Images/iconos/estadisticas.png</iconset>
+   </property>
    <property name="text">
     <string>Estadísticas</string>
    </property>
@@ -209,11 +188,19 @@
    </property>
   </action>
   <action name="actionGastos">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/gastos.png</normaloff>:/images/Images/iconos/gastos.png</iconset>
+   </property>
    <property name="text">
     <string>Gastos</string>
    </property>
   </action>
   <action name="actionTransacciones">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/images/Images/iconos/transaccion.png</normaloff>:/images/Images/iconos/transaccion.png</iconset>
+   </property>
    <property name="text">
     <string>Transacciones</string>
    </property>
@@ -248,7 +235,19 @@
     <string>Ganancia</string>
    </property>
   </action>
+  <action name="actionAdministrar">
+   <property name="text">
+    <string>Administrar</string>
+   </property>
+  </action>
+  <action name="actionNuevo_usuario">
+   <property name="text">
+    <string>Nuevo usuario</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="recursos.qrc"/>
+ </resources>
  <connections/>
 </ui>

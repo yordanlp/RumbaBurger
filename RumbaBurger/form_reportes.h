@@ -21,6 +21,7 @@ public:
     void updateTotal();
 
 public slots:
+    void updateImpuesto();
     void filtrar();
 private:
     Ui::form_reportes *ui;

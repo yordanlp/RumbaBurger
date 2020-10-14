@@ -14,7 +14,7 @@ public:
                     double _amount, int _idProduct, QDate _date,
                     int _idUser, double _price, double _merma,
                     double _aviable_in_local, double _aviable_in_central, QString _productName = "",
-                    int _unitType = 0);
+                    int _unitType = 0 );
     int id;
     operaciones type;
     origen origin;

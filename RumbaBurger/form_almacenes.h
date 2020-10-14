@@ -77,6 +77,20 @@ private slots:
 
     void on_pb_aceptarExtraerLocal_clicked();
 
+    void on_localTable_cellClicked(int row, int column);
+
+    void on_sb_cantidadMoverAlLocal_valueChanged(double arg1);
+
+    void on_sb_cantidadExtraer_valueChanged(double arg1);
+
+    void on_sb_mcCantidad_valueChanged(double arg1);
+
+    void on_sb_cantidadExtraerLocal_valueChanged(double arg1);
+
+
+
+    void on_sb_cantidadCompra_valueChanged(double arg1);
+
 private:
     Ui::form_almacenes *ui;
 };

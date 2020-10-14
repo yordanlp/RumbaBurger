@@ -21,6 +21,7 @@ form_gastos::form_gastos(QWidget *parent) :
         ui->pb_eliminar->setEnabled(false);
         ui->groupBox_2->setEnabled(false);
     }
+    ui->pb_insertar->setEnabled(false);
 }
 
 form_gastos::~form_gastos()
@@ -54,13 +55,15 @@ void form_gastos::updateGastos(){
     foreach (auto g, expenses) {
         QDate fecha = g.date;
         QTableWidgetItem *date = new QTableWidgetItem( fecha.toString(Qt::ISODate) );
+        date->setTextAlignment(utiles::TextAlign);
         date->setFlags(flags);
         QString desc = g.description;
         QTableWidgetItem *descripcion = new QTableWidgetItem (desc);
+        descripcion->setTextAlignment(utiles::TextAlign);
         descripcion->setFlags(flags);
-        QTableWidgetItem *importe = new QTableWidgetItem(QString::number(g.price, 'f', 2));
+        QTableWidgetItem *importe = new QTableWidgetItem("$" + QString::number(g.price, 'f', 2));
         importe->setFlags(flags);
-
+        importe->setTextAlignment(utiles::TextAlign);
         ui->tw_gastos->setItem(row, 0, date);
         ui->tw_gastos->setItem(row, 1, descripcion);
         ui->tw_gastos->setItem(row, 2, importe);
@@ -74,6 +77,10 @@ void form_gastos::on_pb_insertar_clicked()
     QString descripcion = ui->le_descripcion->text();
     QDate fecha = ui->de_fecha->date();
     double costo = ui->sb_importe->value();
+    if( !costo ){
+        QMessageBox::information(this, "Información", "El importe no puede ser 0", QMessageBox::Ok);
+        return;
+    }
     ExpensesService expensesService;
     expensesService.insertExpenses( ExpensesDto(0,descripcion,costo,fecha) );
     ui->le_descripcion->clear();
@@ -90,12 +97,21 @@ void form_gastos::on_pb_eliminar_clicked()
         return;
     }
 
-    ExpensesService expensesService;
-    expensesService.deleteExpenses( expenses.at(row) );
-    filtrar();
+    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea eliminar el elemento seleccionado?", QMessageBox::Ok, QMessageBox::Cancel);
+
+    if( res == QMessageBox::Ok ){
+        ExpensesService expensesService;
+        expensesService.deleteExpenses( expenses.at(row) );
+        filtrar();
+    }
 }
 
 void form_gastos::on_tw_gastos_clicked(const QModelIndex &index)
 {
     ui->pb_eliminar->setEnabled(true);
+}
+
+void form_gastos::on_sb_importe_valueChanged(double arg1)
+{
+    ui->pb_insertar->setEnabled(arg1 > 0);
 }

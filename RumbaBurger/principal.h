@@ -11,6 +11,7 @@
 #include <form_gastos.h>
 #include <form_reportes.h>
 #include <form_transacciones.h>
+#include <form_inicial.h>
 
 namespace Ui {
 class Principal;
@@ -33,6 +34,7 @@ public:
     form_gastos *formGastos;
     form_reportes *formReportes;
     form_transacciones *formTransacciones;
+    form_inicial *formInicial;
 
 private slots:
     void on_actionInsertar_Producto_triggered();

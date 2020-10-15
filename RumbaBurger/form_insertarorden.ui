@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Insertar Orden</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -85,7 +85,11 @@
       <item row="2" column="5">
        <widget class="QPushButton" name="pb_add">
         <property name="text">
-         <string>+</string>
+         <string>Añadir</string>
+        </property>
+        <property name="icon">
+         <iconset resource="recursos.qrc">
+          <normaloff>:/images/Images/iconos_colores/plus_96px.png</normaloff>:/images/Images/iconos_colores/plus_96px.png</iconset>
         </property>
        </widget>
       </item>
@@ -125,7 +129,11 @@
          <item row="0" column="0">
           <widget class="QPushButton" name="pb_del">
            <property name="text">
-            <string>-</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="recursos.qrc">
+             <normaloff>:/images/Images/iconos_colores/trash_can_96px.png</normaloff>:/images/Images/iconos_colores/trash_can_96px.png</iconset>
            </property>
           </widget>
          </item>
@@ -157,12 +165,20 @@
         <property name="text">
          <string>Aceptar</string>
         </property>
+        <property name="icon">
+         <iconset resource="recursos.qrc">
+          <normaloff>:/images/Images/iconos_colores/checked_96px.png</normaloff>:/images/Images/iconos_colores/checked_96px.png</iconset>
+        </property>
        </widget>
       </item>
       <item row="5" column="6">
        <widget class="QPushButton" name="pb_cancel">
         <property name="text">
          <string>Cancelar</string>
+        </property>
+        <property name="icon">
+         <iconset resource="recursos.qrc">
+          <normaloff>:/images/Images/iconos_colores/cancel_96px.png</normaloff>:/images/Images/iconos_colores/cancel_96px.png</iconset>
         </property>
        </widget>
       </item>
@@ -171,6 +187,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="recursos.qrc"/>
+ </resources>
  <connections/>
 </ui>

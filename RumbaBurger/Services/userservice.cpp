@@ -38,7 +38,7 @@ Result<UserDto> UserService::getUserByUsername(QString userName){
 
     if( query.next() ){
         res.res = result::SUCCESS;
-        res.data = UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString());
+        res.data = UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toInt());
         return res;
     }
     res.res = RECORD_NOT_FOUND;
@@ -48,10 +48,11 @@ Result<UserDto> UserService::getUserByUsername(QString userName){
 Result<bool> UserService::insertUser(UserDto u){
     Result<bool>res;
     QSqlQuery query;
-    query.prepare("INSERT INTO users (user, password, name) VALUES (:user, :password, :name)");
+    query.prepare("INSERT INTO users (user, password, name, role) VALUES (:user, :password, :name, :role)");
     query.bindValue(":user", u.user);
     query.bindValue(":password", u.password);
     query.bindValue(":name", u.name);
+    query.bindValue(":role", u.role);
 
     if( query.exec() ) {
         res.res = result::SUCCESS;
@@ -66,11 +67,12 @@ Result<bool> UserService::insertUser(UserDto u){
 Result<bool> UserService::updateUser(UserDto u){
     Result<bool>res;
     QSqlQuery query;
-    query.prepare("UPDATE users SET user=:user, password=:password, name=:name  WHERE id=:id");
+    query.prepare("UPDATE users SET user=:user, password=:password, name=:name, role=:role  WHERE id=:id");
     query.bindValue(":user", u.user);
     query.bindValue(":password", u.password);
     query.bindValue(":name", u.name);
     query.bindValue(":id", u.id);
+    query.bindValue(":role", u.role);
     if( query.exec() ){
         res.res = result::SUCCESS;
         return res;
@@ -78,5 +80,27 @@ Result<bool> UserService::updateUser(UserDto u){
     res.res = result::FAIL;
     res.msg = "ERROR updateUser: " + query.lastError().text();
     qDebug() << "ERROR updateUser: " << query.lastError().text();
+    return res;
+}
+
+Result<UserDto> UserService::getUserById(int id)
+{
+    Result<UserDto>res;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM users WHERE id = :id");
+    query.bindValue(":id", id);
+    if( !query.exec() ) {
+        res.res = result::FAIL;
+        res.msg = "ERROR getUserById: " + query.lastError().text();
+        qDebug() << "ERROR getUserById: " << query.lastError().text();
+        return res;
+    }
+
+    if( query.next() ){
+        res.res = result::SUCCESS;
+        res.data = UserDto(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toInt());
+        return res;
+    }
+    res.res = RECORD_NOT_FOUND;
     return res;
 }

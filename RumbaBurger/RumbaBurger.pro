@@ -11,7 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = RumbaBurger
 TEMPLATE = app
-RESOURCES += qdarkstyle/style.qrc
+RESOURCES += ../RumbaBurger/qdarkstyle/style.qrc \
+    recursos.qrc
 
 
 # The following define makes your compiler emit warnings if you use
@@ -68,7 +69,10 @@ SOURCES += main.cpp\
     form_transacciones.cpp \
     Services/transactionservice.cpp \
     Dto/transactiondto.cpp \
-    form_inicial.cpp
+    form_inicial.cpp \
+    form_newuser.cpp \
+    form_user.cpp \
+    form_cambiarpassword.cpp
 
 HEADERS  += \
     login.h \
@@ -112,7 +116,10 @@ HEADERS  += \
     form_transacciones.h \
     Services/transactionservice.h \
     Dto/transactiondto.h \
-    form_inicial.h
+    form_inicial.h \
+    form_newuser.h \
+    form_user.h \
+    form_cambiarpassword.h
 
 FORMS    += \
     login.ui \
@@ -125,7 +132,9 @@ FORMS    += \
     form_reportes.ui \
     form_modificarorden.ui \
     form_transacciones.ui \
-    form_inicial.ui
+    form_inicial.ui \
+    form_newuser.ui \
+    form_user.ui \
+    form_cambiarpassword.ui
 
-RESOURCES += \
-    recursos.qrc
+RESOURCES +=

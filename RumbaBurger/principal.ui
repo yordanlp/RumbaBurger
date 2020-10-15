@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Rumba Burger</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -48,10 +48,11 @@
    </widget>
    <widget class="QMenu" name="menuUsuarios">
     <property name="title">
-     <string>Usuarios</string>
+     <string>Usuario</string>
     </property>
     <addaction name="actionNuevo_usuario"/>
     <addaction name="actionAdministrar"/>
+    <addaction name="actionCerrar_Sesi_n"/>
    </widget>
    <addaction name="menuUsuarios"/>
    <addaction name="menuAjustes"/>
@@ -68,11 +69,17 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionAlmacenes"/>
+   <addaction name="separator"/>
    <addaction name="actionOfertas"/>
+   <addaction name="separator"/>
    <addaction name="actionOrdenes"/>
+   <addaction name="separator"/>
    <addaction name="actionGastos"/>
+   <addaction name="separator"/>
    <addaction name="actionEstadisticas"/>
+   <addaction name="separator"/>
    <addaction name="actionTransacciones"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionPrincipal">
    <property name="text">
@@ -151,7 +158,7 @@
   <action name="actionAlmacenes">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/images/Images/iconos/almacen.png</normaloff>:/images/Images/iconos/almacen.png</iconset>
+     <normaloff>:/images/Images/iconos/depot_96px.png</normaloff>:/images/Images/iconos/depot_96px.png</iconset>
    </property>
    <property name="text">
     <string>Almacenes</string>
@@ -160,7 +167,7 @@
   <action name="actionOfertas">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/images/Images/iconos/ofertas.png</normaloff>:/images/Images/iconos/ofertas.png</iconset>
+     <normaloff>:/images/Images/iconos_colores/hamburger_96px.png</normaloff>:/images/Images/iconos_colores/hamburger_96px.png</iconset>
    </property>
    <property name="text">
     <string>Ofertas</string>
@@ -169,7 +176,7 @@
   <action name="actionOrdenes">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/images/Images/iconos/orden.png</normaloff>:/images/Images/iconos/orden.png</iconset>
+     <normaloff>:/images/Images/iconos_colores/GoodNotes_96px.png</normaloff>:/images/Images/iconos_colores/GoodNotes_96px.png</iconset>
    </property>
    <property name="text">
     <string>Ordenes</string>
@@ -178,7 +185,7 @@
   <action name="actionEstadisticas">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/images/Images/iconos/estadisticas.png</normaloff>:/images/Images/iconos/estadisticas.png</iconset>
+     <normaloff>:/images/Images/iconos_colores/statistics_96px.png</normaloff>:/images/Images/iconos_colores/statistics_96px.png</iconset>
    </property>
    <property name="text">
     <string>Estadísticas</string>
@@ -190,7 +197,7 @@
   <action name="actionGastos">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/images/Images/iconos/gastos.png</normaloff>:/images/Images/iconos/gastos.png</iconset>
+     <normaloff>:/images/Images/iconos_colores/initiate_money_transfer_96px.png</normaloff>:/images/Images/iconos_colores/initiate_money_transfer_96px.png</iconset>
    </property>
    <property name="text">
     <string>Gastos</string>
@@ -199,7 +206,7 @@
   <action name="actionTransacciones">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/images/Images/iconos/transaccion.png</normaloff>:/images/Images/iconos/transaccion.png</iconset>
+     <normaloff>:/images/Images/iconos_colores/data_transfer_96px.png</normaloff>:/images/Images/iconos_colores/data_transfer_96px.png</iconset>
    </property>
    <property name="text">
     <string>Transacciones</string>
@@ -237,12 +244,17 @@
   </action>
   <action name="actionAdministrar">
    <property name="text">
-    <string>Administrar</string>
+    <string>Cambiar Contraseña</string>
    </property>
   </action>
   <action name="actionNuevo_usuario">
    <property name="text">
     <string>Nuevo usuario</string>
+   </property>
+  </action>
+  <action name="actionCerrar_Sesi_n">
+   <property name="text">
+    <string>Cerrar Sesión</string>
    </property>
   </action>
  </widget>

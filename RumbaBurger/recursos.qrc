@@ -3,11 +3,77 @@
         <file>Images/background.jpg</file>
         <file>Images/icon.jpg</file>
         <file>Images/RumbaIcon.png</file>
-        <file>Images/iconos/orden.png</file>
+        <file>Images/iconos/4.png</file>
+        <file>Images/iconos/add_shopping_cart_120px.png</file>
         <file>Images/iconos/almacen.png</file>
+        <file>Images/iconos/approval_120px.png</file>
+        <file>Images/iconos/buying_120px.png</file>
+        <file>Images/iconos/cancel_120px.png</file>
+        <file>Images/iconos/cash_in_hand_120px.png</file>
+        <file>Images/iconos/checked_120px.png</file>
+        <file>Images/iconos/checkmark_120px.png</file>
+        <file>Images/iconos/checkout_120px.png</file>
+        <file>Images/iconos/clear_shopping_cart_120px.png</file>
+        <file>Images/iconos/close_window_120px.png</file>
+        <file>Images/iconos/combo_chart_120px.png</file>
+        <file>Images/iconos/conversion_120px.png</file>
+        <file>Images/iconos/cutlery_120px.png</file>
+        <file>Images/iconos/data_transfer_120px.png</file>
+        <file>Images/iconos/delete_120px.png</file>
+        <file>Images/iconos/depot_120px.png</file>
+        <file>Images/iconos/erase_120px.png</file>
         <file>Images/iconos/estadisticas.png</file>
-        <file>Images/iconos/ofertas.png</file>
-        <file>Images/iconos/transaccion.png</file>
+        <file>Images/iconos/filter_120px.png</file>
         <file>Images/iconos/gastos.png</file>
+        <file>Images/iconos/icons8-depot-96.png</file>
+        <file>Images/iconos/ledger_120px.png</file>
+        <file>Images/iconos/meal_120px.png</file>
+        <file>Images/iconos/merge_files_120px.png</file>
+        <file>Images/iconos/ofertas.png</file>
+        <file>Images/iconos/orden.png</file>
+        <file>Images/iconos/paper_money_120px.png</file>
+        <file>Images/iconos/search_120px.png</file>
+        <file>Images/iconos/services_120px.png</file>
+        <file>Images/iconos/statistics_120px.png</file>
+        <file>Images/iconos/tick_box_120px.png</file>
+        <file>Images/iconos/transaccion.png</file>
+        <file>Images/iconos/trolley_120px.png</file>
+        <file>Images/iconos/user_120px.png</file>
+        <file>Images/iconos/waste_120px.png</file>
+        <file>Images/iconos/depot_96px.png</file>
+        <file>Images/iconos_colores/add_shopping_cart_96px.png</file>
+        <file>Images/iconos_colores/buy_96px.png</file>
+        <file>Images/iconos_colores/buying_96px.png</file>
+        <file>Images/iconos_colores/cancel_96px.png</file>
+        <file>Images/iconos_colores/cash_in_hand_96px.png</file>
+        <file>Images/iconos_colores/checked_96px.png</file>
+        <file>Images/iconos_colores/checked_checkbox_96px.png</file>
+        <file>Images/iconos_colores/checkmark_96px.png</file>
+        <file>Images/iconos_colores/checkout_96px.png</file>
+        <file>Images/iconos_colores/close_window_96px.png</file>
+        <file>Images/iconos_colores/combo_chart_96px.png</file>
+        <file>Images/iconos_colores/conversion_96px.png</file>
+        <file>Images/iconos_colores/data_transfer_96px.png</file>
+        <file>Images/iconos_colores/delete_96px.png</file>
+        <file>Images/iconos_colores/delete_bin_96px.png</file>
+        <file>Images/iconos_colores/erase_96px.png</file>
+        <file>Images/iconos_colores/facebook_480px.png</file>
+        <file>Images/iconos_colores/filter_96px.png</file>
+        <file>Images/iconos_colores/hamburger_96px.png</file>
+        <file>Images/iconos_colores/initiate_money_transfer_96px.png</file>
+        <file>Images/iconos_colores/meal_96px.png</file>
+        <file>Images/iconos_colores/restaurant_96px.png</file>
+        <file>Images/iconos_colores/search_96px.png</file>
+        <file>Images/iconos_colores/statistics_96px.png</file>
+        <file>Images/iconos_colores/trash_can_96px.png</file>
+        <file>Images/iconos_colores/user_96px.png</file>
+        <file>Images/iconos_colores/book_and_pencil_96px.png</file>
+        <file>Images/iconos_colores/edit_property_96px.png</file>
+        <file>Images/iconos_colores/GoodNotes_96px.png</file>
+        <file>Images/iconos_colores/plus_96px.png</file>
+        <file>Images/iconos_colores/clear_shopping_cart_96px.png</file>
+        <file>Images/iconos_colores/services_96px.png</file>
+        <file>Images/iconos_colores/settings_96px.png</file>
+        <file>Images/iconos_colores/save_96px.png</file>
     </qresource>
 </RCC>

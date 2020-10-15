@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Ofertas</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -197,6 +197,10 @@
                <property name="text">
                 <string>Añadir</string>
                </property>
+               <property name="icon">
+                <iconset resource="recursos.qrc">
+                 <normaloff>:/images/Images/iconos_colores/plus_96px.png</normaloff>:/images/Images/iconos_colores/plus_96px.png</iconset>
+               </property>
               </widget>
              </item>
              <item row="0" column="7">
@@ -291,7 +295,11 @@
              <item row="0" column="0">
               <widget class="QPushButton" name="pb_delOferta">
                <property name="text">
-                <string>-</string>
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="recursos.qrc">
+                 <normaloff>:/images/Images/iconos_colores/trash_can_96px.png</normaloff>:/images/Images/iconos_colores/trash_can_96px.png</iconset>
                </property>
               </widget>
              </item>
@@ -436,6 +444,10 @@
                   <property name="text">
                    <string>Guardar</string>
                   </property>
+                  <property name="icon">
+                   <iconset resource="recursos.qrc">
+                    <normaloff>:/images/Images/iconos_colores/save_96px.png</normaloff>:/images/Images/iconos_colores/save_96px.png</iconset>
+                  </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
@@ -492,7 +504,11 @@
              <item row="2" column="5">
               <widget class="QPushButton" name="pb_delIngrediente">
                <property name="text">
-                <string>-</string>
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="recursos.qrc">
+                 <normaloff>:/images/Images/iconos_colores/trash_can_96px.png</normaloff>:/images/Images/iconos_colores/trash_can_96px.png</iconset>
                </property>
               </widget>
              </item>
@@ -547,7 +563,11 @@
              <item row="0" column="6">
               <widget class="QPushButton" name="pb_insIngrediente">
                <property name="text">
-                <string>+</string>
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="recursos.qrc">
+                 <normaloff>:/images/Images/iconos_colores/plus_96px.png</normaloff>:/images/Images/iconos_colores/plus_96px.png</iconset>
                </property>
               </widget>
              </item>
@@ -574,6 +594,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="recursos.qrc"/>
+ </resources>
  <connections/>
 </ui>

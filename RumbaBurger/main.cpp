@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setApplicationName("RumbaBurgerApp");
 
-    QFile f(":qdarkstyle/style.qss");
+    QFile f(":/qdarkstyle/style.qss");
 
     if (!f.exists())   {
         printf("Unable to set stylesheet, file not found\n");
@@ -74,14 +74,6 @@ int main(int argc, char *argv[])
 
         }
     }
-
-    QSettings settings("Limitless", "RumbaBurger");
-    settings.beginGroup("Settings");
-    utiles::IMPUESTO = settings.value("ONAT", 10).toDouble()/100.0;
-    utiles::GANANCIA = settings.value("Ganancia", 100).toDouble()/100.0;
-    utiles::MONEDA = settings.value("Moneda", "CUP").toString();
-    utiles::UNIDAD = settings.value("Unidad", "G").toString();
-    settings.endGroup();
 
     qDebug() << "IMPUESTO" << utiles::IMPUESTO;
     qDebug() << "GANANCIA" << utiles::GANANCIA;

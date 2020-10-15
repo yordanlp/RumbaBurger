@@ -55,6 +55,7 @@ void Login::on_accept_clicked()
     if( ui->cb_invitado->isChecked() ){
         UserService::loggedUser = 0;
         Principal *principal = new Principal(this);
+        connect(principal, SIGNAL(done()), this, SLOT(show()));
         principal->showMaximized();
     }else{
         QString user = ui->user->text();
@@ -67,8 +68,12 @@ void Login::on_accept_clicked()
             return;
         }
 
+        ui->user->clear();
+        ui->pass->clear();
+        ui->cb_invitado->setChecked(false);
         UserService::loggedUser = us.data.id;
         Principal *principal = new Principal(this);
+        connect(principal, SIGNAL(done()), this, SLOT(show()));
         principal->showMaximized();
     }
     hide();

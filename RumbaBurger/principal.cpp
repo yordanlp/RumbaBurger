@@ -8,6 +8,15 @@ Principal::Principal(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Principal)
 {
+
+    QSettings settings("Limitless", "RumbaBurger");
+    settings.beginGroup(QString::number(UserService::loggedUser));
+    utiles::IMPUESTO = settings.value("ONAT", 10).toDouble()/100.0;
+    utiles::GANANCIA = settings.value("Ganancia", 100).toDouble()/100.0;
+    utiles::MONEDA = settings.value("Moneda", "CUP").toString();
+    utiles::UNIDAD = settings.value("Unidad", "G").toString();
+    settings.endGroup();
+
     ui->setupUi(this);
     mdi = new QMdiArea(this);
     setCentralWidget(mdi);
@@ -19,12 +28,18 @@ Principal::Principal(QWidget *parent) :
     formInicial->showMaximized();
 
     if( UserService::loggedUser == 0 ){
-        qDebug() << "qwqwe qlwkdj alskj d";
-        //ui->menubar->setVisible(false);
-        ui->menubar->clear();
-        //ui->menuAjustes->setVisible(false);
-        //ui->menuUsuarios->setVisible(false);
+        qDebug() << UserService::loggedUser;
+        ui->menuAjustes->setVisible(false);
+        ui->menuPorcientos->setVisible(false);
+        ui->actionNuevo_usuario->setVisible(false);
+        ui->actionAdministrar->setVisible(false);
+    }else{
+        ui->menuAjustes->setVisible(true);
+        ui->menuPorcientos->setVisible(true);
+        ui->actionNuevo_usuario->setVisible(true);
+        ui->actionAdministrar->setVisible(true);
     }
+
 }
 
 Principal::~Principal()
@@ -115,7 +130,7 @@ void Principal::on_actionImpuesto_triggered()
     double impuesto = QInputDialog::getDouble(this, "Porcentaje de Impuesto ONAT","Impuesto ONAT (%)", utiles::IMPUESTO * 100, 0, 100, 2);
     utiles::IMPUESTO = impuesto / 100.0;
     QSettings settings("Limitless", "RumbaBurger");
-    settings.beginGroup("Settings");
+    settings.beginGroup(QString::number(UserService::loggedUser));
     settings.setValue("ONAT", impuesto);
     settings.endGroup();
     emit ImpuestoChanged();
@@ -127,7 +142,7 @@ void Principal::on_actionGanancia_triggered()
     qDebug() << "GANANCIA" << ganancia;
     utiles::GANANCIA = ganancia / 100.0;
     QSettings settings("Limitless", "RumbaBurger");
-    settings.beginGroup("Settings");
+    settings.beginGroup(QString::number(UserService::loggedUser));
     settings.setValue("Ganancia", ganancia);
     settings.endGroup();
     emit GananciaChnged();
@@ -147,7 +162,7 @@ void Principal::on_actionUnidad_triggered()
     QString unidad = QInputDialog::getItem(this,"Unidad de peso", "Unidad de peso", L, selected, false);
     utiles::UNIDAD = unidad;
     QSettings settings("Limitless", "RumbaBurger");
-    settings.beginGroup("Settings");
+    settings.beginGroup(QString::number(UserService::loggedUser));
     settings.setValue("Unidad", unidad);
     settings.endGroup();
     emit UnitChanged();
@@ -165,8 +180,29 @@ void Principal::on_actionMoneda_triggered()
     QString moneda = QInputDialog::getItem(this,"Moneda", "Moneda", L, selected, false);
     utiles::MONEDA = moneda;
     QSettings settings("Limitless", "RumbaBurger");
-    settings.beginGroup("Settings");
+    settings.beginGroup(QString::number(UserService::loggedUser));
     settings.setValue("Moneda", moneda);
     settings.endGroup();
     emit MonedaChanged();
+}
+
+void Principal::on_actionNuevo_usuario_triggered()
+{
+    qDebug() << "nuevo usuario";
+    formUser = new form_user(this);
+    formUser->setModal(true);
+    formUser->show();
+}
+
+void Principal::on_actionAdministrar_triggered()
+{
+    formCambiarPassword = new form_cambiarpassword(this);
+    formCambiarPassword->setModal(true);
+    formCambiarPassword->show();
+}
+
+void Principal::on_actionCerrar_Sesi_n_triggered()
+{
+    emit done();
+    close();
 }

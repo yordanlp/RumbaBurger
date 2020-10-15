@@ -15,6 +15,7 @@ public:
     Result<bool> insertUser( UserDto );
     Result<bool> deleteUser( UserDto );
     Result<bool> updateUser( UserDto );
+    Result<UserDto> getUserById( int id );
     Result<UserDto> getUserByUsername( QString );
     static int loggedUser;
 };

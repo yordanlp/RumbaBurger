@@ -12,6 +12,9 @@
 #include <form_reportes.h>
 #include <form_transacciones.h>
 #include <form_inicial.h>
+#include <form_newuser.h>
+#include <form_user.h>
+#include <form_cambiarpassword.h>
 
 namespace Ui {
 class Principal;
@@ -35,6 +38,8 @@ public:
     form_reportes *formReportes;
     form_transacciones *formTransacciones;
     form_inicial *formInicial;
+    form_user *formUser;
+    form_cambiarpassword *formCambiarPassword;
 
 private slots:
     void on_actionInsertar_Producto_triggered();
@@ -63,7 +68,14 @@ private slots:
 
     void on_actionMoneda_triggered();
 
+    void on_actionNuevo_usuario_triggered();
+
+    void on_actionAdministrar_triggered();
+
+    void on_actionCerrar_Sesi_n_triggered();
+
 signals:
+    void done();
     void ImpuestoChanged();
     void GananciaChnged();
     void UnitChanged();

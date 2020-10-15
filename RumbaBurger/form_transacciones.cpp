@@ -16,8 +16,8 @@ form_transacciones::form_transacciones(QWidget *parent) :
     ui->setupUi(this);
     ui->tabWidget->setTabText(0, "Movimientos");
     ui->tabWidget->setTabText(1, "Compra y extracciones");
-    ui->tw_moviemientos->setColumnWidth(5, ui->tw_moviemientos->columnWidth(5) + 60);
-    ui->tw_moviemientos->setColumnWidth(6, ui->tw_moviemientos->columnWidth(6) + 60);
+    ui->tw_moviemientos->setColumnWidth(6, ui->tw_moviemientos->columnWidth(5) + 60);
+    ui->tw_moviemientos->setColumnWidth(7, ui->tw_moviemientos->columnWidth(6) + 60);
 
     ProductService productService;
     QStringList products = productService.getAllProductsToString().data;
@@ -87,6 +87,13 @@ void form_transacciones::filtrarMovimientos(){
         QTableWidgetItem *fecha = new QTableWidgetItem(m.date.toString(Qt::ISODate));
         fecha->setFlags(flags);
         fecha->setTextAlignment(utiles::TextAlign);
+
+        UserService userService;
+        auto user = userService.getUserById( m.idUser );
+        QTableWidgetItem *usuario = new QTableWidgetItem( user.data.user );
+        usuario->setFlags(flags);
+        usuario->setTextAlignment(utiles::TextAlign);
+
         QString desde, hasta;
         if( m.origin == CENTRAL )
             desde = "Almacén Central", hasta = "Almacén Local";
@@ -121,12 +128,13 @@ void form_transacciones::filtrarMovimientos(){
         disponible_local->setFlags(flags);
         disponible_local->setTextAlignment(utiles::TextAlign);
         ui->tw_moviemientos->setItem(row, 0, fecha);
-        ui->tw_moviemientos->setItem(row, 1, from);
-        ui->tw_moviemientos->setItem(row, 2, to);
-        ui->tw_moviemientos->setItem(row, 3, producto);
-        ui->tw_moviemientos->setItem(row, 4, cantidad);
-        ui->tw_moviemientos->setItem(row, 5, disponible_central);
-        ui->tw_moviemientos->setItem(row, 6, disponible_local);
+        ui->tw_moviemientos->setItem(row, 1, usuario);
+        ui->tw_moviemientos->setItem(row, 2, from);
+        ui->tw_moviemientos->setItem(row, 3, to);
+        ui->tw_moviemientos->setItem(row, 4, producto);
+        ui->tw_moviemientos->setItem(row, 5, cantidad);
+        ui->tw_moviemientos->setItem(row, 6, disponible_central);
+        ui->tw_moviemientos->setItem(row, 7, disponible_local);
 
         row++;
     }
@@ -171,6 +179,13 @@ void form_transacciones::filtrarOperaciones(){
         QTableWidgetItem *fecha = new QTableWidgetItem(m.date.toString(Qt::ISODate));
         fecha->setFlags(flags);
         fecha->setTextAlignment(utiles::TextAlign);
+
+        UserService userService;
+        auto user = userService.getUserById( m.idUser );
+        QTableWidgetItem *usuario = new QTableWidgetItem( user.data.user );
+        usuario->setFlags(flags);
+        usuario->setTextAlignment(utiles::TextAlign);
+
         QString tipo;
         if( m.type == COMPRA )
             tipo = "Compra";
@@ -215,13 +230,14 @@ void form_transacciones::filtrarOperaciones(){
         disponible->setFlags(flags);
         disponible->setTextAlignment(utiles::TextAlign);
         ui->tw_CompraExtraccion->setItem(row, 0, fecha);
-        ui->tw_CompraExtraccion->setItem(row, 1, type);
-        ui->tw_CompraExtraccion->setItem(row, 2, from);
-        ui->tw_CompraExtraccion->setItem(row, 3, producto);
-        ui->tw_CompraExtraccion->setItem(row, 4, cantidad);
-        ui->tw_CompraExtraccion->setItem(row, 5, merma);
-        ui->tw_CompraExtraccion->setItem(row, 6, precio);
-        ui->tw_CompraExtraccion->setItem(row, 7, disponible);
+        ui->tw_CompraExtraccion->setItem(row, 1, usuario);
+        ui->tw_CompraExtraccion->setItem(row, 2, type);
+        ui->tw_CompraExtraccion->setItem(row, 3, from);
+        ui->tw_CompraExtraccion->setItem(row, 4, producto);
+        ui->tw_CompraExtraccion->setItem(row, 5, cantidad);
+        ui->tw_CompraExtraccion->setItem(row, 6, merma);
+        ui->tw_CompraExtraccion->setItem(row, 7, precio);
+        ui->tw_CompraExtraccion->setItem(row, 8, disponible);
 
         row++;
     }

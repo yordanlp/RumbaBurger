@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>365</width>
-    <height>214</height>
+    <width>422</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Login</string>
+   <string>Autenticarse</string>
   </property>
   <property name="windowIcon">
    <iconset resource="recursos.qrc">
@@ -36,9 +36,9 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>60</y>
-         <width>311</width>
+         <x>30</x>
+         <y>150</y>
+         <width>348</width>
          <height>121</height>
         </rect>
        </property>
@@ -117,14 +117,30 @@
       <widget class="QCheckBox" name="cb_invitado">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>30</y>
+         <x>30</x>
+         <y>110</y>
          <width>81</width>
          <height>20</height>
         </rect>
        </property>
        <property name="text">
         <string>Invitado</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>30</y>
+         <width>91</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="recursos.qrc">:/images/Images/iconos_colores/user_96px.png</pixmap>
        </property>
       </widget>
      </widget>

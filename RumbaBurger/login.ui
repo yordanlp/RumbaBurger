@@ -101,12 +101,20 @@
             <property name="text">
              <string>Aceptar</string>
             </property>
+            <property name="icon">
+             <iconset resource="recursos.qrc">
+              <normaloff>:/images/Images/iconos_colores/checked_96px.png</normaloff>:/images/Images/iconos_colores/checked_96px.png</iconset>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="cancel">
             <property name="text">
              <string>Cancelar</string>
+            </property>
+            <property name="icon">
+             <iconset resource="recursos.qrc">
+              <normaloff>:/images/Images/iconos_colores/cancel_96px.png</normaloff>:/images/Images/iconos_colores/cancel_96px.png</iconset>
             </property>
            </widget>
           </item>

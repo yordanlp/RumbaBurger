@@ -66,12 +66,8 @@ int main(int argc, char *argv[])
                 qDebug() << "Error al crear la base de datos. No se pudo abrir el archivo";
                 return a.exec();
             }
-            QFile queryFile("structure.sql");
+            QFile queryFile(":/bd/bd_structure/structure.sql");
             executeQueryFile(queryFile);
-            /*QSqlQuery query;
-            QString q = "INSERT INTO users VALUES (0, 'admin', 'admin', 'Administrador')";
-            query.exec(q);*/
-
         }
     }
 

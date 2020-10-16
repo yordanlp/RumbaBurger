@@ -104,12 +104,27 @@
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
                 <widget class="QPushButton" name="pb_filtrar">
+                 <property name="minimumSize">
+                  <size>
+                   <width>60</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Filtrar</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
                  <property name="icon">
                   <iconset resource="recursos.qrc">
                    <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>35</width>
+                   <height>35</height>
+                  </size>
                  </property>
                 </widget>
                </item>
@@ -174,12 +189,24 @@
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
               <widget class="QPushButton" name="pb_eliminarorden">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>40</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="recursos.qrc">
                  <normaloff>:/images/Images/iconos_colores/trash_can_96px.png</normaloff>:/images/Images/iconos_colores/trash_can_96px.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>35</width>
+                 <height>35</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -217,6 +244,12 @@
      <layout class="QGridLayout" name="gridLayout_6">
       <item row="0" column="1">
        <widget class="QPushButton" name="pb_insertarorden">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>37</height>
+         </size>
+        </property>
         <property name="text">
          <string> Añadir Orden</string>
         </property>

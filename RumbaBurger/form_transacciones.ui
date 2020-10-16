@@ -376,6 +376,12 @@
               </item>
               <item row="0" column="10">
                <widget class="QPushButton" name="pb_filtrarCompraExtraccion">
+                <property name="minimumSize">
+                 <size>
+                  <width>79</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>136</width>

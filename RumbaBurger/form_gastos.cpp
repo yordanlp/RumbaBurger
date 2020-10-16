@@ -108,7 +108,8 @@ void form_gastos::on_pb_eliminar_clicked()
 
 void form_gastos::on_tw_gastos_clicked(const QModelIndex &index)
 {
-    ui->pb_eliminar->setEnabled(true);
+    if( UserService::loggedUser != 0 )
+        ui->pb_eliminar->setEnabled(true);
 }
 
 void form_gastos::on_sb_importe_valueChanged(double arg1)

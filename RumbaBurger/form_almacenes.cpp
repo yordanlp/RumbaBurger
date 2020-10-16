@@ -136,7 +136,7 @@ form_almacenes::form_almacenes(QWidget *parent) :
     ui->rb_librasExtraerLocal->setChecked(true);
     ui->rb_gramosExtraerLocal->setVisible(false);
     ui->rb_librasExtraerLocal->setVisible(false);
-    ui->rb_kilogramosExtraer->setVisible(false);
+    ui->rb_kilogramosExtraerLocal->setVisible(false);
     if( products.size() ){
         updateRadioButtonsExtraerLocal(ui->cb_productoExtraerLocal->currentText());
     }
@@ -181,6 +181,8 @@ void form_almacenes::updateRadioButtonsExtraerLocal(QString product){
     qDebug() << "updateRadioButtons Extraer Local" << product;
     ProductService productService;
     auto pr = productService.getProductByName(product);
+    ui->sb_cantidadExtraerLocal->setValue(0);
+    emit ui->sb_cantidadExtraerLocal->valueChanged(0);
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == 1 ){
             ui->rb_gramosExtraerLocal->setVisible(true);
@@ -194,7 +196,7 @@ void form_almacenes::updateRadioButtonsExtraerLocal(QString product){
             ui->rb_kilogramosExtraerLocal->setVisible(false);
             ui->sb_cantidadExtraerLocal->setSuffix("u");
         }
-        ui->pb_aceptarExtraerLocal->setEnabled(true);
+        //ui->pb_aceptarExtraerLocal->setEnabled(true);
     }else{
         ui->rb_gramosExtraerLocal->setVisible(false);
         ui->rb_librasExtraerLocal->setVisible(false);
@@ -298,6 +300,8 @@ void form_almacenes::updateRadioButtonsExtraer(QString product){
     qDebug() << "updateRadioButtons" << product;
     ProductService productService;
     auto pr = productService.getProductByName(product);
+    ui->sb_cantidadExtraer->setValue(0);
+    emit ui->sb_cantidadExtraer->valueChanged(0);
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == 1 ){
             ui->rb_gramosExtraer->setVisible(true);
@@ -311,7 +315,7 @@ void form_almacenes::updateRadioButtonsExtraer(QString product){
             ui->rb_kilogramosExtraer->setVisible(false);
             ui->sb_cantidadExtraer->setSuffix("u");
         }
-        ui->pb_aceptarExtraer->setEnabled(true);
+        //ui->pb_aceptarExtraer->setEnabled(true);
     }else{
         ui->rb_gramosExtraer->setVisible(false);
         ui->rb_librasExtraer->setVisible(false);
@@ -484,6 +488,8 @@ void form_almacenes::updateMCRadioButtons( QString product )
     qDebug() << "updateMCRadioButtons" << product;
     ProductService productService;
     auto pr = productService.getProductByName(product);
+    ui->sb_mcCantidad->setValue(0);
+    emit ui->sb_mcCantidad->valueChanged(0);
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == 1 ){
             ui->rb_mcGramos->setVisible(true);
@@ -497,7 +503,7 @@ void form_almacenes::updateMCRadioButtons( QString product )
             ui->rb_mcKilogramos->setVisible(false);
             ui->sb_mcCantidad->setSuffix("u");
         }
-        ui->pb_mcAccept->setEnabled(true);
+        //ui->pb_mcAccept->setEnabled(true);
     }else{
         ui->rb_mcGramos->setVisible(false);
         ui->rb_mcLibras->setVisible(false);
@@ -566,6 +572,8 @@ void form_almacenes::updateRadioButtonsCompra(QString product){
     qDebug() << "updateRadioButtonsCompra" << product;
     ProductService productService;
     auto pr = productService.getProductByName(product);
+    ui->sb_cantidadCompra->setValue(0);
+    emit ui->sb_cantidadCompra->setValue(0);
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == 1 ){
             ui->rb_gramosCompra->setVisible(true);
@@ -581,7 +589,7 @@ void form_almacenes::updateRadioButtonsCompra(QString product){
             ui->sb_cantidadCompra->setSuffix("u");
             ui->sb_mermaCompra->setSuffix("u");
         }
-        ui->pb_insertarCompra->setEnabled(true);
+        //ui->pb_insertarCompra->setEnabled(true);
     }else{
         ui->rb_gramosCompra->setVisible(false);
         ui->rb_librasCompra->setVisible(false);
@@ -722,6 +730,8 @@ void form_almacenes::updateRadioButtonsMoverAlLocal(QString product){
     qDebug() << "updateRadioButtonsMoverAlLocal" << product;
     ProductService productService;
     auto pr = productService.getProductByName(product);
+    ui->sb_cantidadMoverAlLocal->setValue(0);
+    emit ui->sb_cantidadMoverAlLocal->valueChanged(0);
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == SOLIDO ){
             ui->rb_gramosMoverAlLocal->setVisible(true);
@@ -735,7 +745,7 @@ void form_almacenes::updateRadioButtonsMoverAlLocal(QString product){
             ui->rb_kilogramosMoverAlLocal->setVisible(false);
             ui->sb_cantidadMoverAlLocal->setSuffix("u");
         }
-        ui->pb_MoverAlLocal->setEnabled(true);
+        //ui->pb_MoverAlLocal->setEnabled(true);
     }else{
         ui->rb_gramosMoverAlLocal->setVisible(false);
         ui->rb_librasMoverAlLocal->setVisible(false);
@@ -908,7 +918,8 @@ void form_almacenes::on_pb_eliminarProduct_clicked()
 void form_almacenes::on_centralTable_cellClicked(int row, int column)
 {
     if( row < 0 ) return;
-    ui->pb_eliminarProduct->setEnabled(true);
+    if( UserService::loggedUser != 0 )
+        ui->pb_eliminarProduct->setEnabled(true);
     int index = ui->cb_productCompra->findText( ui->centralTable->item(row, 0)->text() );
     ui->cb_productCompra->setCurrentIndex(index);
     ui->cb_productMoverAlLocal->setCurrentIndex(index);
@@ -994,6 +1005,7 @@ void form_almacenes::on_sb_mcCantidad_valueChanged(double arg1)
 
 void form_almacenes::on_sb_cantidadExtraerLocal_valueChanged(double arg1)
 {
+    qDebug() << "asdaskdj alksdj alsj dklasj dlasj dl";
     ui->pb_aceptarExtraerLocal->setEnabled(arg1 > 0);
 }
 

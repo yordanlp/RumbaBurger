@@ -294,12 +294,24 @@
             <layout class="QGridLayout" name="gridLayout_2">
              <item row="0" column="0">
               <widget class="QPushButton" name="pb_delOferta">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>40</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="recursos.qrc">
                  <normaloff>:/images/Images/iconos_colores/trash_can_96px.png</normaloff>:/images/Images/iconos_colores/trash_can_96px.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>35</width>
+                 <height>35</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -441,6 +453,12 @@
                <layout class="QGridLayout" name="gridLayout_10">
                 <item row="1" column="1">
                  <widget class="QPushButton" name="pb_guardar">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string>Guardar</string>
                   </property>
@@ -503,12 +521,24 @@
              </item>
              <item row="2" column="5">
               <widget class="QPushButton" name="pb_delIngrediente">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>40</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset resource="recursos.qrc">
                  <normaloff>:/images/Images/iconos_colores/trash_can_96px.png</normaloff>:/images/Images/iconos_colores/trash_can_96px.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>35</width>
+                 <height>35</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -562,6 +592,12 @@
              </item>
              <item row="0" column="6">
               <widget class="QPushButton" name="pb_insIngrediente">
+               <property name="minimumSize">
+                <size>
+                 <width>66</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string/>
                </property>

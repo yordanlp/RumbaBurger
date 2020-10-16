@@ -76,4 +76,7 @@
         <file>Images/iconos_colores/settings_96px.png</file>
         <file>Images/iconos_colores/save_96px.png</file>
     </qresource>
+    <qresource prefix="/bd">
+        <file>bd_structure/structure.sql</file>
+    </qresource>
 </RCC>

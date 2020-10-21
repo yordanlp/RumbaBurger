@@ -15,7 +15,6 @@ form_ordenes::form_ordenes(QWidget *parent) :
     connect(ui->pb_filtrar,SIGNAL(clicked(bool)), this, SLOT(filtrar()));
     connect(ui->tw_platos, SIGNAL(cellClicked(int,int)), this, SLOT(updateIngredients()));
     filtrar();
-    //QGridLayout *grid = new QGridLayout(this);
     if( UserService::loggedUser == 0 ){
         ui->pb_eliminarorden->setEnabled(false);
         ui->pb_insertarorden->setEnabled(false);
@@ -46,7 +45,6 @@ void form_ordenes::filtrar(){
 void form_ordenes::updateIngredients(){
     int orderRow = ui->tw_ordenes->currentRow();
     int dishRow = ui->tw_platos->currentRow();
-    qDebug() << "ingredientes" << orderRow << dishRow;
     if( orderRow < 0 || dishRow < 0 ){
         ui->tw_ingredientes->clearContents();
         ui->tw_ingredientes->setRowCount(0);;
@@ -102,35 +100,33 @@ void form_ordenes::updateIngredients(){
 
 void form_ordenes::updateOrders( QList<OrderDto> orders ){
     orderModel = orders;
-    qDebug() << "updateOrders" << orders.size();
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     int row = 0;
 
     ui->pb_eliminarorden->setEnabled(false);
-
     ui->tw_ordenes->setRowCount(orders.size());
     foreach (auto o, orderModel) {
         QTableWidgetItem *fecha = new QTableWidgetItem(o.date.toString(Qt::ISODate));
         fecha->setFlags(flags);
         fecha->setTextAlignment(utiles::TextAlign);
+
         QTableWidgetItem *norden = new QTableWidgetItem(QString::number(o.orderNumber));
         norden->setTextAlignment(utiles::TextAlign);
         norden->setFlags(flags);
+
         QCheckBox *cb = new QCheckBox(this);
         if( o.payed )
             cb->setChecked(true);
         else cb->setChecked(false);
         cb->setEnabled(false);
-        //QTableWidgetItem *pagado = new QTableWidgetItem();
-        //pagado->setFlags(flags);
-        QTableWidgetItem *ingreso = new QTableWidgetItem("$"+QString::number(o.total, 'f', 2));
+
+        QTableWidgetItem *ingreso = new QTableWidgetItem( utiles::truncS(o.total, 2) + " CUP");
         ingreso->setTextAlignment(utiles::TextAlign);
         ingreso->setFlags(flags);
 
-        ui->tw_ordenes->setItem(row,0, fecha);
-        ui->tw_ordenes->setItem(row,1,norden);
-        ui->tw_ordenes->setCellWidget(row,2, cb);
-        //ui->tw_ordenes->setItem(row,2,pagado);
+        ui->tw_ordenes->setItem(row, 0, fecha);
+        ui->tw_ordenes->setItem(row, 1, norden);
+        ui->tw_ordenes->setCellWidget(row, 2, cb);
         ui->tw_ordenes->setItem(row,3,ingreso);
         row++;
     }
@@ -160,9 +156,10 @@ void form_ordenes::updatePlatos(int row){
     QString date = ui->tw_ordenes->item(row, 0)->text();
     OrderService orderService;
     OrderDishService orderDishService;
-    DishService dishService;
-    auto order = orderService.getOrderByOrderNumberAndDate( orderNumber, utiles::stringToDate(date) );
-    auto od = orderDishService.getDishesByOrderId(order.data.id);
+    //DishService dishService;
+    //auto order = orderService.getOrderByOrderNumberAndDate( orderNumber, utiles::stringToDate(date) );
+    auto order = orderModel.at(row);
+    auto od = orderDishService.getDishesByOrderId(order.id);
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     int fila = 0;
     ui->tw_platos->setRowCount(od.data.size());
@@ -172,13 +169,16 @@ void form_ordenes::updatePlatos(int row){
         QTableWidgetItem *name = new QTableWidgetItem(nombre);
         name->setFlags(flags);
         name->setTextAlignment(utiles::TextAlign);
-        QTableWidgetItem *cant = new QTableWidgetItem( QString::number(d.amount, 'f', 2) );
+
+        QTableWidgetItem *cant = new QTableWidgetItem( utiles::truncS(d.amount, 2) );
         cant->setTextAlignment(utiles::TextAlign);
         cant->setFlags(flags);
-        QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(d.price, 'f', 2) );
+
+        QTableWidgetItem *precioxunidad = new QTableWidgetItem( utiles::truncS(d.price, 2) + " CUP" );
         precioxunidad->setTextAlignment(utiles::TextAlign);
         precioxunidad->setFlags(flags);
-        QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number(d.price * d.amount, 'f', 2) );
+
+        QTableWidgetItem *preciototal = new QTableWidgetItem( utiles::truncS(d.price * d.amount, 2) + " CUP" );
         preciototal->setTextAlignment(utiles::TextAlign);
         preciototal->setFlags(flags);
 
@@ -203,9 +203,6 @@ void form_ordenes::on_pb_eliminarorden_clicked()
         QMessageBox::information(this, "Información", "Debe seleccionar una orden para eliminar",QMessageBox::Ok);
         return;
     }
-
-    //int orderNumber = ui->tw_ordenes->item(row, 1)->text().toInt();
-    //QDate date = utiles::stringToDate(ui->tw_ordenes->item(row, 0)->text());
 
     OrderService orderService;
     //auto ord = orderService.getOrderByOrderNumberAndDate(orderNumber, date);

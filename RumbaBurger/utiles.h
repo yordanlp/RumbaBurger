@@ -29,6 +29,8 @@ public:
     static QString MONEDA, UNIDAD;
     static QString unitFromPeso( weigth p );
     static int TextAlign;
+    static double trunc( double n, int dec );
+    static QString truncS( double n, int dec );
 
     //static void executeQueryFile(QFile &qf, QSqlDatabase &db);
 };

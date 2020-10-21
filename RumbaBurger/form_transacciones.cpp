@@ -111,22 +111,25 @@ void form_transacciones::filtrarMovimientos(){
         producto->setTextAlignment(utiles::TextAlign);
         QString unit = "";
         if( m.unitType == SOLIDO )
-            unit = utiles::unitFromPeso(PESO);
+            unit = " " + utiles::unitFromPeso(PESO);
         else
-            unit = "u";
+            unit = " u";
 
-        double cant = (unit == "u") ? m.amount : utiles::convertPeso(G, PESO, m.amount);
-        QTableWidgetItem *cantidad = new QTableWidgetItem( QString::number(cant, 'f', 2) + unit );
+        double cant = (m.unitType == UNIDAD) ? m.amount : utiles::convertPeso(G, PESO, m.amount);
+        QTableWidgetItem *cantidad = new QTableWidgetItem( utiles::truncS(cant, 2) + unit );
         cantidad->setFlags(flags);
         cantidad->setTextAlignment(utiles::TextAlign);
-        double dc = (unit == "u") ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
-        QTableWidgetItem *disponible_central = new QTableWidgetItem( QString::number( dc, 'f', 2 ) + unit);
+
+        double dc = (m.unitType == UNIDAD) ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
+        QTableWidgetItem *disponible_central = new QTableWidgetItem( utiles::truncS( dc, 2 ) + unit);
         disponible_central->setFlags(flags);
         disponible_central->setTextAlignment(utiles::TextAlign);
-        double dl = (unit == "u") ? m.aviable_in_local : utiles::convertPeso(G, PESO, m.aviable_in_local);
-        QTableWidgetItem *disponible_local = new QTableWidgetItem( QString::number( dl, 'f', 2 ) + unit);
+
+        double dl = (m.unitType == UNIDAD) ? m.aviable_in_local : utiles::convertPeso(G, PESO, m.aviable_in_local);
+        QTableWidgetItem *disponible_local = new QTableWidgetItem( utiles::truncS( dl, 2 ) + unit);
         disponible_local->setFlags(flags);
         disponible_local->setTextAlignment(utiles::TextAlign);
+
         ui->tw_moviemientos->setItem(row, 0, fecha);
         ui->tw_moviemientos->setItem(row, 1, usuario);
         ui->tw_moviemientos->setItem(row, 2, from);
@@ -138,7 +141,6 @@ void form_transacciones::filtrarMovimientos(){
 
         row++;
     }
-    //ui->pb_deshacerMovimientos->setEnabled(false);
 }
 
 void form_transacciones::filtrarOperaciones(){
@@ -203,30 +205,34 @@ void form_transacciones::filtrarOperaciones(){
 
         QString unit = "";
         if( m.unitType == SOLIDO )
-            unit = utiles::unitFromPeso(PESO);
+            unit = " " + utiles::unitFromPeso(PESO);
         else
-            unit = "u";
+            unit = " u";
 
         QTableWidgetItem *from = new QTableWidgetItem( origin );
         from->setFlags(flags);
         from->setTextAlignment(utiles::TextAlign);
+
         QTableWidgetItem *producto = new QTableWidgetItem( m.productName );
         producto->setFlags(flags);
         producto->setTextAlignment(utiles::TextAlign);
-        double cant = (unit == "u") ? m.amount : utiles::convertPeso(G, PESO, m.amount);
-        QTableWidgetItem *cantidad = new QTableWidgetItem( QString::number(cant, 'f', 2) + unit );
+
+        double cant = (m.unitType == UNIDAD) ? m.amount : utiles::convertPeso(G, PESO, m.amount);
+        QTableWidgetItem *cantidad = new QTableWidgetItem( utiles::truncS(cant, 2) + unit );
         cantidad->setFlags(flags);
         cantidad->setTextAlignment(utiles::TextAlign);
-        double merm = (unit == "u") ? m.merma : utiles::convertPeso(G, PESO, m.merma);
-        QTableWidgetItem *merma = new QTableWidgetItem( QString::number(merm, 'f', 2) + unit);
+
+        double merm = (m.unitType == UNIDAD) ? m.merma : utiles::convertPeso(G, PESO, m.merma);
+        QTableWidgetItem *merma = new QTableWidgetItem( utiles::truncS(merm, 2) + unit);
         merma->setFlags(flags);
         merma->setTextAlignment(utiles::TextAlign);
-        double pr = (unit == "u") ? m.price : utiles::convertPrecio(G, PESO, m.price);
-        QTableWidgetItem *precio = new QTableWidgetItem( (m.type == COMPRA) ? ("$" + QString::number( pr, 'f', 2 )) : "-" );
+        double pr = (m.unitType == UNIDAD) ? m.price : utiles::convertPrecio(G, PESO, m.price);
+        QTableWidgetItem *precio = new QTableWidgetItem( (m.type == COMPRA) ? ( utiles::truncS( pr, 2 ) + " CUP" ) : "-" );
         precio->setFlags(flags);
         precio->setTextAlignment(utiles::TextAlign);
-        double av = (unit == "u") ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
-        QTableWidgetItem *disponible = new QTableWidgetItem( QString::number( av, 'f', 2 ) + unit );
+
+        double av = (m.unitType == UNIDAD) ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
+        QTableWidgetItem *disponible = new QTableWidgetItem( utiles::truncS( av, 2 ) + unit );
         disponible->setFlags(flags);
         disponible->setTextAlignment(utiles::TextAlign);
         ui->tw_CompraExtraccion->setItem(row, 0, fecha);
@@ -241,7 +247,6 @@ void form_transacciones::filtrarOperaciones(){
 
         row++;
     }
-    //ui->pb_deshacerCompraExtraccion->setEnabled(false);
 }
 
 void form_transacciones::on_pb_deshacerMovimientos_clicked()

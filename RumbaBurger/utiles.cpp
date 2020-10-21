@@ -73,6 +73,21 @@ QString utiles::unitFromPeso(weigth p)
     return "Lb";
 }
 
+double utiles::trunc(double n, int dec)
+{
+    qDebug() << n;
+    n *= pow(10, dec);
+    double ret = (int)n;
+    ret /= pow(10, dec);
+    return ret;
+}
+
+QString utiles::truncS(double n, int dec){
+    double res = trunc(n, dec);
+    QString ret = QString::number( res, 'f', dec );
+    return ret;
+}
+
 double utiles::GANANCIA = 0.50;
 double utiles::IMPUESTO = 0.10;
 QString utiles::MONEDA = "CUP";

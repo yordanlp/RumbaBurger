@@ -36,6 +36,8 @@ void executeQueryFile(QFile &qf) {
 int main(int argc, char *argv[])
 {
 
+    //qDebug() << utiles::truncS(2.98765, 6);
+
     QApplication a(argc, argv);
     a.setApplicationName("RumbaBurgerApp");
 

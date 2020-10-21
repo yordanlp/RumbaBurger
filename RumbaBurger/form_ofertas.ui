@@ -597,6 +597,11 @@
                  <string>Cantidad</string>
                 </property>
                </column>
+               <column>
+                <property name="text">
+                 <string>Inversión</string>
+                </property>
+               </column>
               </widget>
              </item>
              <item row="0" column="6">

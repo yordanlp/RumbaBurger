@@ -38,10 +38,7 @@ form_insertarorden::~form_insertarorden()
 
 void form_insertarorden::on_pb_add_clicked()
 {
-    //ui->tw_platos->insertRow(ui->tw_platos->rowCount());
-    qDebug() << "ins Orden";
     QString dishName = ui->cb_plato->currentText();
-    qDebug() << dishName;
     int ok = 1;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
         if( ui->tw_platos->item(i, 0)->text() == dishName ){
@@ -57,7 +54,7 @@ void form_insertarorden::on_pb_add_clicked()
     Qt::ItemFlags flags = Qt::NoItemFlags | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     ui->tw_platos->insertRow(ui->tw_platos->rowCount());
     int row = ui->tw_platos->rowCount()-1;
-    int cantidad = ui->sb_cantidad->value();
+    int cantidad = utiles::trunc(ui->sb_cantidad->value(), 0);
     if( !cantidad ){
         QMessageBox::information(this, "Información", "La cantidad no puede ser 0", QMessageBox::Ok);
         return;
@@ -69,16 +66,14 @@ void form_insertarorden::on_pb_add_clicked()
     QTableWidgetItem *nombre = new QTableWidgetItem(dishName);
     nombre->setFlags(flags);
     nombre->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    QTableWidgetItem *cant = new QTableWidgetItem( QString::number(cantidad) );
+    QTableWidgetItem *cant = new QTableWidgetItem( utiles::truncS(cantidad, 0) );
     cant->setFlags(flags);
-    QTableWidgetItem *precioxunidad = new QTableWidgetItem( "$" + QString::number(precio, 'f', 2) );
+    QTableWidgetItem *precioxunidad = new QTableWidgetItem( utiles::truncS(precio, 2) + " CUP" );
     precioxunidad->setTextAlignment(utiles::TextAlign);
     precioxunidad->setFlags(flags);
-    QTableWidgetItem *preciototal = new QTableWidgetItem( "$" + QString::number( precio * cantidad, 'f', 2 ) );
+    QTableWidgetItem *preciototal = new QTableWidgetItem( utiles::truncS( precio * cantidad, 2 ) + " CUP" );
     preciototal->setFlags(flags);
     preciototal->setTextAlignment(utiles::TextAlign);
-
-
 
     ui->tw_platos->setItem(row, 0, nombre);
     ui->tw_platos->setItem(row, 1, cant);
@@ -92,14 +87,13 @@ void form_insertarorden::on_pb_add_clicked()
 void form_insertarorden::on_pb_del_clicked()
 {
     int rowSelected = ui->tw_platos->currentRow();
-    qDebug() << rowSelected;
     if( rowSelected < 0 ){
         QMessageBox::critical(this, "Información", "Debe seleccionar un elemento para eliminar", QMessageBox::Ok);
         return;
     }
 
     if( rowSelected >= 0 && rowSelected < ui->tw_platos->rowCount() ){
-        auto res = QMessageBox::warning(this, "Información", "Está seguro que desea eliminar el plato <strong>" + ui->tw_platos->item(rowSelected,0)->text() + "</strong>", QMessageBox::Ok | QMessageBox::Cancel);
+        auto res = QMessageBox::warning(this, "Información", "¿Está seguro que desea eliminar el plato <strong>" + ui->tw_platos->item(rowSelected,0)->text() + "</strong>?", QMessageBox::Ok | QMessageBox::Cancel);
         if( res == QMessageBox::Ok )
             ui->tw_platos->removeRow(rowSelected);
     }
@@ -111,16 +105,17 @@ void form_insertarorden::on_pb_del_clicked()
 double form_insertarorden::getCosto(){
     double total = 0;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
-        total += ui->tw_platos->item(i, 3)->text().remove(0,1).toDouble();
+        QString precio = ui->tw_platos->item(i, 3)->text();
+        precio.chop(4);
+        total += precio.toDouble();
     }
     return total;
 }
 
 void form_insertarorden::updateCosto(){
     double total = 0;
-    qDebug() << "Update Costo";
     total = getCosto();
-    ui->l_costo->setText( "El costo total de la orden es: $" + QString::number(total, 'f', 2) );
+    ui->l_costo->setText( "El costo total de la orden es: " + utiles::truncS(total, 2) + " CUP" );
 }
 
 double form_insertarorden::getProfit(){
@@ -139,7 +134,6 @@ double form_insertarorden::getProfit(){
 
 void form_insertarorden::on_pb_accep_clicked()
 {
-
     QString num = ui->le_norder->text();
     int pos = 0;
     if( valNumber->validate(num,pos) != QValidator::Acceptable ){
@@ -147,7 +141,6 @@ void form_insertarorden::on_pb_accep_clicked()
         return;
     }
     int orderNumber = ui->le_norder->text().toInt();
-    qDebug() << "orderNumber" << orderNumber;
     QDate today = ui->de_fecha->date();
     OrderService orderService;
     OrderDishService orderDishService;
@@ -205,11 +198,7 @@ void form_insertarorden::on_sb_cantidad_valueChanged(double arg1)
 {
     DishService dishService;
     auto dish = dishService.getDishByName( DishDto(0, ui->cb_plato->currentText(),"", 0) );
-    if( dish.res != SUCCESS ){
-        ui->pb_del->setEnabled(false);
-        return;
-    }
-    ui->pb_add->setEnabled(arg1 > 0);
+    ui->pb_add->setEnabled(arg1 > 0 && dish.res == SUCCESS);
 }
 
 void form_insertarorden::on_tw_platos_cellClicked(int row, int column)
@@ -221,10 +210,5 @@ void form_insertarorden::on_cb_plato_currentTextChanged(const QString &arg1)
 {
     DishService dishService;
     auto dish = dishService.getDishByName( DishDto(0,arg1,"",0) );
-    if( dish.res != SUCCESS ){
-        ui->pb_add->setEnabled(false);
-        return;
-    }
-    //emit ui->sb_cantidad->valueChanged(ui->sb_cantidad->value());
-    ui->pb_add->setEnabled( ui->sb_cantidad->value() > 0 );
+    ui->pb_add->setEnabled( ui->sb_cantidad->value() > 0 && dish.res == SUCCESS );
 }

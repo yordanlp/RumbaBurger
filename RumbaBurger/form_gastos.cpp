@@ -61,7 +61,8 @@ void form_gastos::updateGastos(){
         QTableWidgetItem *descripcion = new QTableWidgetItem (desc);
         descripcion->setTextAlignment(utiles::TextAlign);
         descripcion->setFlags(flags);
-        QTableWidgetItem *importe = new QTableWidgetItem("$" + QString::number(g.price, 'f', 2));
+        QString precio = utiles::truncS( g.price, 2 ) + " CUP";
+        QTableWidgetItem *importe = new QTableWidgetItem( precio );
         importe->setFlags(flags);
         importe->setTextAlignment(utiles::TextAlign);
         ui->tw_gastos->setItem(row, 0, date);
@@ -76,7 +77,7 @@ void form_gastos::on_pb_insertar_clicked()
 {
     QString descripcion = ui->le_descripcion->text();
     QDate fecha = ui->de_fecha->date();
-    double costo = ui->sb_importe->value();
+    double costo = utiles::trunc(ui->sb_importe->value(), 2);
     if( !costo ){
         QMessageBox::information(this, "Información", "El importe no puede ser 0", QMessageBox::Ok);
         return;

@@ -16,12 +16,9 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QFrame" name="frame">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Ofertas</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="0">
@@ -104,7 +101,7 @@
              <item row="0" column="1">
               <widget class="QLineEdit" name="le_search">
                <property name="placeholderText">
-                <string>Qué desea buscar?</string>
+                <string>Inserte el nombre de la oferta...</string>
                </property>
               </widget>
              </item>
@@ -194,6 +191,9 @@
              </item>
              <item row="0" column="4">
               <widget class="QPushButton" name="pb_addOferta">
+               <property name="whatsThis">
+                <string>Añadir oferta</string>
+               </property>
                <property name="text">
                 <string>Añadir</string>
                </property>
@@ -300,6 +300,9 @@
                  <height>40</height>
                 </size>
                </property>
+               <property name="whatsThis">
+                <string>Eliminar</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -394,7 +397,7 @@
                 </size>
                </property>
                <property name="placeholderText">
-                <string>Qué es este plato?</string>
+                <string>Descripción...</string>
                </property>
               </widget>
              </item>
@@ -458,6 +461,9 @@
                     <width>0</width>
                     <height>37</height>
                    </size>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Guardar Cambios</string>
                   </property>
                   <property name="text">
                    <string>Guardar</string>
@@ -526,6 +532,9 @@
                  <width>60</width>
                  <height>40</height>
                 </size>
+               </property>
+               <property name="whatsThis">
+                <string>Eliminar Producto</string>
                </property>
                <property name="text">
                 <string/>
@@ -597,6 +606,9 @@
                  <width>66</width>
                  <height>0</height>
                 </size>
+               </property>
+               <property name="whatsThis">
+                <string>Añadir Producto</string>
                </property>
                <property name="text">
                 <string/>

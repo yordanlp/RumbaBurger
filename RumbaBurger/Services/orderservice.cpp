@@ -146,7 +146,7 @@ Result<QStringList> OrderService::validateDishes(QList<DishAmountDto> L)
         if( amount > product.data.amount ){
             res.res = INSUFICIENT_AMOUNT;
             res.msg = "Cantidad insuficiente";
-            Li << productService.getProductByID(ProductDto(idProduct,"",0,0)).data.productName + " => En Almacén: " + QString::number(product.data.amount) + " Falta: " + QString::number(amount - product.data.amount);
+            Li << productService.getProductByID(ProductDto(idProduct,"",0,0)).data.productName + " => En Almacén: " + QString::number(product.data.amount, 'f', 2) + " Falta: " + QString::number(amount - product.data.amount, 'f', 2);
         }
     }
     res.data = Li;

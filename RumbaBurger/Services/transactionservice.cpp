@@ -68,7 +68,7 @@ Result<QList<TransactionDto> > TransactionService::getMovimientos(QDate inicial,
                     aviable_in_central, productName, unitType FROM transactions \
                     WHERE (date BETWEEN :inicial AND :final) AND (origin = :central \
                     OR origin = :local) AND type = :type AND productName LIKE \
-                    :product ORDER BY date DESC");
+                    :product ORDER BY id DESC");
 
     query.bindValue(":inicial", inicial.toString(Qt::ISODate));
     query.bindValue(":final", final.toString(Qt::ISODate));
@@ -123,7 +123,7 @@ Result<QList<TransactionDto> > TransactionService::getExtraccionesYCompras(QDate
     else
         extraccion = operacion, compra = operacion;
 
-    query.prepare("SELECT id, type, origin, amount, idProduct, date, idUser, price, merma, aviable_in_local, aviable_in_central, productName, unitType FROM transactions WHERE (date BETWEEN :inicial AND :final) AND (origin = :central OR origin = :local) AND (type = :extraccion OR type = :compra) AND productName LIKE :product ORDER BY date DESC");
+    query.prepare("SELECT id, type, origin, amount, idProduct, date, idUser, price, merma, aviable_in_local, aviable_in_central, productName, unitType FROM transactions WHERE (date BETWEEN :inicial AND :final) AND (origin = :central OR origin = :local) AND (type = :extraccion OR type = :compra) AND productName LIKE :product ORDER BY id DESC");
     query.bindValue(":inicial", inicial.toString(Qt::ISODate));
     query.bindValue(":final", final.toString(Qt::ISODate));
     query.bindValue(":extraccion", extraccion);

@@ -32,6 +32,11 @@ private slots:
 
     void on_sb_cantidad_valueChanged(double arg1);
 
+    void on_tw_platos_cellClicked(int row, int column);
+
+
+    void on_cb_plato_currentTextChanged(const QString &arg1);
+
 private:
     Ui::form_insertarorden *ui;
 };

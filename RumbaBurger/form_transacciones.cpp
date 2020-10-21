@@ -116,7 +116,7 @@ void form_transacciones::filtrarMovimientos(){
             unit = "u";
 
         double cant = (unit == "u") ? m.amount : utiles::convertPeso(G, PESO, m.amount);
-        QTableWidgetItem *cantidad = new QTableWidgetItem( QString::number(cant) + unit );
+        QTableWidgetItem *cantidad = new QTableWidgetItem( QString::number(cant, 'f', 2) + unit );
         cantidad->setFlags(flags);
         cantidad->setTextAlignment(utiles::TextAlign);
         double dc = (unit == "u") ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);

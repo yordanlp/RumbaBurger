@@ -14,8 +14,109 @@
    <string>Órdenes</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_7">
+   <item row="0" column="1" colspan="2">
+    <widget class="QFrame" name="frame_4">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pb_insertarorden">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>37</height>
+         </size>
+        </property>
+        <property name="whatsThis">
+         <string>Añadir nueva orden</string>
+        </property>
+        <property name="text">
+         <string> Añadir Orden</string>
+        </property>
+        <property name="icon">
+         <iconset resource="recursos.qrc">
+          <normaloff>:/images/Images/iconos_colores/plus_96px.png</normaloff>:/images/Images/iconos_colores/plus_96px.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Detalles de la orden</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QTableWidget" name="tw_platos">
+        <column>
+         <property name="text">
+          <string>Plato</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio x Unidad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio Total</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Detalles del Plato</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QTableWidget" name="tw_ingredientes">
+        <column>
+         <property name="text">
+          <string>Producto</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="0" rowspan="2">
-    <widget class="QFrame" name="frame">
+    <widget class="QGroupBox" name="groupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -28,11 +129,8 @@
        <height>0</height>
       </size>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="title">
+      <string>Órdenes</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
@@ -112,6 +210,9 @@
                  </property>
                  <property name="toolTip">
                   <string>Filtrar</string>
+                 </property>
+                 <property name="whatsThis">
+                  <string>Filtrar órdenes</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -195,6 +296,9 @@
                  <height>40</height>
                 </size>
                </property>
+               <property name="whatsThis">
+                <string>Eliminar orden</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -233,106 +337,8 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QFrame" name="frame_4">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pb_insertarorden">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>37</height>
-         </size>
-        </property>
-        <property name="text">
-         <string> Añadir Orden</string>
-        </property>
-        <property name="icon">
-         <iconset resource="recursos.qrc">
-          <normaloff>:/images/Images/iconos_colores/plus_96px.png</normaloff>:/images/Images/iconos_colores/plus_96px.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Detalles de la orden</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <widget class="QTableWidget" name="tw_platos">
-        <column>
-         <property name="text">
-          <string>Plato</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Cantidad</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Precio x Unidad</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Precio Total</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>Detalles del Plato</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <widget class="QTableWidget" name="tw_ingredientes">
-        <column>
-         <property name="text">
-          <string>Producto</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Cantidad</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
   </layout>
-  <zorder>frame</zorder>
+  <zorder>groupBox</zorder>
   <zorder>groupBox</zorder>
   <zorder>groupBox_2</zorder>
   <zorder>frame_4</zorder>

@@ -211,7 +211,7 @@ void form_ordenes::on_pb_eliminarorden_clicked()
     //auto ord = orderService.getOrderByOrderNumberAndDate(orderNumber, date);
     auto ord = orderModel.at(row);
 
-    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea elminiar la orden #" + QString::number(ord.orderNumber) + " del " + ord.date.toString(Qt::ISODate) + "?", QMessageBox::Ok, QMessageBox::Cancel);
+    auto res = QMessageBox::warning(this, "Información", "¿Está seguro que desea elminiar la orden <strong>#" + QString::number(ord.orderNumber) + "</strong> del <strong>" + ord.date.toString(Qt::ISODate) + "</strong>?", QMessageBox::Ok, QMessageBox::Cancel);
     if( res == QMessageBox::Ok ){
         orderService.deleteOrder( ord );
         filtrar();

@@ -70,7 +70,6 @@ SOURCES += main.cpp\
     Services/transactionservice.cpp \
     Dto/transactiondto.cpp \
     form_inicial.cpp \
-    form_newuser.cpp \
     form_user.cpp \
     form_cambiarpassword.cpp
 
@@ -117,7 +116,6 @@ HEADERS  += \
     Services/transactionservice.h \
     Dto/transactiondto.h \
     form_inicial.h \
-    form_newuser.h \
     form_user.h \
     form_cambiarpassword.h
 
@@ -133,7 +131,6 @@ FORMS    += \
     form_modificarorden.ui \
     form_transacciones.ui \
     form_inicial.ui \
-    form_newuser.ui \
     form_user.ui \
     form_cambiarpassword.ui
 

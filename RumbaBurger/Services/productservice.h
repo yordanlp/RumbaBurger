@@ -13,7 +13,7 @@ public:
     ProductService();
     Result<int> insertProduct( ProductDto );
     Result<bool> deleteProduct( ProductDto );
-    Result<ProductDto> getProductByID( ProductDto );
+    Result<ProductDto> getProductByID(ProductDto id );
     Result<QList<ProductDto>> getAllProduct();
     Result<ProductDto> getProductByName( QString );
     Result<bool> updateProduct( ProductDto );

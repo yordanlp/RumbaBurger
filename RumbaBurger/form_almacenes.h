@@ -10,6 +10,7 @@
 #include <Dto/centralstoragedto.h>
 #include <Dto/storagedto.h>
 #include <utiles.h>
+#include <Dto/storageproductdto.h>
 namespace Ui {
 class form_almacenes;
 }
@@ -30,6 +31,7 @@ public:
     void updateProducts();
     void updateExistentes();
 
+    QList<StorageProductDto> centralModel, localModel;
     weigth PESO;
     void setUnit();
 

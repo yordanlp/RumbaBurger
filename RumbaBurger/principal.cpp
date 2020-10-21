@@ -20,8 +20,6 @@ Principal::Principal(QWidget *parent) :
     ui->setupUi(this);
     mdi = new QMdiArea(this);
     setCentralWidget(mdi);
-    QLabel *label = new QLabel("Status Bar", this);
-    ui->statusbar->addWidget(label);
 
     formInicial = new form_inicial(this);
     mdi->addSubWindow(formInicial);
@@ -177,7 +175,7 @@ void Principal::on_actionMoneda_triggered()
         selected = 0;
     else
         selected = 1;
-    QString moneda = QInputDialog::getItem(this,"Moneda", "Moneda", L, selected, false);
+    QString moneda = QInputDialog::getItem(this,"Moneda", "Moneda", L, selected, false, nullptr);
     utiles::MONEDA = moneda;
     QSettings settings("Limitless", "RumbaBurger");
     settings.beginGroup(QString::number(UserService::loggedUser));

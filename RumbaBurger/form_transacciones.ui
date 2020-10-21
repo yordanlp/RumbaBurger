@@ -16,284 +16,63 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Transacciones</string>
       </property>
-      <widget class="QWidget" name="movimientos">
-       <attribute name="title">
-        <string>Tab 1</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0" colspan="2">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="1">
-            <widget class="QDateEdit" name="de_fechaInicialMovimientos">
-             <property name="calendarPopup">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Fecha Inicial</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Fecha Final</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QDateEdit" name="de_fechaFinalMovimientos">
-             <property name="calendarPopup">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="7">
-            <widget class="QComboBox" name="cb_origen">
-             <property name="minimumSize">
-              <size>
-               <width>101</width>
-               <height>0</height>
-              </size>
-             </property>
-             <item>
-              <property name="text">
-               <string>Todos</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Almacén Local</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Almacén Central</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="0" column="6">
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>Origen:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="9">
-            <spacer name="horizontalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="10">
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Producto</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="11">
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="5">
-            <widget class="QComboBox" name="cb_productosMovimientos">
-             <property name="minimumSize">
-              <size>
-               <width>98</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="editable">
-              <bool>true</bool>
-             </property>
-             <item>
-              <property name="text">
-               <string>Todos</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="0" column="8">
-            <widget class="QPushButton" name="pb_filtrarMovimientos">
-             <property name="minimumSize">
-              <size>
-               <width>79</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>106</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="recursos.qrc">
-               <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3"/>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QTableWidget" name="tw_moviemientos">
-          <column>
-           <property name="text">
-            <string>Fecha</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Usuario</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Desde</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Hasta</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Producto</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Cantidad</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Disponible en A. Central</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Disponible en A. Local</string>
-           </property>
-          </column>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="CompraExtraccion">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <widget class="QFrame" name="frame_3">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="2" column="1">
-            <widget class="QFrame" name="frame_5">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_7"/>
-            </widget>
-           </item>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="movimientos">
+          <attribute name="title">
+           <string>Tab 1</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_4">
            <item row="0" column="0" colspan="2">
-            <widget class="QFrame" name="frame_4">
+            <widget class="QFrame" name="frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="0" column="3">
-               <widget class="QDateEdit" name="de_fechaFinalCompraExtraccion">
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="1">
+               <widget class="QDateEdit" name="de_fechaInicialMovimientos">
                 <property name="calendarPopup">
                  <bool>true</bool>
                 </property>
                </widget>
               </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Fecha Inicial</string>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="2">
-               <widget class="QLabel" name="label_6">
+               <widget class="QLabel" name="label_2">
                 <property name="text">
                  <string>Fecha Final</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="9">
-               <widget class="QComboBox" name="cb_origenOperaciones">
+              <item row="0" column="3">
+               <widget class="QDateEdit" name="de_fechaFinalMovimientos">
+                <property name="calendarPopup">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="7">
+               <widget class="QComboBox" name="cb_origen">
                 <property name="minimumSize">
                  <size>
-                  <width>110</width>
+                  <width>101</width>
                   <height>0</height>
                  </size>
                 </property>
@@ -314,94 +93,64 @@
                 </item>
                </widget>
               </item>
-              <item row="0" column="8">
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>Origen</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Fecha Inicial</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QDateEdit" name="de_fechaInicialCompraExtraccion">
-                <property name="calendarPopup">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="6">
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>Operaciones</string>
+                 <string>Origen:</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="7">
-               <widget class="QComboBox" name="cb_operaciones">
-                <property name="minimumSize">
+              <item row="0" column="9">
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
                  <size>
-                  <width>90</width>
-                  <height>0</height>
+                  <width>40</width>
+                  <height>20</height>
                  </size>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>Todas</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Compra</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Extracción</string>
-                 </property>
-                </item>
-               </widget>
+               </spacer>
+              </item>
+              <item row="0" column="10">
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item row="0" column="4">
-               <widget class="QLabel" name="label_4">
+               <widget class="QLabel" name="label_3">
                 <property name="text">
                  <string>Producto</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="10">
-               <widget class="QPushButton" name="pb_filtrarCompraExtraccion">
-                <property name="minimumSize">
+              <item row="0" column="11">
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
                  <size>
-                  <width>79</width>
-                  <height>0</height>
+                  <width>40</width>
+                  <height>20</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>136</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset resource="recursos.qrc">
-                  <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
-                </property>
-               </widget>
+               </spacer>
               </item>
               <item row="0" column="5">
-               <widget class="QComboBox" name="cb_productosCompraExtraccion">
+               <widget class="QComboBox" name="cb_productosMovimientos">
                 <property name="minimumSize">
                  <size>
-                  <width>106</width>
+                  <width>98</width>
                   <height>0</height>
                  </size>
                 </property>
@@ -415,24 +164,48 @@
                 </item>
                </widget>
               </item>
-              <item row="0" column="11">
-               <spacer name="horizontalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
+              <item row="0" column="8">
+               <widget class="QPushButton" name="pb_filtrarMovimientos">
+                <property name="minimumSize">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>79</width>
+                  <height>0</height>
                  </size>
                 </property>
-               </spacer>
+                <property name="maximumSize">
+                 <size>
+                  <width>106</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="whatsThis">
+                 <string>Filtrar</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="recursos.qrc">
+                  <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QTableWidget" name="tw_CompraExtraccion">
+           <item row="1" column="1">
+            <widget class="QFrame" name="frame_2">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3"/>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTableWidget" name="tw_moviemientos">
              <column>
               <property name="text">
                <string>Fecha</string>
@@ -445,12 +218,12 @@
              </column>
              <column>
               <property name="text">
-               <string>Tipo</string>
+               <string>Desde</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>Origen</string>
+               <string>Hasta</string>
               </property>
              </column>
              <column>
@@ -465,26 +238,268 @@
              </column>
              <column>
               <property name="text">
-               <string>Merma</string>
+               <string>Disponible en A. Central</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>Precio</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Disponible</string>
+               <string>Disponible en A. Local</string>
               </property>
              </column>
             </widget>
            </item>
           </layout>
          </widget>
-        </item>
-       </layout>
-      </widget>
+         <widget class="QWidget" name="CompraExtraccion">
+          <attribute name="title">
+           <string>Tab 2</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <widget class="QFrame" name="frame_3">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="2" column="1">
+               <widget class="QFrame" name="frame_5">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_7"/>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QFrame" name="frame_4">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_6">
+                 <item row="0" column="3">
+                  <widget class="QDateEdit" name="de_fechaFinalCompraExtraccion">
+                   <property name="calendarPopup">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Fecha Final</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="9">
+                  <widget class="QComboBox" name="cb_origenOperaciones">
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Todos</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Almacén Local</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Almacén Central</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="8">
+                  <widget class="QLabel" name="label_9">
+                   <property name="text">
+                    <string>Origen</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Fecha Inicial</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QDateEdit" name="de_fechaInicialCompraExtraccion">
+                   <property name="calendarPopup">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="6">
+                  <widget class="QLabel" name="label_8">
+                   <property name="text">
+                    <string>Operaciones</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="7">
+                  <widget class="QComboBox" name="cb_operaciones">
+                   <property name="minimumSize">
+                    <size>
+                     <width>90</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Todas</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Compra</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Extracción</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="4">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Producto</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="10">
+                  <widget class="QPushButton" name="pb_filtrarCompraExtraccion">
+                   <property name="minimumSize">
+                    <size>
+                     <width>79</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>136</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="whatsThis">
+                    <string>Filtrar</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="recursos.qrc">
+                     <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="5">
+                  <widget class="QComboBox" name="cb_productosCompraExtraccion">
+                   <property name="minimumSize">
+                    <size>
+                     <width>106</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="editable">
+                    <bool>true</bool>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Todos</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="11">
+                  <spacer name="horizontalSpacer_7">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QTableWidget" name="tw_CompraExtraccion">
+                <column>
+                 <property name="text">
+                  <string>Fecha</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Usuario</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Tipo</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Origen</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Producto</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Cantidad</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Merma</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Precio</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Disponible</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

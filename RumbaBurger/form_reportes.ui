@@ -23,157 +23,7 @@
       <string>Estadísticas</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_7">
-      <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Fecha Inicial</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QDateEdit" name="de_inicial"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Fecha Final</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QDateEdit" name="de_final"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pb_filtrar">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="recursos.qrc">
-            <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="1" colspan="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>1119</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="title">
-         <string>Órdenes</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QTableWidget" name="tw_ordenes">
-           <column>
-            <property name="text">
-             <string>Fecha</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>No. Orden</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Pagado</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Inversion</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Ingresos</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Ganancia</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QGroupBox" name="groupBox_2">
-           <property name="minimumSize">
-            <size>
-             <width>327</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="title">
-            <string>Totales</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <item row="2" column="0">
-             <widget class="QLabel" name="l_ingresos">
-              <property name="text">
-               <string>Ingresos</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="l_toralordenes">
-              <property name="text">
-               <string>Órdenes:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="l_inversion">
-              <property name="text">
-               <string>Inversion</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="l_ganancia">
-              <property name="text">
-               <string>Ganancia</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="1" column="2" rowspan="2">
+      <item row="1" column="3">
        <widget class="QGroupBox" name="groupBox_6">
         <property name="title">
          <string>Totales Generales</string>
@@ -218,7 +68,7 @@
         </layout>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="2" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_4">
         <property name="title">
          <string>Gastos</string>
@@ -283,6 +133,167 @@
              </spacer>
             </item>
            </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="title">
+         <string>Órdenes</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="1">
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="minimumSize">
+            <size>
+             <width>327</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>Totales</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="2" column="0">
+             <widget class="QLabel" name="l_ingresos">
+              <property name="text">
+               <string>Ingresos</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="l_toralordenes">
+              <property name="text">
+               <string>Órdenes:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="l_inversion">
+              <property name="text">
+               <string>Inversion</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="l_ganancia">
+              <property name="text">
+               <string>Ganancia</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QTableWidget" name="tw_ordenes">
+           <column>
+            <property name="text">
+             <string>Fecha</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>No. Orden</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Pagado</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Inversion</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Ingresos</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Ganancia</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="2" colspan="2">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>1119</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Fecha Inicial</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QDateEdit" name="de_inicial"/>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Fecha Final</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QDateEdit" name="de_final"/>
+         </item>
+         <item row="0" column="4">
+          <widget class="QPushButton" name="pb_filtrar">
+           <property name="whatsThis">
+            <string>Filtrar</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="recursos.qrc">
+             <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
+           </property>
           </widget>
          </item>
         </layout>

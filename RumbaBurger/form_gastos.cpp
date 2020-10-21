@@ -81,11 +81,16 @@ void form_gastos::on_pb_insertar_clicked()
         QMessageBox::information(this, "Información", "El importe no puede ser 0", QMessageBox::Ok);
         return;
     }
+    if( descripcion == "" ){
+        QMessageBox::information(this, "Información", "Escriba la descripción", QMessageBox::Ok);
+        return;
+    }
     ExpensesService expensesService;
     expensesService.insertExpenses( ExpensesDto(0,descripcion,costo,fecha) );
     ui->le_descripcion->clear();
     ui->de_fecha->setDate(QDate::currentDate());
     ui->sb_importe->setValue(0);
+    emit ui->sb_importe->valueChanged(0);
     filtrar();
 }
 
@@ -97,7 +102,7 @@ void form_gastos::on_pb_eliminar_clicked()
         return;
     }
 
-    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea eliminar el elemento seleccionado?", QMessageBox::Ok, QMessageBox::Cancel);
+    auto res = QMessageBox::warning(this, "Información", "¿Está seguro que desea eliminar el elemento seleccionado?", QMessageBox::Ok, QMessageBox::Cancel);
 
     if( res == QMessageBox::Ok ){
         ExpensesService expensesService;
@@ -110,6 +115,10 @@ void form_gastos::on_tw_gastos_clicked(const QModelIndex &index)
 {
     if( UserService::loggedUser != 0 )
         ui->pb_eliminar->setEnabled(true);
+    else{
+        ui->pb_eliminar->setEnabled(false);
+        ui->groupBox_2->setEnabled(false);
+    }
 }
 
 void form_gastos::on_sb_importe_valueChanged(double arg1)

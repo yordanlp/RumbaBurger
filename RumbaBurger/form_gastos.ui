@@ -38,6 +38,9 @@
         <property name="toolTip">
          <string>Filtrar</string>
         </property>
+        <property name="whatsThis">
+         <string>Filtrar</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -148,7 +151,11 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="le_descripcion"/>
+          <widget class="QLineEdit" name="le_descripcion">
+           <property name="placeholderText">
+            <string>Escriba la descripción...</string>
+           </property>
+          </widget>
          </item>
          <item row="3" column="1">
           <widget class="QPushButton" name="pb_insertar">
@@ -199,6 +206,9 @@
             </size>
            </property>
            <property name="toolTip">
+            <string>Eliminar</string>
+           </property>
+           <property name="whatsThis">
             <string>Eliminar</string>
            </property>
            <property name="text">

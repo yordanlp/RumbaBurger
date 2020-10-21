@@ -12,7 +12,6 @@
 #include <form_reportes.h>
 #include <form_transacciones.h>
 #include <form_inicial.h>
-#include <form_newuser.h>
 #include <form_user.h>
 #include <form_cambiarpassword.h>
 

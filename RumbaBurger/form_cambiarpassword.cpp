@@ -34,7 +34,7 @@ void form_cambiarpassword::on_pb_aceptar_clicked()
     }
 
     if( newPass == "" ){
-        QMessageBox::critical(this, "Error", "La contaseña debe contener al menos un símbolo", QMessageBox::Ok);
+        QMessageBox::critical(this, "Error", "La contraseña no puede ser vacía", QMessageBox::Ok);
         return;
     }
 

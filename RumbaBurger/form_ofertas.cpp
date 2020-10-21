@@ -360,7 +360,7 @@ void form_ofertas::on_pb_insIngrediente_clicked()
     }
     auto pr = productService.getProductByName(product);
     if( pr.res == RECORD_NOT_FOUND ){
-        QMessageBox::information(this,"Información", "El producto seleccionado no existe",QMessageBox::Ok);
+        QMessageBox::information(this,"Información", "El producto <strong>" + pr.data.productName + "</strong> no existe",QMessageBox::Ok);
         return;
     }
     QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
@@ -368,7 +368,7 @@ void form_ofertas::on_pb_insIngrediente_clicked()
     //auto dish = dishService.getDishById( dishModel.at(rowSelected) );
     auto dish = dishModel.at(rowSelected);
     if( dishService.hasIngredient(dish.id, pr.data.id).data ){
-        QMessageBox::information(this, "Información", "El plato ya contiene el producto seleccionado", QMessageBox::Ok);
+        QMessageBox::information(this, "Información", "El plato ya contiene el producto <strong>" + pr.data.productName + "</strong>", QMessageBox::Ok);
         return;
     }
 
@@ -398,9 +398,8 @@ void form_ofertas::on_pb_delIngrediente_clicked()
     auto productName = ui->tw_ingredientes->item(row,0)->text();
     auto product = productService.getProductByName(productName);
 
-    auto res = QMessageBox::information(this, "Información", "Está seguro que desea eliminar: " + productName,QMessageBox::Ok,QMessageBox::Cancel);
+    auto res = QMessageBox::warning(this, "Información", "Está seguro que desea eliminar: <strong>" + productName + "</strong>",QMessageBox::Ok,QMessageBox::Cancel);
     if( res == QMessageBox::Ok ){
-        //ingredientsService.deleteIngredient(IngredientsDto(dish.data.id,product.data.id,0));
         ingredientsService.deleteIngredient( ingredientsModel.at(row) );
     }
     updateIngredientes(dish.id);
@@ -440,7 +439,7 @@ void form_ofertas::on_pb_delOferta_clicked()
     QString dishName = ui->tw_ofertas->item(rowSelected,0)->text();
     //auto dish = dishService.getDishByName(DishDto(0, dishName,"", 0));
     auto dish = dishModel.at( rowSelected );
-    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea eliminar la oferta " + dish.dishname + "?", QMessageBox::Ok, QMessageBox::Cancel);
+    auto res = QMessageBox::warning(this, "Información", "¿Está seguro que desea eliminar la oferta <strong>" + dish.dishname + "</strong>?", QMessageBox::Ok, QMessageBox::Cancel);
     if( res == QMessageBox::Ok ){
         dishService.deleteDish(dish);
         updateOfertas(ui->le_search->text(), rowSelected);

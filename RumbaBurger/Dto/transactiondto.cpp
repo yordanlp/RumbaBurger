@@ -5,7 +5,7 @@ TransactionDto::TransactionDto()
 
 }
 
-TransactionDto::TransactionDto(int _id, operaciones _type, origen _origin, double _amount, int _idProduct, QDate _date, int _idUser, double _price, double _merma, double _aviable_in_local, double _aviable_in_central, QString _productName, int _unitType)
+TransactionDto::TransactionDto(int _id, operaciones _type, origen _origin, double _amount, int _idProduct, QDate _date, int _idUser, double _price, double _merma, double _aviable_in_local, double _aviable_in_central, QString _productName, int _unitType, QString _suffix)
 {
     id = _id;
     type = _type;
@@ -20,4 +20,5 @@ TransactionDto::TransactionDto(int _id, operaciones _type, origen _origin, doubl
     aviable_in_local = _aviable_in_local;
     productName = _productName;
     unitType = _unitType;
+    suffix = _suffix;
 }

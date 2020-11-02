@@ -36,13 +36,13 @@ form_almacenes::form_almacenes(QWidget *parent) :
 
     connect(ui->cb_mcProduct, SIGNAL(currentTextChanged(QString)), this, SLOT(updateMCRadioButtons(QString)));
     connect(ui->rb_mcGramos,SIGNAL(clicked(bool)),this,SLOT(updateMCExistente()));
-    connect(ui->rb_mcLibras,SIGNAL(clicked(bool)),this,SLOT(updateMCExistente()));
+    //connect(ui->rb_mcLibras,SIGNAL(clicked(bool)),this,SLOT(updateMCExistente()));
     connect(ui->rb_mcKilogramos,SIGNAL(clicked(bool)),this,SLOT(updateMCExistente()));
 
     QCompleter *completermc = new QCompleter(products,this);
     ui->cb_mcProduct->setCompleter(completermc);
     ui->cb_mcProduct->addItems(products);
-    ui->rb_mcLibras->setChecked(true);
+    ui->rb_mcGramos->setChecked(true);
     ui->rb_mcGramos->setVisible(false);
     ui->rb_mcLibras->setVisible(false);
     ui->rb_mcKilogramos->setVisible(false);
@@ -64,7 +64,7 @@ form_almacenes::form_almacenes(QWidget *parent) :
     ui->cb_productCompra->setCompleter(completercompra);
     ui->sb_mermaCompra->setEnabled(false);
     ui->cb_productCompra->addItems(products);
-    ui->rb_librasCompra->setChecked(true);
+    ui->rb_gramosCompra->setChecked(true);
     ui->rb_gramosCompra->setVisible(false);
     ui->rb_librasCompra->setVisible(false);
     ui->rb_kilogramosCompra->setVisible(false);
@@ -96,7 +96,7 @@ form_almacenes::form_almacenes(QWidget *parent) :
     connect(ui->rb_kilogramosMoverAlLocal,SIGNAL(clicked(bool)),this,SLOT(updateExistenteMoverAlLocal()));
     ui->cb_productMoverAlLocal->setCompleter(completerml);
     ui->cb_productMoverAlLocal->addItems(products);
-    ui->rb_librasMoverAlLocal->setChecked(true);
+    ui->rb_gramosMoverAlLocal->setChecked(true);
     ui->rb_gramosMoverAlLocal->setVisible(false);
     ui->rb_librasMoverAlLocal->setVisible(false);
     ui->rb_kilogramosMoverAlLocal->setVisible(false);
@@ -115,13 +115,13 @@ form_almacenes::form_almacenes(QWidget *parent) :
 
     connect(ui->cb_productoExtraer, SIGNAL(currentTextChanged(QString)), this, SLOT(updateRadioButtonsExtraer(QString)));
     connect(ui->rb_gramosExtraer,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraer()));
-    connect(ui->rb_librasExtraer,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraer()));
+    //connect(ui->rb_librasExtraer,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraer()));
     connect(ui->rb_kilogramosExtraer,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraer()));
 
     QCompleter *completerextraer = new QCompleter(products,this);
     ui->cb_productoExtraer->setCompleter(completerextraer);
     ui->cb_productoExtraer->addItems(products);
-    ui->rb_librasExtraer->setChecked(true);
+    ui->rb_kilogramosExtraer->setChecked(true);
     ui->rb_gramosExtraer->setVisible(false);
     ui->rb_librasExtraer->setVisible(false);
     ui->rb_kilogramosExtraer->setVisible(false);
@@ -140,13 +140,13 @@ form_almacenes::form_almacenes(QWidget *parent) :
 
     connect(ui->cb_productoExtraerLocal, SIGNAL(currentTextChanged(QString)), this, SLOT(updateRadioButtonsExtraerLocal(QString)));
     connect(ui->rb_gramosExtraerLocal,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraerLocal()));
-    connect(ui->rb_librasExtraerLocal,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraerLocal()));
+    //connect(ui->rb_librasExtraerLocal,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraerLocal()));
     connect(ui->rb_kilogramosExtraerLocal,SIGNAL(clicked(bool)),this,SLOT(updateExistenteExtraerLocal()));
 
     QCompleter *completerextraerlocal = new QCompleter(products,this);
     ui->cb_productoExtraerLocal->setCompleter(completerextraerlocal);
     ui->cb_productoExtraerLocal->addItems(products);
-    ui->rb_librasExtraerLocal->setChecked(true);
+    ui->rb_kilogramosExtraerLocal->setChecked(true);
     ui->rb_gramosExtraerLocal->setVisible(false);
     ui->rb_librasExtraerLocal->setVisible(false);
     ui->rb_kilogramosExtraerLocal->setVisible(false);
@@ -182,6 +182,7 @@ form_almacenes::form_almacenes(QWidget *parent) :
 }
 
 void form_almacenes::setUnit(){
+    qDebug() << "Update Unit";
     if( utiles::UNIDAD == "Gramos" )
         PESO = G;
     if( utiles::UNIDAD == "Kilogramos" )
@@ -198,19 +199,19 @@ void form_almacenes::updateRadioButtonsExtraerLocal(QString product){
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == SOLIDO ){
             ui->rb_gramosExtraerLocal->setVisible(true);
-            ui->rb_librasExtraerLocal->setVisible(true);
+            //ui->rb_librasExtraerLocal->setVisible(true);
             ui->rb_kilogramosExtraerLocal->setVisible(true);
-            ui->rb_librasExtraerLocal->setChecked(true);
-            ui->sb_cantidadExtraerLocal->setSuffix(" Lb");
+            ui->rb_kilogramosExtraerLocal->setChecked(true);
+            ui->sb_cantidadExtraerLocal->setSuffix(" kg");
         }else{
             ui->rb_gramosExtraerLocal->setVisible(false);
-            ui->rb_librasExtraerLocal->setVisible(false);
+            //ui->rb_librasExtraerLocal->setVisible(false);
             ui->rb_kilogramosExtraerLocal->setVisible(false);
             ui->sb_cantidadExtraerLocal->setSuffix(" u");
         }
     }else{
         ui->rb_gramosExtraerLocal->setVisible(false);
-        ui->rb_librasExtraerLocal->setVisible(false);
+        //ui->rb_librasExtraerLocal->setVisible(false);
         ui->rb_kilogramosExtraerLocal->setVisible(false);
         ui->pb_aceptarExtraerLocal->setEnabled(false);
     }
@@ -241,7 +242,7 @@ void form_almacenes::updateExistenteExtraerLocal(){
     auto cs = StorageService.getStorageById(res.data.id);
     double cantidad = 0;
     if( cs.res == SUCCESS )
-        cantidad = utiles::trunc(cs.data.amount, 2);
+        cantidad = cs.data.amount;
     if( res.data.unitType == UNIDAD ){
         ui->l_existenteExtraerLocal->setText( "En el almacén existen " + QString::number(cantidad) + " unidad(es) de " + productName );
         ui->sb_cantidadExtraerLocal->setSuffix(" u");
@@ -252,13 +253,15 @@ void form_almacenes::updateExistenteExtraerLocal(){
             to = G, unit = " g";
         if( ui->rb_kilogramosExtraerLocal->isChecked() )
             to = KG, unit = " kg";
-        if( ui->rb_librasExtraerLocal->isChecked() )
-            to = LB, unit = " lb";
+        //if( ui->rb_librasExtraerLocal->isChecked() )
+        //    to = LB, unit = " lb";
         cantidad = utiles::convertPeso(G, to, cantidad);
-        ui->l_existenteExtraerLocal->setText("En el almacén existen " + utiles::truncS(cantidad, 2) + unit + " de " + productName);
+        ui->l_existenteExtraerLocal->setText("En el almacén existen " + utiles::truncS(cantidad, 1) + unit + " de " + productName);
         ui->sb_cantidadExtraerLocal->setSuffix(unit);
     }
-    ui->sb_cantidadExtraerLocal->setMaximum(cantidad);
+
+    ui->sb_cantidadExtraerLocal->setValue(0);
+    ui->sb_cantidadExtraerLocal->setMaximum(utiles::trunc(cantidad, 1));
 }
 
 void form_almacenes::updateProducts(){
@@ -316,19 +319,19 @@ void form_almacenes::updateRadioButtonsExtraer(QString product){
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == SOLIDO ){
             ui->rb_gramosExtraer->setVisible(true);
-            ui->rb_librasExtraer->setVisible(true);
+            //ui->rb_librasExtraer->setVisible(true);
             ui->rb_kilogramosExtraer->setVisible(true);
-            ui->rb_librasExtraer->setChecked(true);
-            ui->sb_cantidadExtraer->setSuffix(" lb");
+            ui->rb_kilogramosExtraer->setChecked(true);
+            ui->sb_cantidadExtraer->setSuffix(" kg");
         }else{
             ui->rb_gramosExtraer->setVisible(false);
-            ui->rb_librasExtraer->setVisible(false);
+            //ui->rb_librasExtraer->setVisible(false);
             ui->rb_kilogramosExtraer->setVisible(false);
             ui->sb_cantidadExtraer->setSuffix(" u");
         }
     }else{
         ui->rb_gramosExtraer->setVisible(false);
-        ui->rb_librasExtraer->setVisible(false);
+        //ui->rb_librasExtraer->setVisible(false);
         ui->rb_kilogramosExtraer->setVisible(false);
         ui->pb_aceptarExtraer->setEnabled(false);
     }
@@ -349,7 +352,7 @@ void form_almacenes::updateExistenteExtraer(){
     auto cs = CentralStorageService.getCentralStorageById(res.data.id);
     double cantidad = 0;
     if( cs.res == SUCCESS )
-        cantidad = utiles::trunc(cs.data.amount, 2);
+        cantidad = cs.data.amount;
     if( res.data.unitType == UNIDAD ){
         ui->l_existenteExtraer->setText( "En el almacén existen " + QString::number(cantidad) + " unidad(es) de " + productName );
         ui->sb_cantidadExtraer->setSuffix(" u");
@@ -360,13 +363,14 @@ void form_almacenes::updateExistenteExtraer(){
             to = G, unit = " g";
         if( ui->rb_kilogramosExtraer->isChecked() )
             to = KG, unit = " kg";
-        if( ui->rb_librasExtraer->isChecked() )
-            to = LB, unit = " lb";
+        //if( ui->rb_librasExtraer->isChecked() )
+        //    to = LB, unit = " lb";
         cantidad = utiles::convertPeso(G, to, cantidad);
-        ui->l_existenteExtraer->setText("En el almacén existen " + utiles::truncS(cantidad,  2) + unit + " de " + productName);
+        ui->l_existenteExtraer->setText("En el almacén existen " + utiles::truncS(cantidad,  1) + unit + " de " + productName);
         ui->sb_cantidadExtraer->setSuffix(unit);
     }
-    ui->sb_cantidadExtraer->setMaximum(cantidad);
+    ui->sb_cantidadExtraer->setValue(0);
+    ui->sb_cantidadExtraer->setMaximum( utiles::trunc(cantidad,  1) );
 }
 
 void form_almacenes::updateUnit(){
@@ -383,11 +387,10 @@ void form_almacenes::updateCentralTable(QString search){
     ui->centralTable->clearContents();
     ui->centralTable->setRowCount(centralModel.size());
     int row = 0;
-    foreach (auto i, centralModel) {
+    foreach (auto &i, centralModel) {
         QTableWidgetItem *producto = new QTableWidgetItem(i.name);
         producto->setFlags(flags);
         producto->setTextAlignment(utiles::TextAlign);
-
 
         QString unit = "";
         if( i.unitType == SOLIDO )
@@ -403,7 +406,7 @@ void form_almacenes::updateCentralTable(QString search){
 
 
         double cantidad = (i.unitType == UNIDAD) ? i.amount : utiles::convertPeso(G, PESO, i.amount);
-        QTableWidgetItem *amount = new QTableWidgetItem( utiles::truncS(cantidad, 2) + unit);
+        QTableWidgetItem *amount = new QTableWidgetItem( utiles::truncS(cantidad, 1) + unit);
         amount->setFlags(flags);
         amount->setTextAlignment(utiles::TextAlign);
         ui->centralTable->setItem(row, 0, producto);
@@ -433,7 +436,7 @@ void form_almacenes::updateLocalTable(QString search){
         QTableWidgetItem *price = new QTableWidgetItem( utiles::truncS(precio, 2) + " CUP");
         price->setTextAlignment(utiles::TextAlign);
         double cant = (i.unitType == UNIDAD) ? i.amount : utiles::convertPeso(G, PESO, i.amount);
-        QTableWidgetItem *amount = new QTableWidgetItem(utiles::truncS(cant, 2) + unit);
+        QTableWidgetItem *amount = new QTableWidgetItem(utiles::truncS(cant, 1) + unit);
         amount->setTextAlignment(utiles::TextAlign);
 
         producto->setFlags(flags);
@@ -473,7 +476,7 @@ void form_almacenes::updateMCExistente()
     auto cs = StorageService.getStorageById(res.data.id);
     double cantidad = 0;
     if( cs.res == SUCCESS )
-        cantidad = utiles::trunc(cs.data.amount,2);
+        cantidad = cs.data.amount;
     if( res.data.unitType == UNIDAD ){
         ui->l_mcExistente->setText( "En el almacén existen " + QString::number(cantidad) + " unidad(es) de " + productName );
         ui->sb_mcCantidad->setSuffix(" u");
@@ -484,13 +487,14 @@ void form_almacenes::updateMCExistente()
             to = G, unit = " g";
         if( ui->rb_mcKilogramos->isChecked() )
             to = KG, unit = " kg";
-        if( ui->rb_mcLibras->isChecked() )
-            to = LB, unit = " lb";
+        //if( ui->rb_mcLibras->isChecked() )
+        //    to = LB, unit = " lb";
         cantidad = utiles::convertPeso(G, to, cantidad);
-        ui->l_mcExistente->setText("En el almacén existen " + utiles::truncS(cantidad, 2) + unit + " de " + productName);
+        ui->l_mcExistente->setText("En el almacén existen " + utiles::truncS(cantidad, 1) + unit + " de " + productName);
         ui->sb_mcCantidad->setSuffix(unit);
     }
-    ui->sb_mcCantidad->setMaximum(cantidad);
+    ui->sb_mcCantidad->setValue(0);
+    ui->sb_mcCantidad->setMaximum(utiles::trunc(cantidad, 1));
 }
 
 void form_almacenes::updateMCRadioButtons( QString product )
@@ -502,19 +506,19 @@ void form_almacenes::updateMCRadioButtons( QString product )
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == SOLIDO ){
             ui->rb_mcGramos->setVisible(true);
-            ui->rb_mcLibras->setVisible(true);
+            //ui->rb_mcLibras->setVisible(true);
             ui->rb_mcKilogramos->setVisible(true);
-            ui->rb_mcLibras->setChecked(true);
-            ui->sb_mcCantidad->setSuffix( " Lb" );
+            ui->rb_mcGramos->setChecked(true);
+            ui->sb_mcCantidad->setSuffix( " g" );
         }else{
             ui->rb_mcGramos->setVisible(false);
-            ui->rb_mcLibras->setVisible(false);
+            //ui->rb_mcLibras->setVisible(false);
             ui->rb_mcKilogramos->setVisible(false);
             ui->sb_mcCantidad->setSuffix(" u");
         }
     }else{
         ui->rb_mcGramos->setVisible(false);
-        ui->rb_mcLibras->setVisible(false);
+        //ui->rb_mcLibras->setVisible(false);
         ui->rb_mcKilogramos->setVisible(false);
         ui->pb_mcAccept->setEnabled(false);
     }
@@ -543,8 +547,8 @@ void form_almacenes::on_pb_mcAccept_clicked()
             from = G, unit = " g";
         if( ui->rb_mcKilogramos->isChecked() )
             from = KG, unit = " kg";
-        if( ui->rb_mcLibras->isChecked() )
-            from = LB, unit = " lb";
+        //if( ui->rb_mcLibras->isChecked() )
+        //    from = LB, unit = " lb";
     }
 
     cantidad = utiles::convertPeso(from, G, cantidad);
@@ -554,7 +558,7 @@ void form_almacenes::on_pb_mcAccept_clicked()
     }
 
 
-    auto r = QMessageBox::information(this,"Información", "Usted va a mover <strong>" + utiles::truncS(realcant, 2) + unit + "</strong> de <strong>" + productName + "</strong>", QMessageBox::Ok | QMessageBox::Cancel );
+    auto r = QMessageBox::information(this,"Información", "Usted va a mover <strong>" + utiles::truncS(realcant, 1) + unit + "</strong> de <strong>" + productName + "</strong>", QMessageBox::Ok | QMessageBox::Cancel );
 
     if( r == QMessageBox::Ok ){
         StorageService.moveToCentral(prod.data.id, cantidad);
@@ -564,7 +568,8 @@ void form_almacenes::on_pb_mcAccept_clicked()
         auto s = StorageService.getStorageById(prod.data.id);
         TransactionService transactionService;
 
-        transactionService.insertTransaction( TransactionDto(0, MOVIMIENTO, LOCAL, cantidad, prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType) );
+        QString suffix = unit;
+        transactionService.insertTransaction( TransactionDto(0, MOVIMIENTO, LOCAL, realcant, prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType, suffix) );
 
         ui->sb_mcCantidad->setValue(0);
         emit ui->sb_mcCantidad->valueChanged(0);
@@ -647,6 +652,7 @@ void form_almacenes::on_pb_insertarCompra_clicked()
         return;
     }
 
+    double mermaInicial = merma;
     double realCant = cant - merma;
     double cantidadInicial = cant;
     double pricePerUnit = ui->sb_precioCompra->value();
@@ -669,11 +675,11 @@ void form_almacenes::on_pb_insertarCompra_clicked()
     merma = utiles::convertPeso(from, G, merma);
     pricePerUnit = utiles::convertPrecio(from, G, pricePerUnit);
 
-    QString unit = utiles::unitFromPeso(from);
+    QString unit = " " + utiles::unitFromPeso(from);
     if( product.data.unitType == UNIDAD )
         unit = " u";
 
-    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea insertar la compra de <strong>" + utiles::truncS(cantidadInicial, 2) + unit + "</strong>" + " de <strong>" + productName + "</strong>" + " al precio de <strong>$" + utiles::truncS(precioInicial, 2) + "</strong>?", QMessageBox::Ok, QMessageBox::Cancel );
+    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea insertar la compra de <strong>" + utiles::truncS(cantidadInicial, 1) + unit + "</strong>" + " de <strong>" + productName + "</strong>" + " al precio de <strong>$" + utiles::truncS(precioInicial, 2) + "</strong>?", QMessageBox::Ok, QMessageBox::Cancel );
 
     if( res == QMessageBox::Ok ){
         CentralStorageService.modifyCentralStorage(product.data.id, realCant, 1, pricePerUnit, merma);
@@ -684,7 +690,10 @@ void form_almacenes::on_pb_insertarCompra_clicked()
         auto s = StorageService.getStorageById(product.data.id);
 
         TransactionService transactionService;
-        transactionService.insertTransaction( TransactionDto(0,COMPRA,CENTRAL,cant,product.data.id,QDate::currentDate(),UserService::loggedUser,pricePerUnit, merma, s.data.amount, cs.data.amount, product.data.productName, product.data.unitType) );
+
+        QString suffix = unit;
+
+        transactionService.insertTransaction( TransactionDto(0,COMPRA,CENTRAL,cantidadInicial,product.data.id,QDate::currentDate(),UserService::loggedUser,precioInicial, mermaInicial, s.data.amount, cs.data.amount, product.data.productName, product.data.unitType,suffix) );
 
         updateCentralTable( ui->le_Centralsearch->text() );
         updateLocalTable( ui->le_localSearch->text() );
@@ -747,19 +756,19 @@ void form_almacenes::updateRadioButtonsMoverAlLocal(QString product){
     if( pr.res == SUCCESS ){
         if( pr.data.unitType == SOLIDO ){
             ui->rb_gramosMoverAlLocal->setVisible(true);
-            ui->rb_librasMoverAlLocal->setVisible(true);
+            //ui->rb_librasMoverAlLocal->setVisible(true);
             ui->rb_kilogramosMoverAlLocal->setVisible(true);
-            ui->rb_librasMoverAlLocal->setChecked(true);
-            ui->sb_cantidadMoverAlLocal->setSuffix(" lb");
+            ui->rb_gramosMoverAlLocal->setChecked(true);
+            ui->sb_cantidadMoverAlLocal->setSuffix(" g");
         }else{
             ui->rb_gramosMoverAlLocal->setVisible(false);
-            ui->rb_librasMoverAlLocal->setVisible(false);
+            //ui->rb_librasMoverAlLocal->setVisible(false);
             ui->rb_kilogramosMoverAlLocal->setVisible(false);
             ui->sb_cantidadMoverAlLocal->setSuffix(" u");
         }
     }else{
         ui->rb_gramosMoverAlLocal->setVisible(false);
-        ui->rb_librasMoverAlLocal->setVisible(false);
+        //ui->rb_librasMoverAlLocal->setVisible(false);
         ui->rb_kilogramosMoverAlLocal->setVisible(false);
         ui->pb_MoverAlLocal->setEnabled(false);
     }
@@ -780,7 +789,7 @@ void form_almacenes::updateExistenteMoverAlLocal(){
     auto cs = CentralStorageService.getCentralStorageById(res.data.id);
     double cantidad = 0;
     if( cs.res == SUCCESS )
-        cantidad = utiles::trunc(cs.data.amount,2);
+        cantidad = cs.data.amount;
     if( res.data.unitType == UNIDAD ){
         ui->l_existenteMoverAlLocal->setText( "En el almacén existen " + QString::number(cantidad) + " unidad(es) de " + productName );
         ui->sb_cantidadMoverAlLocal->setSuffix(" u");
@@ -791,15 +800,15 @@ void form_almacenes::updateExistenteMoverAlLocal(){
             to = G, unit = " g";
         if( ui->rb_kilogramosMoverAlLocal->isChecked() )
             to = KG, unit = " kg";
-        if( ui->rb_librasMoverAlLocal->isChecked() )
-            to = LB, unit = " lb";
+        //if( ui->rb_librasMoverAlLocal->isChecked() )
+        //    to = LB, unit = " lb";
         cantidad = utiles::convertPeso(G, to, cantidad);
-        ui->l_existenteMoverAlLocal->setText("En el almacén existen " + utiles::truncS(cantidad, 2) + unit + " de " + productName);
+        ui->l_existenteMoverAlLocal->setText("En el almacén existen " + utiles::truncS(cantidad, 1) + unit + " de " + productName);
         ui->sb_cantidadMoverAlLocal->setSuffix(unit);
     }
-    ui->sb_cantidadMoverAlLocal->setMaximum(cantidad);
+    ui->sb_cantidadMoverAlLocal->setValue(0);
+    ui->sb_cantidadMoverAlLocal->setMaximum( utiles::trunc(cantidad, 1) );
 }
-
 
 void form_almacenes::on_pb_MoverAlLocal_clicked()
 {
@@ -813,7 +822,9 @@ void form_almacenes::on_pb_MoverAlLocal_clicked()
     }
     auto storeProduct = CentralStorageService.getCentralStorageById(prod.data.id);
     double cantidad = ui->sb_cantidadMoverAlLocal->value();
+    qDebug() << "Cantidad" << cantidad;
     double realcant = cantidad;
+    qDebug() << "RealCant" << realcant;
     if( cantidad == 0 ){
         QMessageBox::information(this, "Información", "La cantidad de producto a mover no puede ser 0", QMessageBox::Ok);
         return;
@@ -825,8 +836,8 @@ void form_almacenes::on_pb_MoverAlLocal_clicked()
             from = G, unit = " g";
         if( ui->rb_kilogramosMoverAlLocal->isChecked() )
             from = KG, unit = " kg";
-        if( ui->rb_librasMoverAlLocal->isChecked() )
-            from = LB, unit = " lb";
+        //if( ui->rb_librasMoverAlLocal->isChecked() )
+        //    from = LB, unit = " lb";
     }
     cantidad = utiles::convertPeso(from, G, cantidad);
     if( cantidad > storeProduct.data.amount ){
@@ -834,7 +845,8 @@ void form_almacenes::on_pb_MoverAlLocal_clicked()
         return;
     }
 
-    auto res = QMessageBox::information(this,"Información", "Usted va a mover <strong>" + utiles::truncS(realcant, 2) + unit + "</strong> de <strong>" + productName + "</strong>", QMessageBox::Ok | QMessageBox::Cancel );
+    qDebug() << "RealCant" << utiles::truncS(realcant, 1);
+    auto res = QMessageBox::information(this,"Información", "Usted va a mover <strong>" + utiles::truncS(realcant, 1) + unit + "</strong> de <strong>" + productName + "</strong>", QMessageBox::Ok | QMessageBox::Cancel );
 
     if( res == QMessageBox::Ok ){
         CentralStorageService.moveToLocal(prod.data.id, cantidad);
@@ -843,7 +855,8 @@ void form_almacenes::on_pb_MoverAlLocal_clicked()
         auto cs = CentralStorageService.getCentralStorageById(prod.data.id);
         auto s = StorageService.getStorageById(prod.data.id);
         TransactionService transactionService;
-        transactionService.insertTransaction( TransactionDto(0,MOVIMIENTO,CENTRAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType) );
+        QString suffix = unit;
+        transactionService.insertTransaction( TransactionDto(0,MOVIMIENTO,CENTRAL,realcant,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType, suffix) );
 
         ui->sb_cantidadMoverAlLocal->setValue(0);
         emit ui->sb_cantidadMoverAlLocal->valueChanged(0);
@@ -877,8 +890,8 @@ void form_almacenes::on_pb_aceptarExtraer_clicked()
             from = G, unit = " g";
         if( ui->rb_kilogramosExtraer->isChecked() )
             from = KG, unit = " kg";
-        if( ui->rb_librasExtraer->isChecked() )
-            from = LB, unit = " lb";
+        //if( ui->rb_librasExtraer->isChecked() )
+        //    from = LB, unit = " lb";
     }
 
     cantidad = utiles::convertPeso(from, G, cantidad);
@@ -887,7 +900,7 @@ void form_almacenes::on_pb_aceptarExtraer_clicked()
         return;
     }
 
-    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea extraer <strong>" + utiles::truncS(realcant, 2) + unit + "</strong>" + " de <strong>" + productName + "</strong>?", QMessageBox::Ok, QMessageBox::Cancel );
+    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea extraer <strong>" + utiles::truncS(realcant, 1) + unit + "</strong>" + " de <strong>" + productName + "</strong>?", QMessageBox::Ok, QMessageBox::Cancel );
 
     if( res == QMessageBox::Ok ){
         TransactionService transactionService;
@@ -896,7 +909,8 @@ void form_almacenes::on_pb_aceptarExtraer_clicked()
         auto cs = CentralStorageService.getCentralStorageById(prod.data.id);
         auto s = StorageService.getStorageById(prod.data.id);
 
-        transactionService.insertTransaction( TransactionDto(0,EXTRACCION,CENTRAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser,prod.data.price,0,s.data.amount,cs.data.amount, prod.data.productName, prod.data.unitType ) );
+        QString suffix = unit;
+        transactionService.insertTransaction( TransactionDto(0,EXTRACCION,CENTRAL,realcant,prod.data.id, QDate::currentDate(), UserService::loggedUser,prod.data.price,0,s.data.amount,cs.data.amount, prod.data.productName, prod.data.unitType, suffix) );
 
         ui->sb_cantidadExtraer->setValue(0);
         emit ui->sb_cantidadExtraer->valueChanged(0);
@@ -947,6 +961,7 @@ void form_almacenes::on_pb_eliminarProduct_clicked()
 
 void form_almacenes::on_centralTable_cellClicked(int row, int column)
 {
+
     if( row < 0 ) return;
     if( UserService::loggedUser != 0 )
         ui->pb_eliminarProduct->setEnabled(true);
@@ -961,8 +976,20 @@ void form_almacenes::on_centralTable_cellClicked(int row, int column)
     ui->sb_cantidadExtraer->setValue(0);
     ui->pb_aceptarExtraer->setEnabled(false);
 
-    ui->sb_cantidadMoverAlLocal->setValue( utiles::trunc(centralModel.at(row).amount,2) );
-    emit ui->sb_cantidadMoverAlLocal->valueChanged( utiles::trunc(centralModel.at(row).amount,2) );
+
+    qDebug() << "click " << centralModel.at(row).amount << utiles::truncS(centralModel.at(row).amount,2);
+    ui->sb_cantidadMoverAlLocal->setMaximum( utiles::trunc(centralModel.at(row).amount,1) );
+    ui->sb_cantidadMoverAlLocal->setValue( utiles::trunc(centralModel.at(row).amount,1) );
+    ui->rb_gramosMoverAlLocal->setChecked(true);
+    QString unit = "";
+    if( centralModel.at(row).unitType == UNIDAD )
+        unit = " u";
+    else
+        unit = " g";
+    ui->sb_cantidadMoverAlLocal->setSuffix(unit);
+    //ui->pb_MoverAlLocal->setEnabled(true);
+    qDebug() << "Despues";
+    //emit ui->sb_cantidadMoverAlLocal->valueChanged( utiles::trunc(centralModel.at(row).amount,2) );
 
 }
 
@@ -986,8 +1013,8 @@ void form_almacenes::on_pb_aceptarExtraerLocal_clicked()
             from = G, unit = " g";
         if( ui->rb_kilogramosExtraerLocal->isChecked() )
             from = KG, unit = " kg";
-        if( ui->rb_librasExtraerLocal->isChecked() )
-            from = LB, unit = " lb";
+        //if( ui->rb_librasExtraerLocal->isChecked() )
+        //    from = LB, unit = " lb";
     }
     cantidad = utiles::convertPeso(from, G, cantidad);
     if( cantidad > storeProduct.data.amount ){
@@ -995,7 +1022,7 @@ void form_almacenes::on_pb_aceptarExtraerLocal_clicked()
         return;
     }
 
-    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea extraer <strong>" + utiles::truncS(realcant, 2) + unit + "</strong> de <strong>" + productName + "<strong>?", QMessageBox::Ok, QMessageBox::Cancel);
+    auto res = QMessageBox::information(this, "Información", "¿Está seguro que desea extraer <strong>" + utiles::truncS(realcant, 1) + unit + "</strong> de <strong>" + productName + "<strong>?", QMessageBox::Ok, QMessageBox::Cancel);
     if( res == QMessageBox::Ok ){
         centralStorageService CentralStorageService;
         StorageService.extract(prod.data.id, cantidad);
@@ -1004,7 +1031,8 @@ void form_almacenes::on_pb_aceptarExtraerLocal_clicked()
         auto s = StorageService.getStorageById(prod.data.id);
 
         TransactionService transactionService;
-        transactionService.insertTransaction(TransactionDto(0, EXTRACCION,LOCAL,cantidad,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType));
+        QString suffix = unit;
+        transactionService.insertTransaction(TransactionDto(0, EXTRACCION,LOCAL,realcant,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType, suffix));
 
         ui->sb_cantidadExtraerLocal->setValue(0);
         emit ui->sb_cantidadExtraerLocal->valueChanged(0);
@@ -1022,8 +1050,18 @@ void form_almacenes::on_localTable_cellClicked(int row, int column)
     ui->cb_mcProduct->setCurrentIndex(index);
     ui->cb_productoExtraerLocal->setCurrentIndex(index);
 
-    ui->sb_mcCantidad->setValue( utiles::trunc(localModel.at(row).amount,2) );
-    emit ui->sb_mcCantidad->valueChanged( utiles::trunc(localModel.at(row).amount,2) );
+    ui->sb_mcCantidad->setMaximum( utiles::trunc(localModel.at(row).amount,1) );
+    ui->sb_mcCantidad->setValue( utiles::trunc(localModel.at(row).amount,1) );
+    ui->rb_mcGramos->setChecked(true);
+
+    QString unit = "";
+    if( localModel.at(row).unitType == UNIDAD )
+        unit = " u";
+    else
+        unit = " g";
+
+    ui->sb_mcCantidad->setSuffix(unit);
+    //emit ui->sb_mcCantidad->valueChanged( utiles::trunc(localModel.at(row).amount,2) );
 
     ui->sb_cantidadExtraerLocal->setValue(0);
     ui->pb_aceptarExtraerLocal->setEnabled(false);
@@ -1032,6 +1070,7 @@ void form_almacenes::on_localTable_cellClicked(int row, int column)
 
 void form_almacenes::on_sb_cantidadMoverAlLocal_valueChanged(double arg1)
 {
+    qDebug() << "Señal" << arg1;
     ProductService productService;
     QString productName = ui->cb_productMoverAlLocal->currentText();
     auto pr = productService.getProductByName(productName);

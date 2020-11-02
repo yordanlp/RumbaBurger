@@ -109,24 +109,26 @@ void form_transacciones::filtrarMovimientos(){
         QTableWidgetItem *producto = new QTableWidgetItem( m.productName );
         producto->setFlags(flags);
         producto->setTextAlignment(utiles::TextAlign);
-        QString unit = "";
+        QString unit =  m.suffix;
+        QString unidad = "";
         if( m.unitType == SOLIDO )
-            unit = " " + utiles::unitFromPeso(PESO);
+            unidad = " " + utiles::unitFromPeso(PESO);
         else
-            unit = " u";
+            unidad = " u";
 
-        double cant = (m.unitType == UNIDAD) ? m.amount : utiles::convertPeso(G, PESO, m.amount);
+        //double cant = (m.unitType == UNIDAD) ? m.amount : utiles::convertPeso(G, PESO, m.amount);
+        double cant = m.amount;
         QTableWidgetItem *cantidad = new QTableWidgetItem( utiles::truncS(cant, 2) + unit );
         cantidad->setFlags(flags);
         cantidad->setTextAlignment(utiles::TextAlign);
 
         double dc = (m.unitType == UNIDAD) ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
-        QTableWidgetItem *disponible_central = new QTableWidgetItem( utiles::truncS( dc, 2 ) + unit);
+        QTableWidgetItem *disponible_central = new QTableWidgetItem( utiles::truncS( dc, 2 ) + unidad);
         disponible_central->setFlags(flags);
         disponible_central->setTextAlignment(utiles::TextAlign);
 
         double dl = (m.unitType == UNIDAD) ? m.aviable_in_local : utiles::convertPeso(G, PESO, m.aviable_in_local);
-        QTableWidgetItem *disponible_local = new QTableWidgetItem( utiles::truncS( dl, 2 ) + unit);
+        QTableWidgetItem *disponible_local = new QTableWidgetItem( utiles::truncS( dl, 2 ) + unidad);
         disponible_local->setFlags(flags);
         disponible_local->setTextAlignment(utiles::TextAlign);
 
@@ -203,11 +205,11 @@ void form_transacciones::filtrarOperaciones(){
         if( m.origin == LOCAL )
             origin = "Almacén Local";
 
-        QString unit = "";
-        if( m.unitType == SOLIDO )
+        QString unit = m.suffix;
+        /*if( m.unitType == SOLIDO )
             unit = " " + utiles::unitFromPeso(PESO);
         else
-            unit = " u";
+            unit = " u";*/
 
         QTableWidgetItem *from = new QTableWidgetItem( origin );
         from->setFlags(flags);
@@ -217,22 +219,34 @@ void form_transacciones::filtrarOperaciones(){
         producto->setFlags(flags);
         producto->setTextAlignment(utiles::TextAlign);
 
-        double cant = (m.unitType == UNIDAD) ? m.amount : utiles::convertPeso(G, PESO, m.amount);
+        //double cant = (m.unitType == UNIDAD) ? m.amount : utiles::convertPeso(G, PESO, m.amount);
+        double cant = m.amount;
         QTableWidgetItem *cantidad = new QTableWidgetItem( utiles::truncS(cant, 2) + unit );
         cantidad->setFlags(flags);
         cantidad->setTextAlignment(utiles::TextAlign);
 
-        double merm = (m.unitType == UNIDAD) ? m.merma : utiles::convertPeso(G, PESO, m.merma);
-        QTableWidgetItem *merma = new QTableWidgetItem( utiles::truncS(merm, 2) + unit);
+        //double merm = (m.unitType == UNIDAD) ? m.merma : utiles::convertPeso(G, PESO, m.merma);
+        double merm = m.merma;
+        QString me = "-";
+        if( m.type == COMPRA )
+            me = utiles::truncS(merm, 2) + unit;
+
+        QTableWidgetItem *merma = new QTableWidgetItem( me );
         merma->setFlags(flags);
         merma->setTextAlignment(utiles::TextAlign);
-        double pr = (m.unitType == UNIDAD) ? m.price : utiles::convertPrecio(G, PESO, m.price);
+
+
+        //double pr = (m.unitType == UNIDAD) ? m.price : utiles::convertPrecio(G, PESO, m.price);
+        double pr = m.price;
         QTableWidgetItem *precio = new QTableWidgetItem( (m.type == COMPRA) ? ( utiles::truncS( pr, 2 ) + " CUP" ) : "-" );
         precio->setFlags(flags);
         precio->setTextAlignment(utiles::TextAlign);
 
         double av = (m.unitType == UNIDAD) ? m.aviable_in_central : utiles::convertPeso(G, PESO, m.aviable_in_central);
-        QTableWidgetItem *disponible = new QTableWidgetItem( utiles::truncS( av, 2 ) + unit );
+        QString unidad = " u";
+        if( m.unitType == SOLIDO )
+            unidad = " " + utiles::unitFromPeso(PESO);
+        QTableWidgetItem *disponible = new QTableWidgetItem( utiles::truncS( av, 2 ) + unidad );
         disponible->setFlags(flags);
         disponible->setTextAlignment(utiles::TextAlign);
         ui->tw_CompraExtraccion->setItem(row, 0, fecha);

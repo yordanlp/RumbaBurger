@@ -67,6 +67,9 @@
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
        <widget class="QTableWidget" name="tw_platos">
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <column>
          <property name="text">
           <string>Plato</string>
@@ -100,6 +103,9 @@
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <widget class="QTableWidget" name="tw_ingredientes">
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <column>
          <property name="text">
           <string>Producto</string>
@@ -151,7 +157,7 @@
                <item>
                 <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>Fecha Inicial</string>
+                  <string>Fecha Inicial:</string>
                  </property>
                 </widget>
                </item>
@@ -175,7 +181,7 @@
                <item>
                 <widget class="QLabel" name="label_2">
                  <property name="text">
-                  <string>Fecha Final</string>
+                  <string>Fecha Final:</string>
                  </property>
                 </widget>
                </item>
@@ -264,6 +270,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
             <widget class="QTableWidget" name="tw_ordenes">
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
              <column>
               <property name="text">
                <string>Fecha</string>

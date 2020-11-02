@@ -23,7 +23,7 @@
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>No. de orden</string>
+         <string>No. de orden:</string>
         </property>
        </widget>
       </item>
@@ -79,13 +79,6 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="4">
-       <widget class="QDoubleSpinBox" name="sb_cantidad">
-        <property name="maximum">
-         <double>1000000000.990000009536743</double>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="5">
        <widget class="QPushButton" name="pb_add">
         <property name="text">
@@ -99,6 +92,9 @@
       </item>
       <item row="3" column="0" colspan="6">
        <widget class="QTableWidget" name="tw_platos">
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
         <column>
          <property name="text">
           <string>Plato</string>
@@ -198,6 +194,16 @@
         <property name="icon">
          <iconset resource="recursos.qrc">
           <normaloff>:/images/Images/iconos_colores/cancel_96px.png</normaloff>:/images/Images/iconos_colores/cancel_96px.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QDoubleSpinBox" name="sb_cantidad">
+        <property name="decimals">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <double>1000000001.000000000000000</double>
         </property>
        </widget>
       </item>

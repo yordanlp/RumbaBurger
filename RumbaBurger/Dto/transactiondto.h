@@ -13,8 +13,8 @@ public:
     TransactionDto(int _id, operaciones _type, origen _origin,
                     double _amount, int _idProduct, QDate _date,
                     int _idUser, double _price, double _merma,
-                    double _aviable_in_local, double _aviable_in_central, QString _productName = "",
-                    int _unitType = 0 );
+                    double _aviable_in_local, double _aviable_in_central, QString _productName,
+                    int _unitType, QString _suffix );
     int id;
     operaciones type;
     origen origin;
@@ -28,6 +28,7 @@ public:
     double aviable_in_central;
     QString productName;
     int unitType;
+    QString suffix;
 
 };
 

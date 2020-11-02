@@ -149,14 +149,15 @@ void Principal::on_actionGanancia_triggered()
 void Principal::on_actionUnidad_triggered()
 {
     QStringList L;
-    L << "Gramos" << "Kilogramos" << "Libras";
+    //L << "Gramos" << "Kilogramos" << "Libras";
+    L << "Gramos" << "Kilogramos";
     int selected = 0;
     if( utiles::UNIDAD == "Gramos" )
         selected = 0;
     if( utiles::UNIDAD == "Kilogramos" )
         selected = 1;
-    if( utiles::UNIDAD == "Libras" )
-        selected = 2;
+    /*if( utiles::UNIDAD == "Libras" )
+        selected = 2;*/
     QString unidad = QInputDialog::getItem(this,"Unidad de peso", "Unidad de peso", L, selected, false);
     utiles::UNIDAD = unidad;
     QSettings settings("Limitless", "RumbaBurger");

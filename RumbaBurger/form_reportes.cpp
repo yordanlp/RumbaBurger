@@ -69,12 +69,15 @@ void form_reportes::updateOrdenes(){
         numorden->setTextAlignment(utiles::TextAlign);
         numorden->setFlags(flags);
 
-        QCheckBox *pagado = new QCheckBox(this);
+        QString pagado = "";
         if( o.payed )
-           pagado->setChecked( o.payed );
-        pagado->setEnabled(false);
-        ui->tw_ordenes->setCellWidget(row, 2,pagado);
-
+           pagado = "SI";
+        else pagado = "NO";
+        //ui->tw_ordenes->setCellWidget(row, 2,pagado);
+        QTableWidgetItem *payed = new QTableWidgetItem( pagado );
+        payed->setFlags(flags);
+        payed->setTextAlignment(utiles::TextAlign);
+        ui->tw_ordenes->setItem(row, 2, payed);
         QTableWidgetItem *inversion = new QTableWidgetItem( utiles::truncS( orderService.getInversion(o.id).data, 2 ) + " CUP" );
         inversion->setTextAlignment(utiles::TextAlign);
         inversion->setFlags(flags);

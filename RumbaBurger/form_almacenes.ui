@@ -44,12 +44,15 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>Buscar</string>
+              <string>Buscar:</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0" colspan="2">
             <widget class="QTableWidget" name="centralTable">
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
              <column>
               <property name="text">
                <string>Producto</string>
@@ -158,7 +161,7 @@
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_11">
                       <property name="text">
-                       <string>Producto</string>
+                       <string>Producto:</string>
                       </property>
                      </widget>
                     </item>
@@ -217,14 +220,17 @@
                     <item row="3" column="0">
                      <widget class="QLabel" name="label_12">
                       <property name="text">
-                       <string>Cantidad</string>
+                       <string>Cantidad:</string>
                       </property>
                      </widget>
                     </item>
                     <item row="3" column="1" colspan="4">
                      <widget class="QDoubleSpinBox" name="sb_cantidadExtraer">
+                      <property name="decimals">
+                       <number>1</number>
+                      </property>
                       <property name="maximum">
-                       <double>1000000000.990000009536743</double>
+                       <double>1000000001.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -321,7 +327,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Producto</string>
+                       <string>Producto:</string>
                       </property>
                      </widget>
                     </item>
@@ -334,14 +340,14 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Cantidad</string>
+                       <string>Cantidad:</string>
                       </property>
                      </widget>
                     </item>
                     <item row="3" column="0">
                      <widget class="QCheckBox" name="cb_mermaCompra">
                       <property name="text">
-                       <string>Merma</string>
+                       <string>Merma:</string>
                       </property>
                      </widget>
                     </item>
@@ -360,7 +366,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Precio </string>
+                       <string>Precio:</string>
                       </property>
                      </widget>
                     </item>
@@ -467,8 +473,11 @@
                     </item>
                     <item row="3" column="1" colspan="4">
                      <widget class="QDoubleSpinBox" name="sb_mermaCompra">
+                      <property name="decimals">
+                       <number>1</number>
+                      </property>
                       <property name="maximum">
-                       <double>1000000000.990000009536743</double>
+                       <double>1000000001.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -487,8 +496,11 @@
                     </item>
                     <item row="1" column="1" colspan="4">
                      <widget class="QDoubleSpinBox" name="sb_cantidadCompra">
+                      <property name="decimals">
+                       <number>1</number>
+                      </property>
                       <property name="maximum">
-                       <double>1000000000.990000009536743</double>
+                       <double>1000000001.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -543,7 +555,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Cantidad</string>
+                       <string>Cantidad:</string>
                       </property>
                      </widget>
                     </item>
@@ -556,7 +568,7 @@
                        </size>
                       </property>
                       <property name="text">
-                       <string>Producto</string>
+                       <string>Producto:</string>
                       </property>
                      </widget>
                     </item>
@@ -659,8 +671,11 @@
                     </item>
                     <item row="3" column="1" colspan="4">
                      <widget class="QDoubleSpinBox" name="sb_cantidadMoverAlLocal">
+                      <property name="decimals">
+                       <number>1</number>
+                      </property>
                       <property name="maximum">
-                       <double>1000000000.990000009536743</double>
+                       <double>1000000001.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -694,7 +709,7 @@
                       <item>
                        <widget class="QLabel" name="label_8">
                         <property name="text">
-                         <string>Producto</string>
+                         <string>Producto:</string>
                         </property>
                        </widget>
                       </item>
@@ -832,6 +847,9 @@
           <layout class="QGridLayout" name="gridLayout_12">
            <item row="1" column="0" colspan="2">
             <widget class="QTableWidget" name="localTable">
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
              <column>
               <property name="text">
                <string>Producto</string>
@@ -852,7 +870,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Buscar</string>
+              <string>Buscar:</string>
              </property>
             </widget>
            </item>
@@ -900,7 +918,7 @@
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_2">
                       <property name="text">
-                       <string>Producto</string>
+                       <string>Producto:</string>
                       </property>
                      </widget>
                     </item>
@@ -959,7 +977,7 @@
                     <item row="3" column="0">
                      <widget class="QLabel" name="label_3">
                       <property name="text">
-                       <string>Cantidad</string>
+                       <string>Cantidad:</string>
                       </property>
                      </widget>
                     </item>
@@ -967,6 +985,9 @@
                      <widget class="QDoubleSpinBox" name="sb_mcCantidad">
                       <property name="suffix">
                        <string/>
+                      </property>
+                      <property name="decimals">
+                       <number>1</number>
                       </property>
                       <property name="maximum">
                        <double>10000000.000000000000000</double>
@@ -1057,7 +1078,7 @@
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_13">
                       <property name="text">
-                       <string>Producto</string>
+                       <string>Producto:</string>
                       </property>
                      </widget>
                     </item>
@@ -1116,14 +1137,17 @@
                     <item row="3" column="0">
                      <widget class="QLabel" name="label_14">
                       <property name="text">
-                       <string>Cantidad</string>
+                       <string>Cantidad:</string>
                       </property>
                      </widget>
                     </item>
                     <item row="3" column="1" colspan="4">
                      <widget class="QDoubleSpinBox" name="sb_cantidadExtraerLocal">
+                      <property name="decimals">
+                       <number>1</number>
+                      </property>
                       <property name="maximum">
-                       <double>1000000000.990000009536743</double>
+                       <double>1000000001.000000000000000</double>
                       </property>
                      </widget>
                     </item>

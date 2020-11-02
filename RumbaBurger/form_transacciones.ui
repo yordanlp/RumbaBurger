@@ -50,14 +50,14 @@
               <item row="0" column="0">
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>Fecha Inicial</string>
+                 <string>Fecha Inicial:</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="2">
                <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>Fecha Final</string>
+                 <string>Fecha Final:</string>
                 </property>
                </widget>
               </item>
@@ -206,6 +206,9 @@
            </item>
            <item row="1" column="0">
             <widget class="QTableWidget" name="tw_moviemientos">
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
              <column>
               <property name="text">
                <string>Fecha</string>
@@ -294,7 +297,7 @@
                  <item row="0" column="2">
                   <widget class="QLabel" name="label_6">
                    <property name="text">
-                    <string>Fecha Final</string>
+                    <string>Fecha Final:</string>
                    </property>
                   </widget>
                  </item>
@@ -326,14 +329,14 @@
                  <item row="0" column="8">
                   <widget class="QLabel" name="label_9">
                    <property name="text">
-                    <string>Origen</string>
+                    <string>Origen:</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_5">
                    <property name="text">
-                    <string>Fecha Inicial</string>
+                    <string>Fecha Inicial:</string>
                    </property>
                   </widget>
                  </item>
@@ -347,7 +350,7 @@
                  <item row="0" column="6">
                   <widget class="QLabel" name="label_8">
                    <property name="text">
-                    <string>Operaciones</string>
+                    <string>Operaciones:</string>
                    </property>
                   </widget>
                  </item>
@@ -379,7 +382,7 @@
                  <item row="0" column="4">
                   <widget class="QLabel" name="label_4">
                    <property name="text">
-                    <string>Producto</string>
+                    <string>Producto:</string>
                    </property>
                   </widget>
                  </item>
@@ -445,6 +448,9 @@
               </item>
               <item row="2" column="0">
                <widget class="QTableWidget" name="tw_CompraExtraccion">
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
                 <column>
                  <property name="text">
                   <string>Fecha</string>

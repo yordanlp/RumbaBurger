@@ -114,11 +114,14 @@ void form_ordenes::updateOrders( QList<OrderDto> orders ){
         norden->setTextAlignment(utiles::TextAlign);
         norden->setFlags(flags);
 
-        QCheckBox *cb = new QCheckBox(this);
+        QString pagado;
+
         if( o.payed )
-            cb->setChecked(true);
-        else cb->setChecked(false);
-        cb->setEnabled(false);
+            pagado = "SI";
+        else pagado = "NO";
+        QTableWidgetItem *payed = new QTableWidgetItem(pagado);
+        payed->setTextAlignment(utiles::TextAlign);
+        payed->setFlags(flags);
 
         QTableWidgetItem *ingreso = new QTableWidgetItem( utiles::truncS(o.total, 2) + " CUP");
         ingreso->setTextAlignment(utiles::TextAlign);
@@ -126,7 +129,7 @@ void form_ordenes::updateOrders( QList<OrderDto> orders ){
 
         ui->tw_ordenes->setItem(row, 0, fecha);
         ui->tw_ordenes->setItem(row, 1, norden);
-        ui->tw_ordenes->setCellWidget(row, 2, cb);
+        ui->tw_ordenes->setItem(row, 2, payed);
         ui->tw_ordenes->setItem(row,3,ingreso);
         row++;
     }

@@ -25,60 +25,63 @@ QString utiles::unitFromNumber(int unitType){
 double utiles::convertPeso(weigth from, weigth to, double peso ){
     if( to == G ){
         if( from == LB )
-            return peso * 453.592;
+            return peso * 453.592333346094;
         if( from == KG )
             return peso * 1000;
         return peso;
     }
     if( to == KG ){
         if( from == LB )
-            return peso * 0.453;
+            return peso * 0.4535923333460944;
         if( from == G )
             return peso * 0.001;
         return peso;
     }
     if( from == KG )
-        return peso * 2.204623;
+        return peso * 2.2046228;
     if ( from == G )
-        return peso * 0.0022;
+        return peso * 0.0022046228;
     return peso;
 }
 
 double utiles::convertPrecio(weigth from, weigth to, double precio ){
     if( to == G ){
         if( from == LB )
-            return precio / 453.592;
+            return precio / 453.592333346094;
         if( from == KG )
             return precio / 1000;
         return precio;
     }
     if( to == KG ){
         if( from == LB )
-            return precio / 0.453;
+            return precio / 0.4535923333460944;
         if( from == G )
             return precio / 0.001;
         return precio;
     }
     if( from == KG )
-        return precio / 2.2;
+        return precio / 2.2046228;
     if ( from == G )
-        return precio / 0.0022;
+        return precio / 0.0022046228;
     return precio;
 }
 
 QString utiles::unitFromPeso(weigth p)
 {
     if( p == G ) return "g";
-    if( p == KG ) return "Kg";
-    return "Lb";
+    if( p == KG ) return "kg";
+    return "lb";
 }
+
 
 double utiles::trunc(double n, int dec)
 {
     qDebug() << n;
-    n *= pow(10, dec);
+
+    int p10[3] = {1, 10, 100};
+    n *= p10[dec];
     double ret = (int)n;
-    ret /= pow(10, dec);
+    ret /= p10[dec];
     return ret;
 }
 

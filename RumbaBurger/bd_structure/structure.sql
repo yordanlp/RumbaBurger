@@ -197,6 +197,7 @@ aviable_in_local  REAL,
 aviable_in_central  REAL,
 productName TEXT,
 unitType INTEGER,
+suffix TEXT,
 CONSTRAINT product FOREIGN KEY (idProduct) REFERENCES product (id),
 CONSTRAINT user FOREIGN KEY (idUser) REFERENCES users (id)
 );

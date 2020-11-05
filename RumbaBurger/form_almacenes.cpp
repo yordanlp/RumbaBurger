@@ -5,6 +5,7 @@
 #include <QCompleter>
 #include <QMessageBox>
 #include <Services/transactionservice.h>
+#include <Services/expensesservice.h>
 
 /********************************
  * Cosas a Revisar
@@ -399,7 +400,7 @@ void form_almacenes::updateCentralTable(QString search){
             unit = " u";
 
         double precio = (i.unitType == UNIDAD) ? i.price : utiles::convertPrecio(G, PESO, i.price);
-        QTableWidgetItem *price = new QTableWidgetItem( utiles::truncS(precio, 2) + " CUP");
+        QTableWidgetItem *price = new QTableWidgetItem( QString::number(precio, 'f', 2) + " CUP");
         price->setFlags(flags);
         price->setTextAlignment(utiles::TextAlign);
 
@@ -433,7 +434,7 @@ void form_almacenes::updateLocalTable(QString search){
             unit = " u";
 
         double precio = (i.unitType == UNIDAD) ? i.price : utiles::convertPrecio(G, PESO, i.price);
-        QTableWidgetItem *price = new QTableWidgetItem( utiles::truncS(precio, 2) + " CUP");
+        QTableWidgetItem *price = new QTableWidgetItem( QString::number(precio, 'f', 2) + " CUP");
         price->setTextAlignment(utiles::TextAlign);
         double cant = (i.unitType == UNIDAD) ? i.amount : utiles::convertPeso(G, PESO, i.amount);
         QTableWidgetItem *amount = new QTableWidgetItem(utiles::truncS(cant, 1) + unit);
@@ -912,6 +913,9 @@ void form_almacenes::on_pb_aceptarExtraer_clicked()
         QString suffix = unit;
         transactionService.insertTransaction( TransactionDto(0,EXTRACCION,CENTRAL,realcant,prod.data.id, QDate::currentDate(), UserService::loggedUser,prod.data.price,0,s.data.amount,cs.data.amount, prod.data.productName, prod.data.unitType, suffix) );
 
+        ExpensesService expensesService;
+        expensesService.insertExpenses(ExpensesDto(0,"Extracción de " + QString::number(realcant, 'f', 2) + suffix + " de " + productName, prod.data.price * cantidad, QDate::currentDate()));
+
         ui->sb_cantidadExtraer->setValue(0);
         emit ui->sb_cantidadExtraer->valueChanged(0);
 
@@ -1033,6 +1037,9 @@ void form_almacenes::on_pb_aceptarExtraerLocal_clicked()
         TransactionService transactionService;
         QString suffix = unit;
         transactionService.insertTransaction(TransactionDto(0, EXTRACCION,LOCAL,realcant,prod.data.id, QDate::currentDate(), UserService::loggedUser, prod.data.price, 0, s.data.amount, cs.data.amount, prod.data.productName, prod.data.unitType, suffix));
+
+        ExpensesService expensesService;
+        expensesService.insertExpenses(ExpensesDto(0,"Extracción de " + QString::number(realcant, 'f', 2) + suffix + " de " + productName, prod.data.price * cantidad, QDate::currentDate()));
 
         ui->sb_cantidadExtraerLocal->setValue(0);
         emit ui->sb_cantidadExtraerLocal->valueChanged(0);

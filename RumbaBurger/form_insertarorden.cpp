@@ -68,10 +68,10 @@ void form_insertarorden::on_pb_add_clicked()
     nombre->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     QTableWidgetItem *cant = new QTableWidgetItem( utiles::truncS(cantidad, 0) );
     cant->setFlags(flags);
-    QTableWidgetItem *precioxunidad = new QTableWidgetItem( utiles::truncS(precio, 2) + " CUP" );
+    QTableWidgetItem *precioxunidad = new QTableWidgetItem( QString::number(precio, 'f', 2) + " CUP" );
     precioxunidad->setTextAlignment(utiles::TextAlign);
     precioxunidad->setFlags(flags);
-    QTableWidgetItem *preciototal = new QTableWidgetItem( utiles::truncS( precio * cantidad, 2 ) + " CUP" );
+    QTableWidgetItem *preciototal = new QTableWidgetItem( QString::number( precio * cantidad, 'f', 2 ) + " CUP" );
     preciototal->setFlags(flags);
     preciototal->setTextAlignment(utiles::TextAlign);
 
@@ -115,10 +115,15 @@ double form_insertarorden::getCosto(){
 void form_insertarorden::updateCosto(){
     double total = 0;
     total = getCosto();
-    ui->l_costo->setText( "El costo total de la orden es: " + utiles::truncS(total, 2) + " CUP" );
+    ui->l_costo->setText( "El costo total de la orden es: " + QString::number(total, 'f', 2) + " CUP" );
 }
 
-double form_insertarorden::getProfit(){
+double form_insertarorden::getProfit( double precioDeVenta, double inversion ){
+    return precioDeVenta - inversion;
+
+}
+
+double form_insertarorden::getInversion(){
     double total = 0;
     DishService dishService;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
@@ -127,7 +132,7 @@ double form_insertarorden::getProfit(){
         auto dish = dishService.getDishByName(DishDto(0, dishName,"",0));
         double precio = dish.data.price;
         double precioProduction = dishService.getPrecioProduccion(dish.data.id).data;
-        total += (cantidad * precio - cantidad * precioProduction);
+        total += (cantidad * precioProduction);
     }
     return total;
 }
@@ -150,9 +155,11 @@ void form_insertarorden::on_pb_accep_clicked()
         return;
     }
 
-    double costo = getCosto();
-    double profit = getProfit();
     bool payed = ui->cb_pagado->isChecked();
+    double costo = !payed ? 0 : getCosto();
+    double inversion = getInversion();
+    double profit = getProfit(costo, inversion);
+
 
     QList<DishAmountDto> L;
     for( int i = 0; i < ui->tw_platos->rowCount(); i++ ){
@@ -174,13 +181,14 @@ void form_insertarorden::on_pb_accep_clicked()
         return;
     }
 
+    //if( !payed ) profit = 0;
 
-    OrderDto order(0,today,costo,profit,payed,orderNumber, 0);
+
+    OrderDto order(0,today,costo,profit,payed,orderNumber,inversion);
+
     auto o = orderService.insertOrder(order);
 
     orderDishService.insertOrderDishes(o.data,L);
-
-    double inversion = orderService.calcularInversion(o.data).data;
 
     order.id = o.data;
     order.inversion = inversion;

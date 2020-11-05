@@ -123,7 +123,7 @@ void form_ordenes::updateOrders( QList<OrderDto> orders ){
         payed->setTextAlignment(utiles::TextAlign);
         payed->setFlags(flags);
 
-        QTableWidgetItem *ingreso = new QTableWidgetItem( utiles::truncS(o.total, 2) + " CUP");
+        QTableWidgetItem *ingreso = new QTableWidgetItem( QString::number(o.total, 'f', 2) + " CUP");
         ingreso->setTextAlignment(utiles::TextAlign);
         ingreso->setFlags(flags);
 
@@ -177,11 +177,11 @@ void form_ordenes::updatePlatos(int row){
         cant->setTextAlignment(utiles::TextAlign);
         cant->setFlags(flags);
 
-        QTableWidgetItem *precioxunidad = new QTableWidgetItem( utiles::truncS(d.price, 2) + " CUP" );
+        QTableWidgetItem *precioxunidad = new QTableWidgetItem( QString::number(d.price, 'f', 2) + " CUP" );
         precioxunidad->setTextAlignment(utiles::TextAlign);
         precioxunidad->setFlags(flags);
 
-        QTableWidgetItem *preciototal = new QTableWidgetItem( utiles::truncS(d.price * d.amount, 2) + " CUP" );
+        QTableWidgetItem *preciototal = new QTableWidgetItem( QString::number(d.price * d.amount, 'f', 2) + " CUP" );
         preciototal->setTextAlignment(utiles::TextAlign);
         preciototal->setFlags(flags);
 

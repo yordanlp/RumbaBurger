@@ -97,7 +97,7 @@ void form_ofertas::updateIngredientes(int id)
         amount->setTextAlignment(utiles::TextAlign);
 
         double inv = i.amount * pro.data.price;
-        QTableWidgetItem *inversion = new QTableWidgetItem( utiles::truncS( inv, 2 ) + " CUP" );
+        QTableWidgetItem *inversion = new QTableWidgetItem( QString::number( inv, 'f', 2 ) + " CUP" );
         inversion->setFlags(flags);
         inversion->setTextAlignment(utiles::TextAlign);
 
@@ -119,13 +119,13 @@ void form_ofertas::updatePrecioSugerido(int id)
 {
     DishService dishService;
     auto dish = dishService.getPrecioSugerido(id);
-    ui->l_precioSugerido->setText( "Precio sugerido: " + utiles::truncS(dish.data, 2) + " CUP");
+    ui->l_precioSugerido->setText( "Precio sugerido: " + QString::number(dish.data, 'f', 2) + " CUP");
 
 }
 
 void form_ofertas::updatePrecioProduccion(int id){
     DishService dishService;
-    ui->l_precioProduccion->setText( "Precio de producción: " + utiles::truncS(dishService.getPrecioProduccion(id).data, 2) + " CUP"  );
+    ui->l_precioProduccion->setText( "Precio de producción: " + QString::number(dishService.getPrecioProduccion(id).data, 'f', 2) + " CUP"  );
 }
 
 void form_ofertas::updateDescripcion(int id)
@@ -211,15 +211,15 @@ void form_ofertas::updateOfertas(QString search, int rowS)
         dish->setFlags(flags);
         dish->setTextAlignment(utiles::TextAlign);
 
-        QTableWidgetItem *price = new QTableWidgetItem( utiles::truncS(o.price, 2) + " CUP");
+        QTableWidgetItem *price = new QTableWidgetItem( QString::number(o.price, 'f', 2) + " CUP");
         price->setTextAlignment(utiles::TextAlign);
         price->setFlags(flags);
 
-        QTableWidgetItem *precioSugerido = new QTableWidgetItem( utiles::truncS(o.precioSugerido, 2) + " CUP" );
+        QTableWidgetItem *precioSugerido = new QTableWidgetItem( QString::number(o.precioSugerido, 'f', 2) + " CUP" );
         precioSugerido->setTextAlignment(utiles::TextAlign);
         precioSugerido->setFlags(flags);
 
-        QTableWidgetItem *ganancia = new QTableWidgetItem( utiles::truncS(o.ganancia, 2) + " CUP" );
+        QTableWidgetItem *ganancia = new QTableWidgetItem( QString::number(o.ganancia, 'f', 2) + " CUP" );
         ganancia->setTextAlignment(utiles::TextAlign);
         ganancia->setFlags(flags);
 

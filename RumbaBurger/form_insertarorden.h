@@ -17,7 +17,8 @@ public:
     ~form_insertarorden();
     void updateCosto();
     double getCosto();
-    double getProfit();
+    double getProfit(double precioDeVenta, double inversion);
+    double getInversion();
     QRegExpValidator *valNumber;
 
 private slots:

@@ -93,7 +93,7 @@
        <widget class="QTableWidget" name="tw_gastos">
         <property name="minimumSize">
          <size>
-          <width>491</width>
+          <width>591</width>
           <height>0</height>
          </size>
         </property>

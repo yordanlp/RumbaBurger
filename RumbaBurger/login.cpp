@@ -19,8 +19,8 @@ Login::Login(QWidget *parent) :
     ui->user->setValidator(valUser);
 
     //quitar
-    ui->user->setText("admin");
-    ui->pass->setText("admin");
+    //ui->user->setText("admin");
+    //ui->pass->setText("admin");
 }
 
 Login::~Login()
@@ -62,7 +62,7 @@ void Login::on_accept_clicked()
         QString pass = ui->pass->text();
         UserService userService;
         auto us = userService.getUserByUsername(user);
-        if( us.res != SUCCESS ){
+        if( (us.res != SUCCESS) || (us.data.password != pass)){
             QMessageBox::critical(this,"Error","Usuario o Contraseña incorrectos",QMessageBox::Ok);
             ui->user->setFocus();
             return;

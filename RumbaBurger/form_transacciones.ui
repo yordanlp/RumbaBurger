@@ -28,7 +28,7 @@
          </property>
          <widget class="QWidget" name="movimientos">
           <attribute name="title">
-           <string>Tab 1</string>
+           <string>Movimientos</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="0" column="0" colspan="2">
@@ -246,7 +246,7 @@
              </column>
              <column>
               <property name="text">
-               <string>Disponible en A. Local</string>
+               <string>Disponible en P. Venta</string>
               </property>
              </column>
             </widget>
@@ -255,7 +255,7 @@
          </widget>
          <widget class="QWidget" name="CompraExtraccion">
           <attribute name="title">
-           <string>Tab 2</string>
+           <string>Compra y Extracciones</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="0" column="0">

@@ -22,6 +22,8 @@ form_gastos::form_gastos(QWidget *parent) :
         ui->groupBox_2->setEnabled(false);
     }
     ui->pb_insertar->setEnabled(false);
+
+    ui->tw_gastos->setColumnWidth(1, 300);
 }
 
 form_gastos::~form_gastos()
@@ -61,7 +63,7 @@ void form_gastos::updateGastos(){
         QTableWidgetItem *descripcion = new QTableWidgetItem (desc);
         descripcion->setTextAlignment(utiles::TextAlign);
         descripcion->setFlags(flags);
-        QString precio = utiles::truncS( g.price, 2 ) + " CUP";
+        QString precio = QString::number( g.price, 'f', 2 ) + " CUP";
         QTableWidgetItem *importe = new QTableWidgetItem( precio );
         importe->setFlags(flags);
         importe->setTextAlignment(utiles::TextAlign);

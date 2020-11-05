@@ -14,8 +14,8 @@ form_transacciones::form_transacciones(QWidget *parent) :
 {
     setUnit();
     ui->setupUi(this);
-    ui->tabWidget->setTabText(0, "Movimientos");
-    ui->tabWidget->setTabText(1, "Compra y extracciones");
+    //ui->tabWidget->setTabText(0, "Movimientos");
+    //ui->tabWidget->setTabText(1, "Compra y extracciones");
     ui->tw_moviemientos->setColumnWidth(6, ui->tw_moviemientos->columnWidth(5) + 60);
     ui->tw_moviemientos->setColumnWidth(7, ui->tw_moviemientos->columnWidth(6) + 60);
 
@@ -96,9 +96,9 @@ void form_transacciones::filtrarMovimientos(){
 
         QString desde, hasta;
         if( m.origin == CENTRAL )
-            desde = "Almacén Central", hasta = "Almacén Local";
+            desde = "Almacén Central", hasta = "Punto de Venta";
         if( m.origin == LOCAL )
-            desde = "Almacén Local", hasta = "Almacén Central";
+            desde = "Punto de Venta", hasta = "Almacén Central";
 
         QTableWidgetItem *from = new QTableWidgetItem( desde );
         from->setFlags(flags);
@@ -203,7 +203,7 @@ void form_transacciones::filtrarOperaciones(){
         if( m.origin == CENTRAL )
             origin = "Almacén Central";
         if( m.origin == LOCAL )
-            origin = "Almacén Local";
+            origin = "Punto de Venta";
 
         QString unit = m.suffix;
         /*if( m.unitType == SOLIDO )
@@ -238,7 +238,7 @@ void form_transacciones::filtrarOperaciones(){
 
         //double pr = (m.unitType == UNIDAD) ? m.price : utiles::convertPrecio(G, PESO, m.price);
         double pr = m.price;
-        QTableWidgetItem *precio = new QTableWidgetItem( (m.type == COMPRA) ? ( utiles::truncS( pr, 2 ) + " CUP" ) : "-" );
+        QTableWidgetItem *precio = new QTableWidgetItem( QString::number( pr, 'f', 2 ) + " CUP"  );
         precio->setFlags(flags);
         precio->setTextAlignment(utiles::TextAlign);
 

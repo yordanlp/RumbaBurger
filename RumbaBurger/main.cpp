@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
     db = QSqlDatabase::addDatabase("QSQLITE");
 
-    QString dbName = "rumbaburgerdb.sqlite";
+    QString dbName = "cafeteriadb.sqlite";
     db.setDatabaseName(dbName);
 
 

@@ -15,6 +15,7 @@ form_reportes::form_reportes(QWidget *parent) :
     connect(ui->pb_filtrar, SIGNAL(clicked(bool)), this, SLOT(filtrar()));
     filtrar();
     ui->tw_gastos->setColumnWidth(1, 300);
+    ui->tw_ventas->setColumnWidth(0, ui->tw_ventas->columnWidth(0) + 100);
 
 }
 
@@ -43,7 +44,7 @@ void form_reportes::filtrar(){
         ui->l_inversion->setText("Inversión: 0 CUP");
         ui->l_onat->setText("ONAT: 0 CUP");
         ui->l_toralordenes->setText("Total: 0");
-        ui->l_totaleventos->setText("Total: 0");
+        //ui->l_totaleventos->setText("Total: 0");
         return;
     }
     updateOrdenes();
@@ -144,7 +145,7 @@ void form_reportes::updateGastos(){
         row++;
     }
     ui->l_importeeventos->setText("Importe: " + QString::number(Tgastos, 'f', 2) + " CUP");
-    ui->l_totaleventos->setText("Total: " + QString::number( ex.data.size() ));
+    //ui->l_totaleventos->setText("Total: " + QString::number( ex.data.size() ));
 }
 
 void form_reportes::updateTotal(){

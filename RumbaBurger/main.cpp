@@ -10,6 +10,7 @@
 #include <QtWidgets>
 #include <utiles.h>
 
+
 QSqlDatabase db;
 void executeQueryFile(QFile &qf) {
     //Read query file content

@@ -93,6 +93,8 @@ private slots:
 
     void on_sb_cantidadCompra_valueChanged(double arg1);
 
+    void on_pb_generarReporteCentral_clicked();
+
 private:
     Ui::form_almacenes *ui;
 };

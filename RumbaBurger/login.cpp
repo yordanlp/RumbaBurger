@@ -3,6 +3,7 @@
 #include "principal.h"
 #include "Services/userservice.h"
 #include "result.h"
+#include <qtrpt.h>
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
@@ -21,6 +22,8 @@ Login::Login(QWidget *parent) :
     //quitar
     //ui->user->setText("admin");
     //ui->pass->setText("admin");
+    //QtRPT *rpt = new QtRPT(this);
+    //rpt->recordCount.append(12);
 }
 
 Login::~Login()

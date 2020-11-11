@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <Services/transactionservice.h>
 #include <Services/expensesservice.h>
+#include <qtrpt.h>
 
 /********************************
  * Cosas a Revisar
@@ -1119,4 +1120,24 @@ void form_almacenes::on_sb_cantidadCompra_valueChanged(double arg1)
     auto pr = productService.getProductByName(productName);
 
     ui->pb_insertarCompra->setEnabled(arg1 > 0 && pr.res == SUCCESS);
+}
+
+void form_almacenes::on_pb_generarReporteCentral_clicked()
+{
+    QtRPT *reporte = new QtRPT(this);
+    centralStorageService CentralStorageService;
+    auto res = CentralStorageService.getAllCentralStorage().data;
+    reporte->loadReport(":/reportes/Reportes/reporte.xml");
+    reporte->recordCount.append(res.size());
+    ProductService productService;
+    connect(reporte, &QtRPT::setValue, [&](const int recNo, const QString paramName, QVariant &paramValue, const int reportPage){
+       (void) reportPage;
+        if( paramName == "producto" ){
+            paramValue = productService.getProductByID(ProductDto(res.at(recNo).id,"",0,0)).data.productName;
+        }
+        if( paramName == "cantidad" ){
+            paramValue = QString::number(res.at(recNo).amount);
+        }
+    });
+    reporte->printExec();
 }

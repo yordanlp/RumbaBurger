@@ -79,4 +79,7 @@
     <qresource prefix="/bd">
         <file>bd_structure/structure.sql</file>
     </qresource>
+    <qresource prefix="/reportes">
+        <file>Reportes/reporte.xml</file>
+    </qresource>
 </RCC>

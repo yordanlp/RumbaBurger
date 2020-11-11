@@ -134,4 +134,6 @@ FORMS    += \
     form_user.ui \
     form_cambiarpassword.ui
 
+include(D:/Pincha/RumbaBurger/RumbaBurger/QtRptProject/QtRPT/QtRPT.pri)
+
 RESOURCES +=

@@ -9,11 +9,19 @@
 #include <QtCore>
 #include <QtWidgets>
 #include <utiles.h>
+#include "xlsxdocument.h"
+#include "xlsxchartsheet.h"
+#include "xlsxcellrange.h"
+#include "xlsxchart.h"
+#include "xlsxrichstring.h"
+#include "xlsxworkbook.h"
+using namespace QXlsx;
 
 
 QSqlDatabase db;
 void executeQueryFile(QFile &qf) {
     //Read query file content
+
     qf.open(QIODevice::ReadOnly);
     QString queryStr(qf.readAll());
     qf.close();
@@ -37,10 +45,17 @@ void executeQueryFile(QFile &qf) {
 int main(int argc, char *argv[])
 {
 
+    QDir dir;
+    //dir.mkpath("./PRUEBAAA/20/10");
     //qDebug() << utiles::truncS(2.98765, 6);
 
     QApplication a(argc, argv);
-    a.setApplicationName("RumbaBurgerApp");
+    a.setApplicationName("DeDiezApp");
+
+    Document xlsx(":/Template/Template/ReportTemplate.xlsx");
+
+    //xlsx.write("A1", "Hello Qt!"); // write "Hello Qt!" to cell(A,1). it's shared string.
+    //xlsx.saveAs("Test.xlsx"); // save the document as 'Test.xlsx'
 
     QFile f(":/qdarkstyle/style.qss");
 

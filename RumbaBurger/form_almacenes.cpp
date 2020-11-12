@@ -7,6 +7,13 @@
 #include <Services/transactionservice.h>
 #include <Services/expensesservice.h>
 #include <qtrpt.h>
+#include "xlsxdocument.h"
+#include "xlsxchartsheet.h"
+#include "xlsxcellrange.h"
+#include "xlsxchart.h"
+#include "xlsxrichstring.h"
+#include "xlsxworkbook.h"
+using namespace QXlsx;
 
 /********************************
  * Cosas a Revisar
@@ -173,6 +180,7 @@ form_almacenes::form_almacenes(QWidget *parent) :
         ui->gb_extraer->setEnabled(false);
         ui->gb_extraer_2->setEnabled(false);
         ui->gb_insertarProducto->setEnabled(false);
+        ui->pb_reportepventa->hide();
     }
 
     ui->pb_aceptarExtraer->setEnabled(false);
@@ -1122,22 +1130,68 @@ void form_almacenes::on_sb_cantidadCompra_valueChanged(double arg1)
     ui->pb_insertarCompra->setEnabled(arg1 > 0 && pr.res == SUCCESS);
 }
 
-void form_almacenes::on_pb_generarReporteCentral_clicked()
+void form_almacenes::on_pb_reportepventa_clicked()
 {
-    QtRPT *reporte = new QtRPT(this);
-    centralStorageService CentralStorageService;
-    auto res = CentralStorageService.getAllCentralStorage().data;
-    reporte->loadReport(":/reportes/Reportes/reporte.xml");
-    reporte->recordCount.append(res.size());
+    QStringList months;
+    months << "" << "Enero" << "Febrero" << "Marzo" << "Abril" << "Mayo" << "Junio" << "Julio" << "Agosto" << "Septiembre" << "Octubre" << "Noviembre" << "Diciembre";
+    storageService StorageService;
     ProductService productService;
-    connect(reporte, &QtRPT::setValue, [&](const int recNo, const QString paramName, QVariant &paramValue, const int reportPage){
-       (void) reportPage;
-        if( paramName == "producto" ){
-            paramValue = productService.getProductByID(ProductDto(res.at(recNo).id,"",0,0)).data.productName;
-        }
-        if( paramName == "cantidad" ){
-            paramValue = QString::number(res.at(recNo).amount);
-        }
-    });
-    reporte->printExec();
+    QDate today = QDate::currentDate();
+    Document rpt(":/Template/Template/ReportTemplate.xlsx");
+    QString fileName = today.toString(Qt::ISODate) + ".xlsx";
+    QString filePath = "./Reportes/" + QString::number(today.year()) + "/" + months.at(today.month()) + "/";
+    qDebug() << filePath + fileName;
+    QDir dir;
+    if ( !dir.mkpath(filePath) ){
+        QMessageBox::critical(this, "Información", "Ha ocurrido un error, inténtelo nuevamente.", QMessageBox::Ok);
+        return;
+
+    }
+
+    QFile file;
+
+    bool create = 0;
+    if( file.exists(filePath + fileName) ){
+        auto res = QMessageBox::critical(this, "Información", "El reporte <strong>" + fileName + "</strong> ya existe. ¿Está seguro que desea sobreescribirlo?", QMessageBox::Ok | QMessageBox::Cancel);
+        create = (res == QMessageBox::Ok);
+        if( !create ) return;
+    }
+
+    QString fecha = QString::number(today.day()) + " de " + months.at(today.month()) + " del " + QString::number(today.year());
+    rpt.write("H7", fecha);
+    const int baseRow = 10;
+    const char baseCol = 'G';
+
+    auto products = StorageService.getAllStorage().data;
+    int row = 0;
+    foreach (auto p, products) {
+        auto product = productService.getProductByID(ProductDto(p.id,"",0,0)).data;
+        char col = baseCol;
+        QString currentRow = QString::number(baseRow + row);
+        QString pos = col + currentRow;
+        rpt.write(pos, row + 1);
+        col ++;
+        pos = col + currentRow;
+        rpt.write(pos, product.productName);
+        col++;
+        double rebaja = StorageService.getDiscountAmount(p.id, today).data;
+        QString unit = (product.unitType == UNIDAD) ? "u" : "Kg";
+        rebaja = (product.unitType == UNIDAD) ? rebaja : utiles::convertPeso(G, KG, rebaja);
+        pos = col + currentRow;
+        rpt.write(pos, rebaja);
+        col ++;
+        pos = col + currentRow;
+        double amount = (product.unitType == UNIDAD) ? p.amount : utiles::convertPeso(G, KG, p.amount);
+        rpt.write(pos, amount);
+        col++;
+        pos = col + currentRow;
+        rpt.write(pos, unit);
+        row++;
+    }
+
+    if( rpt.saveAs(filePath + fileName) )
+        QMessageBox::information(this,"Información","El reporte ha sido creado con éxito!", QMessageBox::Ok);
+    else
+        QMessageBox::critical(this,"Información","Ha ocurrido un error, inténtelo de nuevo.", QMessageBox::Ok);
+
 }

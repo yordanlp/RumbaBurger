@@ -1,4 +1,11 @@
 #include "utiles.h"
+#include "xlsxdocument.h"
+#include "xlsxchartsheet.h"
+#include "xlsxcellrange.h"
+#include "xlsxchart.h"
+#include "xlsxrichstring.h"
+#include "xlsxworkbook.h"
+using namespace QXlsx;
 
 QDate utiles::stringToDate(QString s){
     QStringList d = s.split("-");

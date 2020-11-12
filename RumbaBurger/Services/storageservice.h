@@ -11,6 +11,7 @@
 #include <Dto/storagetransactiondto.h>
 #include <Services/userservice.h>
 #include <Dto/storageproductdto.h>
+#include <Services/orderdishservice.h>
 
 class storageService
 {
@@ -28,6 +29,7 @@ public:
     Result<bool> updateStorage( int productId, double amount, int type );
     Result<bool> deleteStorage( int idProduct );
     Result<bool> extract( int idProduct, double amount );
+    Result<double> getDiscountAmount( int idProduct, QDate date );
 };
 
 #endif // STORAGESERVICE_H

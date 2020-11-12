@@ -11,6 +11,7 @@
 #include "Dto/orderdishdto.h"
 #include "dishservice.h"
 #include "orderdishservice.h"
+#include <Dto/dishamountdto.h>
 
 class OrderService
 {

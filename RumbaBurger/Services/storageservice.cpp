@@ -236,3 +236,26 @@ Result<bool> storageService::extract(int idProduct, double amount)
     return res;
 }
 
+Result<double> storageService::getDiscountAmount(int idProduct, QDate date){
+    Result<double> res;
+    OrderService orderService;
+    OrderDishService orderDishService;
+    IngredientsService ingredientsService;
+    auto orders = orderService.getOrderbyDate(date, date);
+    double ret = 0;
+    foreach (OrderDto o, orders.data) {
+        auto dishes = orderDishService.getDishesByOrderId(o.id);
+        foreach (auto od, dishes.data) {
+            auto ingredients = ingredientsService.getIngredientsByDishId(IngredientsDto(od.idDish,0,0)).data;
+            foreach (auto i, ingredients) {
+                if( i.idProduct == idProduct ){
+                    ret += i.amount * od.amount;
+                }
+            }
+        }
+    }
+
+    res.data = ret;
+    return res;
+}
+

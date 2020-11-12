@@ -32,79 +32,6 @@
       <string>Estadísticas</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <widget class="QFrame" name="frame">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_8">
-         <item row="0" column="1">
-          <widget class="QDateEdit" name="de_inicial">
-           <property name="calendarPopup">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Fecha Final:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Fecha Inicial:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="5">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="4">
-          <widget class="QPushButton" name="pb_filtrar">
-           <property name="minimumSize">
-            <size>
-             <width>79</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="whatsThis">
-            <string>Filtrar</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="recursos.qrc">
-             <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QDateEdit" name="de_final">
-           <property name="calendarPopup">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="minimumSize">
@@ -219,7 +146,6 @@
           </widget>
          </item>
         </layout>
-        <zorder>tableWidget</zorder>
         <zorder>tw_ventas</zorder>
         <zorder>l_cantidaddedias</zorder>
         <zorder>cb_orden</zorder>
@@ -466,6 +392,86 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="1">
+          <widget class="QDateEdit" name="de_inicial">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Fecha Inicial:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Fecha Final:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="5">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="4">
+          <widget class="QPushButton" name="pb_filtrar">
+           <property name="minimumSize">
+            <size>
+             <width>79</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="whatsThis">
+            <string>Filtrar</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="recursos.qrc">
+             <normaloff>:/images/Images/iconos_colores/filter_96px.png</normaloff>:/images/Images/iconos_colores/filter_96px.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QDateEdit" name="de_final">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6">
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </widget>

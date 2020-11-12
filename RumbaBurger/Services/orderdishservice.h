@@ -10,6 +10,7 @@
 #include "Dto/orderdto.h"
 #include <QDate>
 #include "orderservice.h"
+#include <Dto/dishamountdto.h>
 
 
 class OrderDishService

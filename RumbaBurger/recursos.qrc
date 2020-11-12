@@ -80,6 +80,9 @@
         <file>bd_structure/structure.sql</file>
     </qresource>
     <qresource prefix="/reportes">
-        <file>Reportes/reporte.xml</file>
+        <file>Reportes/reportePuntodeVenta.xml</file>
+    </qresource>
+    <qresource prefix="/Template">
+        <file>Template/ReportTemplate.xlsx</file>
     </qresource>
 </RCC>
